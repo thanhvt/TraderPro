@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsPrefActivity">
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:text="0x7e7207b528d9de0eb9c5fc02f8dea05091bf5a6d" />
+
+    <EditText
+        android:id="@+id/edKey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView2"
+        android:layout_alignParentStart="true"
+        android:ems="10"
+        android:inputType="textMultiLine|textPersonName"
+        android:lines="10"
+        android:maxLines="10"
+        android:enabled="false"
+        android:minLines="10"
+        android:padding="10dp"
+        android:singleLine="false"
+        android:text="Name"
+        android:textColor="#1500FF" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnCopy"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="12dp"
+        android:text="Key code"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnCopy"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/switch1"
+        android:layout_marginTop="74dp"
+        android:text="Copy" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:text="1c2J3WR3SWwKiv7C8ApHvRq9ApJyGsNwr" />
+
+    <ImageView
+        android:id="@+id/imageButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/editText"
+        android:layout_marginEnd="15dp"
+        app:srcCompat="@drawable/copyic" />
+
+    <ImageView
+        android:id="@+id/imageButton2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignStart="@+id/imageButton"
+        android:layout_alignTop="@+id/editText2"
+        app:srcCompat="@drawable/copyic" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="120dp"
+        android:padding="10dp"
+        android:text="Donate me, if you like this app or you can donate anything to support the further development. Many Thanks !!!"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginBottom="69dp"
+        android:text="BTC"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editText2"
+        android:layout_alignStart="@+id/textView"
+        android:text="ETH"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/textView39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="22dp"
+        android:text="@string/lang"
+        android:textStyle="bold" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView39"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="12dp"
+        android:checked="true"
+        android:text="@string/tviet"
+        android:textOff="English"
+        android:textOn="Tiếng Việt" />
+</RelativeLayout>

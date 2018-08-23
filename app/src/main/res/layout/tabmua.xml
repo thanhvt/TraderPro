@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:padding="16dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/txtCoin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#00ffcc"
+            android:drawablePadding="16dp"
+            android:drawableTint="@android:color/white"
+            android:gravity="center"
+            android:hint="Coin - Coin"
+            android:inputType="textCapCharacters"
+            android:padding="10dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white" />
+
+        <EditText
+            android:id="@+id/txtSoLuong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#00ff99"
+            android:drawablePadding="16dp"
+            android:drawableTint="@android:color/white"
+            android:gravity="center"
+            android:hint="Bao nhiêu ???"
+            android:inputType="numberDecimal"
+            android:padding="10dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white" />
+
+        <EditText
+            android:id="@+id/txtGia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="#66ff33"
+            android:drawablePadding="16dp"
+            android:drawableTint="@android:color/white"
+            android:gravity="center"
+            android:hint="Giá"
+            android:inputType="numberDecimal"
+            android:padding="10dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white" />
+
+
+        <Button
+            android:id="@+id/btnChoiNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="#00ff00"
+            android:text="Mua đáy"
+            android:textColor="@android:color/white"
+            android:textSize="64px"
+            android:textStyle="bold" />
+
+        <ListView
+            android:id="@+id/lvBuySell"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20px" />
+    </LinearLayout>
+
+</RelativeLayout>

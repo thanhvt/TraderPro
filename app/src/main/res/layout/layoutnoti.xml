@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:id="@+id/llayout"
+        android:layout_above="@+id/txtJoin"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/btnTrc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:text="@string/txtTrc"
+                android:textColor="@android:color/holo_green_light"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:editable="false"
+                android:ems="10"
+                android:enabled="false"
+                android:gravity="center"
+                android:inputType="date"
+                android:textColor="#FFF900" />
+
+            <Button
+                android:id="@+id/btnSau"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:text="@string/txtSau"
+                android:textColor="@android:color/holo_green_light"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10px">
+
+            <CheckBox
+                android:id="@+id/cbBinance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:gravity="center"
+                android:text="Binance"
+                android:textColor="#FFC125"
+                android:textSize="50px"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/cbBittrex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:gravity="center"
+                android:text="Bittrex"
+                android:textColor="#00FFFF"
+                android:textSize="50px"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/SCROLLER_ID"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fillViewport="true"
+            android:scrollbars="vertical">
+            <!--<TextView-->
+            <!--android:id="@+id/txtNoti"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:fontFamily="serif-monospace"-->
+            <!--android:text="TextView"-->
+            <!--android:textColor="#00ff00"-->
+            <!--android:scrollbars="vertical"-->
+            <!--android:textSize="12dp" />-->
+            <ListView
+                android:id="@+id/lvTradeHistory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animationCache="false"
+                android:scrollingCache="false"
+                android:smoothScrollbar="true">
+
+            </ListView>
+        </ScrollView>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/txtJoin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:autoLink="web"
+        android:background="#f2ee11"
+        android:gravity="center"
+        android:linksClickable="true"
+        android:text="Join us on Telegram: https://t.me/joinchat/HX6H_k2HnC6LHLCEU0hptw"
+        android:textColor="#b62eff"
+        android:textColorLink="#080cec"
+        android:textStyle="bold" />
+</RelativeLayout>
