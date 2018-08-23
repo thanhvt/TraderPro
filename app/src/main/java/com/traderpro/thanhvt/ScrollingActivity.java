@@ -219,8 +219,6 @@ public class ScrollingActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            //progDailog.dismiss();
-
         }
     }
 
