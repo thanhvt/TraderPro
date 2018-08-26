@@ -30,6 +30,10 @@ public class TradeApiActivity extends AppCompatActivity {
     ToggleButton tgBot, tgAPI;
     EditText edBTC;
     final String TAG = "TradeAPI";
+    TextView tvUsingBot;
+    TextView tvUsingAPI;
+    TextView tvAmount;
+    TextView tvImportant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +43,16 @@ public class TradeApiActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
-
+        SharedPreferences prefNN = getSharedPreferences(Config.NGON_NGU, 0);
+        String strNN = prefNN.getString("NN", "VN");
+        tvUsingBot = (TextView) findViewById(R.id.textView49);
+        tvUsingBot.setText(strNN.equals("VN") ? R.string.title_using_bot_Vn : R.string.title_using_bot);
+        tvUsingAPI = (TextView) findViewById(R.id.textView20);
+        tvUsingAPI.setText(strNN.equals("VN") ? R.string.title_using_API_Vn : R.string.title_using_API);
+        tvAmount = (TextView) findViewById(R.id.textView50);
+        tvAmount.setText(strNN.equals("VN") ? R.string.des_amount_Vn : R.string.des_amount);
+        tvImportant = (TextView) findViewById(R.id.textView51);
+        tvImportant.setText(strNN.equals("VN") ? R.string.important_Vn : R.string.important);
         edBittrexPub = (EditText) findViewById(R.id.edBittrexPub);
         edBittrexPri = (EditText) findViewById(R.id.edBittrexPri);
         edBinancePub = (EditText) findViewById(R.id.edBinancePub);
@@ -52,7 +65,7 @@ public class TradeApiActivity extends AppCompatActivity {
         if(pref!=null) {
             int API = pref.getInt("USE_API", 0);
             if(API == 1) {
-                String strNN = pref.getString("NN", "VN");
+                //String strNN = pref.getString("NN", "VN");
                 String bitPub = pref.getString("BIT_PUB", "");
                 String bitPri = pref.getString("BIT_PRI", "");
                 String binPub = pref.getString("BIN_PUB", "");

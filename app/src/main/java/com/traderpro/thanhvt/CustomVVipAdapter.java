@@ -76,21 +76,41 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
         if(p.strGiaHienTai != null && p.strGiaHienTai > 0){
             chenhHT = (Math.abs(p.strGiaHienTai - gia) / gia) * 100;
         }
-        String strLaiLo = "";
 
-        String strTimeMua = p.strTime.substring(0, p.strTime.lastIndexOf(":"));
-        strTimeMua = strTimeMua.replace(":", "h");
-        viewHolder.txtGiaMua.setText(p.strGia);
-        viewHolder.txtTimeMua.setText("được báo mua lúc " + strTimeMua);
-        viewHolder.txtCoin.setText(p.strCoin);
-        if(p.strGiaHienTai != null) {
-            viewHolder.txtGiaHienTai.setText("Giá hiện tại: " + String.format("%.8f", p.strGiaHienTai)
-                    + " (" + (p.strGiaHienTai > gia ? "+" : "-") + String.format("%.2f", chenhHT) + "%)");
+
+        if(strNN.equalsIgnoreCase("VN")){
+            String strLaiLo = "";
+
+            String strTimeMua = p.strTime.substring(0, p.strTime.lastIndexOf(":"));
+            strTimeMua = strTimeMua.replace(":", "h");
+            viewHolder.txtGiaMua.setText(p.strGia);
+            viewHolder.txtTimeMua.setText("được báo mua lúc " + strTimeMua);
+            viewHolder.txtCoin.setText(p.strCoin);
+            if(p.strGiaHienTai != null) {
+                viewHolder.txtGiaHienTai.setText("Giá hiện tại: " + String.format("%.8f", p.strGiaHienTai)
+                        + " (" + (p.strGiaHienTai > gia ? "+" : "-") + String.format("%.2f", chenhHT) + "%)");
+            }
+            viewHolder.txtPriceBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "(hệ thống đang quét giá bán tốt nhất)" : (p.strGiaBan + ""));
+            viewHolder.txtTimeBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("mà hệ thống báo bán lúc " + p.strTimeBan + ""));
+            viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Sẽ báo khi thấy có dấu hiệu " : "");
+            viewHolder.txtProfit.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("===> thì profit thay đổi " + p.strProfit));
+        }else{
+            String strLaiLo = "";
+
+            String strTimeMua = p.strTime.substring(0, p.strTime.lastIndexOf(":"));
+            strTimeMua = strTimeMua.replace(":", "h");
+            viewHolder.txtGiaMua.setText(p.strGia);
+            viewHolder.txtTimeMua.setText("on time buy: " + strTimeMua);
+            viewHolder.txtCoin.setText(p.strCoin);
+            if(p.strGiaHienTai != null) {
+                viewHolder.txtGiaHienTai.setText("Current price: " + String.format("%.8f", p.strGiaHienTai)
+                        + " (" + (p.strGiaHienTai > gia ? "+" : "-") + String.format("%.2f", chenhHT) + "%)");
+            }
+            viewHolder.txtPriceBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "(The system is scanning the best selling price)" : (p.strGiaBan + ""));
+            viewHolder.txtTimeBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("system sells at " + p.strTimeBan + ""));
+            viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Will report when there are signs " : "");
+            viewHolder.txtProfit.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("===> then profit changes " + p.strProfit));
         }
-        viewHolder.txtPriceBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "(hệ thống đang quét giá bán tốt nhất)" : (p.strGiaBan + ""));
-        viewHolder.txtTimeBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("mà hệ thống báo bán lúc " + p.strTimeBan + ""));
-        viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Sẽ báo khi thấy có dấu hiệu " : "");
-        viewHolder.txtProfit.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("===> thì profit thay đổi " + p.strProfit));
 
         if(p.strProfit.contains("+")){
             viewHolder.txtCoin.setTextColor(Color.parseColor("#27f546"));

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Trading Analytics</string>
+    <string name="app_name_Vn">Trading Analytics</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_bid_ask">BidAskActivity</string>
     <string name="tab_text_1">Mua</string>
@@ -102,13 +103,62 @@
     <string name="txtTrc"><![CDATA[<<<]]></string>
     <string name="txtSau"><![CDATA[>>>]]></string>
     <string name="active_traderpro">Active TraderPro</string>
+    <string name="active_traderpro_Vn">Active TraderPro</string>
     <string name="cryptoanalyst">Trading Analytics</string>
     <string name="report_statistics"><![CDATA[Report & Statistics]]></string>
+    <string name="report_statistics_Vn"><![CDATA[Báo cáo & Thống kê]]></string>
     <string name="about">About us</string>
-    <string name="lang">Ngôn ngữ</string>
+    <string name="about_Vn">Thông tin</string>
+    <string name="lang_Vn">Ngôn ngữ</string>
+    <string name="lang">Language</string>
     <string name="tviet">Tiếng Việt</string>
+    <string name="tanh">English</string>
     <string name="title_activity_api_trade">Trade API</string>
+    <string name="title_activity_api_trade_Vn">Trade API</string>
     <string name="trade_api">Trade API</string>
+    <string name="trade_api_Vn">Trade API</string>
     <string name="title_activity_vvip">VVipActivity</string>
+    <string name="title_activity_vvip_Vn">VVipActivity</string>
     <string name="title_activity_about">AboutActivity</string>
+    <string name="title_activity_about_Vn">AboutActivity</string>
+    <string name="key_code">Key code</string>
+    <string name="key_code_Vn">Key code</string>
+    <string name="copy">COPY</string>
+    <string name="copy_Vn">COPY</string>
+    <string name="setting_Vn">Cài đặt</string>
+    <string name="setting">Setting</string>
+
+    <string name="description_donate">Donate me, if you like this app or you can donate anything to support the further development. Many Thanks !!!</string>
+    <string name="description_donate_Vn">Donate tôi, nếu bạn yêu thích ứng dụng này hoặc bạn có thể góp ý thêm để hỗ  trợ nhà phát triển ứng dụng cải thiện ứng dụng tốt hơn. Cảm ơn rất nhiều !!!</string>
+
+    <string name="title_using_bot_Vn">Using bot auto (VVIP only, pm us)</string>
+    <string name="title_using_bot">Using bot auto (VVIP only, pm us)</string>
+    <string name="title_using_API_Vn">Using API to trade (version normal)</string>
+    <string name="title_using_API">Using API to trade (version normal)</string>
+    <string name="des_amount_Vn">Amount of BTC per transactions(using small amount for test)</string>
+    <string name="des_amount">Amount of BTC per transactions(using small amount for test)</string>
+    <string name="important_Vn">Important: Create new API key and dont use it outside of Tradeing Analytics app</string>
+    <string name="important">Important: Create new API key and dont use it outside of Tradeing Analytics app</string>
+    <string name="des_App_Vn">Trading Analytics is a Crypto Signal app for Bitcoin and Altcoin. It gives you access to cryptocurrency rates, coin market cap, detailed cryptocurrency trade, crypto news. Moreover it allows you to easily see blockchain cryptocurrency prices and price changes, coin market cap and 24h volume charts, coin details and advanced infomation.</string>
+    <string name="des_App">Trading Analytics is a Crypto Signal app for Bitcoin and Altcoin. It gives you access to cryptocurrency rates, coin market cap, detailed cryptocurrency trade, crypto news. Moreover it allows you to easily see blockchain cryptocurrency prices and price changes, coin market cap and 24h volume charts, coin details and advanced infomation.</string>
+    <string name="version_Vn">Version</string>
+    <string name="version">Version</string>
+    <string name="connect_Vn">Connect with us</string>
+    <string name="connect">Connect with us</string>
+    <string name="faq_Vn">FAQ</string>
+    <string name="faq">FAQ</string>
+    <string name="donate_Vn">Donate</string>
+    <string name="donate">Donate</string>
+    <string name="share_Vn">Share this app</string>
+    <string name="share">Share this app</string>
+    <string name="privacy_vn">Privacy Policy</string>
+    <string name="privacy">Privacy Policy</string>
+    <string name="Changelog_Vn">Change log</string>
+    <string name="Changelog">Change log</string>
+    <string name="term_vn">Term vs Conditions</string>
+    <string name="term">Term vs Conditions</string>
+    <string name="copyright_Vn">Copyright 2018 by TDev</string>
+    <string name="copyright">Copyright 2018 by TDev</string>
+
+
 </resources>

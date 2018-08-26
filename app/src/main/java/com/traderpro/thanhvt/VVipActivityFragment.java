@@ -1,6 +1,7 @@
 package com.traderpro.thanhvt;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -21,6 +22,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.traderpro.GCM.Config;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -373,21 +376,38 @@ public class VVipActivityFragment extends Fragment {
                     dLo += profit;
                 }
             }
-            txtLoiLo.setText("Lãi: " + lanLai + " lần (+" + String.format("%.2f", dLai) + "%)");
-            txtLoiLo3.setText("Lỗ: " + lanLo + " lần (-" + String.format("%.2f", dLo) + "%)");
-            txtLoiLo2.setText("Đang chờ ra: " + lanCho + " lần");
-            if (dLai >= dLo) {
-                dTong = dLai - dLo;
-                txtTongKet.setText("KQ: lãi +" + String.format("%.2f", dTong) + "%");
-                txtTongKet.setBackgroundColor(Color.parseColor("#27f546"));
+            SharedPreferences pref = getActivity().getSharedPreferences(Config.NGON_NGU, 0);
+            String strNN = pref.getString("NN", "VN");
+            if(strNN.equalsIgnoreCase("VN")) {
+                txtLoiLo.setText("Lãi: " + lanLai + " lần (+" + String.format("%.2f", dLai) + "%)");
+                txtLoiLo3.setText("Lỗ: " + lanLo + " lần (-" + String.format("%.2f", dLo) + "%)");
+                txtLoiLo2.setText("Đang chờ ra: " + lanCho + " lần");
+                if (dLai >= dLo) {
+                    dTong = dLai - dLo;
+                    txtTongKet.setText("KQ: lãi +" + String.format("%.2f", dTong) + "%");
+                    txtTongKet.setBackgroundColor(Color.parseColor("#27f546"));
 
-            } else {
-                dTong = dLo - dLai;
-                txtTongKet.setText("KQ: lỗ -" + String.format("%.2f", dTong) + "%");
-                txtTongKet.setBackgroundColor(Color.parseColor("#ff0000"));
+                } else {
+                    dTong = dLo - dLai;
+                    txtTongKet.setText("KQ: lỗ -" + String.format("%.2f", dTong) + "%");
+                    txtTongKet.setBackgroundColor(Color.parseColor("#ff0000"));
+                }
+
+            }else{
+                txtLoiLo.setText("Win: " + lanLai + " times (+" + String.format("%.2f", dLai) + "%)");
+                txtLoiLo3.setText("Lost: " + lanLo + " times (-" + String.format("%.2f", dLo) + "%)");
+                txtLoiLo2.setText("Waiting: " + lanCho + " times");
+                if (dLai >= dLo) {
+                    dTong = dLai - dLo;
+                    txtTongKet.setText("Result: win +" + String.format("%.2f", dTong) + "%");
+                    txtTongKet.setBackgroundColor(Color.parseColor("#27f546"));
+
+                } else {
+                    dTong = dLo - dLai;
+                    txtTongKet.setText("Result: lost -" + String.format("%.2f", dTong) + "%");
+                    txtTongKet.setBackgroundColor(Color.parseColor("#ff0000"));
+                }
             }
-
-
         } catch (Exception e) {
             Log.e(TAG + " refreshKetQua", e.getMessage());
             e.printStackTrace();

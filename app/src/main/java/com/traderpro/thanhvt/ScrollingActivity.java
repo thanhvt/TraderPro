@@ -482,6 +482,18 @@ public class ScrollingActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_scrolling, menu);
+        SharedPreferences pref = getSharedPreferences(Config.NGON_NGU, 0);
+        String strNN = pref.getString("NN", "VN");
+        MenuItem item0 = menu.getItem(0);
+        item0.setTitle(strNN.equals("VN") ? R.string.trade_api_Vn : R.string.trade_api);
+        MenuItem item1 = menu.getItem(1);
+        item1.setTitle(strNN.equals("VN") ? R.string.setting_Vn : R.string.setting);
+        MenuItem item2 = menu.getItem(2);
+        item2.setTitle(strNN.equals("VN") ? R.string.active_traderpro_Vn : R.string.active_traderpro_Vn);
+        MenuItem item3 = menu.getItem(3);
+        item3.setTitle(strNN.equals("VN") ? R.string.report_statistics_Vn : R.string.report_statistics);
+        MenuItem item4 = menu.getItem(4);
+        item4.setTitle(strNN.equals("VN") ? R.string.about_Vn : R.string.about);
         return true;
     }
 
