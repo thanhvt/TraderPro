@@ -31,5 +31,6 @@ dependencies {
     implementation group: 'org.apache.poi', name: 'poi', version: '3.17'
     implementation 'com.github.medyo:android-about-page:1.2.4'
     implementation 'com.google.firebase:firebase-messaging:10.2.1'
+    implementation 'com.github.binance-exchange:binance-java-api:-SNAPSHOT'
 }
 apply plugin: 'com.google.gms.google-services'
