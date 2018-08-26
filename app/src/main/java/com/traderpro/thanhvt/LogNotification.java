@@ -1,5 +1,6 @@
 package com.traderpro.thanhvt;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -189,8 +190,9 @@ public class LogNotification extends Fragment {
                 } else {
                     lstNotiEntity.removeAll(lstNotiBittrex);
                 }
-
-                customAdapter.notifyDataSetChanged();
+                if(customAdapter!=null){
+                    customAdapter.notifyDataSetChanged();
+                }
 
             }
         });
@@ -204,7 +206,9 @@ public class LogNotification extends Fragment {
                     lstNotiEntity.removeAll(lstNotiBinance);
                 }
 
-                customAdapter.notifyDataSetChanged();
+                if(customAdapter!=null){
+                    customAdapter.notifyDataSetChanged();
+                }
             }
         });
 
@@ -717,8 +721,8 @@ public class LogNotification extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Add your menu entries here
-        inflater.inflate(R.menu.menu_log, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+        //inflater.inflate(R.menu.menu_log, menu);
+        //super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -765,17 +769,22 @@ public class LogNotification extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
+        if(grantResults.length>0){
         if (requestCode == PERMISSIONS_REQUEST_READ_PHONE_STATE
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getDeviceImei();
         }
+        }
     }
 
+    @SuppressLint("MissingPermission")
     private void getDeviceImei() {
         try {
 
             mTelephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+            if(mTelephonyManager!=null){
             strDevice = mTelephonyManager.getDeviceId();
+            }
 
             String deviceId = Settings.System.getString(getActivity().getContentResolver(),
                     Settings.System.ANDROID_ID);
