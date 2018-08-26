@@ -13,10 +13,7 @@ import java.util.Calendar;
 
 
 public class AsyncPush {
-
-
     public AsyncPush(){
-
     }
 
     public static class TraderPush extends AsyncTask<String, String, String> {
