@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.binance.api.client.BinanceApiClientFactory;
+
 import java.util.Calendar;
 
 import mehdi.sakout.aboutpage.AboutPage;
@@ -25,6 +27,8 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        simulateDayNight(/* DAY */ 3);
+        BinanceApiClientFactory fac = BinanceApiClientFactory.newInstance();
+
         setContentView(R.layout.activity_about);
         Element adsElement = new Element();
         adsElement.setTitle("Advertise with us");
