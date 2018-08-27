@@ -20,14 +20,14 @@
     <EditText
         android:id="@+id/edKey"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="168dp"
         android:layout_above="@+id/textView2"
         android:layout_alignParentStart="true"
         android:ems="10"
+        android:enabled="false"
         android:inputType="textMultiLine|textPersonName"
         android:lines="10"
         android:maxLines="10"
-        android:enabled="false"
         android:minLines="10"
         android:padding="10dp"
         android:singleLine="false"
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/switch1"
-        android:layout_marginTop="74dp"
+        android:layout_marginTop="84dp"
         android:text="Copy" />
 
     <EditText
@@ -119,6 +119,26 @@
         android:layout_alignStart="@+id/textView_key"
         android:layout_marginTop="22dp"
         android:text="@string/lang"
+        android:textStyle="bold" />
+
+    <Switch
+        android:id="@+id/switch2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView_Sound"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="12dp"
+        android:checked="true"
+         />
+
+    <TextView
+        android:id="@+id/textView_Sound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView_key"
+        android:layout_marginTop="62dp"
+        android:text="Âm thanh"
         android:textStyle="bold" />
 
     <Switch

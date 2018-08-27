@@ -112,7 +112,9 @@
     <string name="lang_Vn">Ngôn ngữ</string>
     <string name="lang">Language</string>
     <string name="tviet">Tiếng Việt</string>
-    <string name="tanh">English</string>
+    <string name="tanh">English</string>Â
+    <string name="sound_Vn">Âm thanh</string>
+    <string name="sound">Sound</string>
     <string name="title_activity_api_trade">Trade API</string>
     <string name="title_activity_api_trade_Vn">Trade API</string>
     <string name="trade_api">Trade API</string>

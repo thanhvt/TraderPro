@@ -10,6 +10,7 @@ import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
@@ -80,6 +81,7 @@ public class NotificationUtils {
 
     public NotificationUtils(Context mContext) {
         this.mContext = mContext;
+
     }
 
     public void showNotificationMessage(String title, String message, String timeStamp, Intent intent) {
@@ -216,251 +218,506 @@ public class NotificationUtils {
                     }
                     mBuilder = new NotificationCompat.Builder(mContext, chanelID);
                 }
-                if (levelRing > 1) {
-                    switch (levelRing) {
-                        case 1:
-                            break;
-                        case 2:
-                            r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.sao1));
-                            r.play();
-                            break;
-                        case 3:
-                            r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.gold));
-                            r.play();
-                            TimeUnit.SECONDS.sleep(1);
-                            r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.gold));
-                            r.play();
-                            TimeUnit.SECONDS.sleep(1);
-                            r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.gold));
-                            r.play();
-                            break;
-                        case 4:
+                SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
+                String strSound = pref2.getString("SOUND", "ON");
+                if(strSound.equals("ON")){
+                    //
+                    if (levelRing > 1) {
+                        switch (levelRing) {
+                            case 1:
+                                break;
+                            case 2:
+                                r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.sao1));
+                                r.play();
+                                break;
+                            case 3:
+                                r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.gold));
+                                r.play();
+                                TimeUnit.SECONDS.sleep(1);
+                                r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.gold));
+                                r.play();
+                                TimeUnit.SECONDS.sleep(1);
+                                r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.gold));
+                                r.play();
+                                break;
+                            case 4:
 
-                            am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
-                            mSound = Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.mewin);
-                            inboxStyle = new NotificationCompat.InboxStyle();
+                                am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
+                                mSound = Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.mewin);
+                                inboxStyle = new NotificationCompat.InboxStyle();
 
-                            inboxStyle.addLine(message);
+                                inboxStyle.addLine(message);
 
-                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                    .setAutoCancel(true)
-                                    .setContentTitle("Boss $$$ " + strCoin)
-                                    .setContentText("PUMP PUMP PUMP PUMP")
-                                    .setContentIntent(resultPendingIntent)
-                                    .setSound(mSound)
-                                    .setStyle(new NotificationCompat.BigTextStyle()
-                                            .bigText(fromHtml(message)))
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setDefaults(Notification.DEFAULT_VIBRATE)
-                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                    .build();
-
-
-                            id = (int) System.currentTimeMillis();
-                            notificationManager.notify(id, notification);
-
-                            break;
-                        case 5:
-                            r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.wakewin));
-                            r.play();
-                            mSound = Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.mewin);
-                            am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
-                            am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
-                            am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
-                            inboxStyle = new NotificationCompat.InboxStyle();
-
-                            inboxStyle.addLine(message);
-
-                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                    .setAutoCancel(true)
-                                    .setContentTitle("Boss $$$ " + strCoin)
-                                    .setContentText("PUMP PUMP PUMP PUMP PUMP")
-                                    .setContentIntent(resultPendingIntent)
-                                    .setSound(mSound)
-                                    .setStyle(new NotificationCompat.BigTextStyle()
-                                            .bigText(fromHtml(message)))
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setDefaults(Notification.DEFAULT_VIBRATE)
-                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                    .build();
-
-                            id = (int) System.currentTimeMillis();
-                            notificationManager.notify(id, notification);
+                                notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                        .setAutoCancel(true)
+                                        .setContentTitle("Boss $$$ " + strCoin)
+                                        .setContentText("PUMP PUMP PUMP PUMP")
+                                        .setContentIntent(resultPendingIntent)
+                                        .setSound(mSound)
+                                        .setStyle(new NotificationCompat.BigTextStyle()
+                                                .bigText(fromHtml(message)))
+                                        .setSmallIcon(R.mipmap.ic_launcher)
+                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                        .build();
 
 
-                            break;
-                        case 6:
-                            am.setStreamVolume(
-                                    AudioManager.STREAM_MUSIC,
-                                    am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
-                                    0);
-                            am.setStreamVolume(
-                                    AudioManager.STREAM_RING,
-                                    am.getStreamMaxVolume(AudioManager.STREAM_RING),
-                                    0);
-                            am.setStreamVolume(
-                                    AudioManager.STREAM_SYSTEM,
-                                    am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),
-                                    0);
-                            am.setStreamVolume(
-                                    AudioManager.STREAM_NOTIFICATION,
-                                    am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
-                                    0);
-                            r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.sao1));
-                            mSound = Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.gowin3);
+                                id = (int) System.currentTimeMillis();
+                                notificationManager.notify(id, notification);
 
-                            mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.sao1));
-                            count = 1;
-                            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                @Override
-                                public void onCompletion(MediaPlayer mp) {
-                                    if (count < 10) {
-                                        mp.start();
-                                        count++;
+                                break;
+                            case 5:
+                                r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.wakewin));
+                                r.play();
+                                mSound = Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.mewin);
+                                am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
+                                am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
+                                am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
+                                inboxStyle = new NotificationCompat.InboxStyle();
+
+                                inboxStyle.addLine(message);
+
+                                notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                        .setAutoCancel(true)
+                                        .setContentTitle("Boss $$$ " + strCoin)
+                                        .setContentText("PUMP PUMP PUMP PUMP PUMP")
+                                        .setContentIntent(resultPendingIntent)
+                                        .setSound(mSound)
+                                        .setStyle(new NotificationCompat.BigTextStyle()
+                                                .bigText(fromHtml(message)))
+                                        .setSmallIcon(R.mipmap.ic_launcher)
+                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                        .build();
+
+                                id = (int) System.currentTimeMillis();
+                                notificationManager.notify(id, notification);
+
+
+                                break;
+                            case 6:
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_MUSIC,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_RING,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_RING),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_SYSTEM,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_NOTIFICATION,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
+                                        0);
+                                r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.sao1));
+                                mSound = Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.gowin3);
+
+                                mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.sao1));
+                                count = 1;
+                                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                    @Override
+                                    public void onCompletion(MediaPlayer mp) {
+                                        if (count < 10) {
+                                            mp.start();
+                                            count++;
+                                        }
                                     }
-                                }
-                            });
-                            mp.start();
+                                });
+                                mp.start();
 
-                            inboxStyle = new NotificationCompat.InboxStyle();
-                            inboxStyle.addLine(message);
-                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                    .setAutoCancel(true)
-                                    .setContentTitle("Boss $$$ " + strCoin)
-                                    .setContentText("PUMP PUMP PUMP PUMP PUMP PUMP ")
-                                    .setContentIntent(resultPendingIntent)
-                                    .setSound(mSound)
-                                    .setStyle(new NotificationCompat.BigTextStyle()
-                                            .bigText(fromHtml(message)))
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setDefaults(Notification.DEFAULT_VIBRATE)
-                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                    .build();
+                                inboxStyle = new NotificationCompat.InboxStyle();
+                                inboxStyle.addLine(message);
+                                notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                        .setAutoCancel(true)
+                                        .setContentTitle("Boss $$$ " + strCoin)
+                                        .setContentText("PUMP PUMP PUMP PUMP PUMP PUMP ")
+                                        .setContentIntent(resultPendingIntent)
+                                        .setSound(mSound)
+                                        .setStyle(new NotificationCompat.BigTextStyle()
+                                                .bigText(fromHtml(message)))
+                                        .setSmallIcon(R.mipmap.ic_launcher)
+                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                        .build();
 
-                            id = (int) System.currentTimeMillis();
-                            notificationManager.notify(id, notification);
-                            break;
-                        case 7:
-                            am.setStreamVolume(
-                                    AudioManager.STREAM_MUSIC,
-                                    am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
-                                    0);
-                            am.setStreamVolume(
-                                    AudioManager.STREAM_RING,
-                                    am.getStreamMaxVolume(AudioManager.STREAM_RING),
-                                    0);
-                            am.setStreamVolume(
-                                    AudioManager.STREAM_SYSTEM,
-                                    am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),
-                                    0);
-                            am.setStreamVolume(
-                                    AudioManager.STREAM_NOTIFICATION,
-                                    am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
-                                    0);
-                            r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.sao1));
-                            mSound = Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.mewin);
+                                id = (int) System.currentTimeMillis();
+                                notificationManager.notify(id, notification);
+                                break;
+                            case 7:
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_MUSIC,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_RING,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_RING),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_SYSTEM,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_NOTIFICATION,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
+                                        0);
+                                r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.sao1));
+                                mSound = Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.mewin);
 
-                            mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.sao1));
-                            count = 1;
-                            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                @Override
-                                public void onCompletion(MediaPlayer mp) {
-                                    if (count < 20) {
-                                        mp.start();
-                                        count++;
+                                mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.sao1));
+                                count = 1;
+                                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                    @Override
+                                    public void onCompletion(MediaPlayer mp) {
+                                        if (count < 20) {
+                                            mp.start();
+                                            count++;
+                                        }
                                     }
-                                }
-                            });
-                            mp.start();
+                                });
+                                mp.start();
 
-                            inboxStyle = new NotificationCompat.InboxStyle();
-                            inboxStyle.addLine(message);
-                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                    .setAutoCancel(true)
-                                    .setContentTitle("Boss $$$ " + strCoin)
-                                    .setContentText("PUMP PUMP PUMP PUMP PUMP PUMP PUMP")
-                                    .setContentIntent(resultPendingIntent)
-                                    .setSound(mSound)
-                                    .setStyle(new NotificationCompat.BigTextStyle()
-                                            .bigText(fromHtml(message)))
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setDefaults(Notification.DEFAULT_VIBRATE)
-                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                    .build();
+                                inboxStyle = new NotificationCompat.InboxStyle();
+                                inboxStyle.addLine(message);
+                                notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                        .setAutoCancel(true)
+                                        .setContentTitle("Boss $$$ " + strCoin)
+                                        .setContentText("PUMP PUMP PUMP PUMP PUMP PUMP PUMP")
+                                        .setContentIntent(resultPendingIntent)
+                                        .setSound(mSound)
+                                        .setStyle(new NotificationCompat.BigTextStyle()
+                                                .bigText(fromHtml(message)))
+                                        .setSmallIcon(R.mipmap.ic_launcher)
+                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                        .build();
 
-                            id = (int) System.currentTimeMillis();
-                            notificationManager.notify(id, notification);
-                            break;
-                        case 8:
-                            am.setStreamVolume(
-                                    AudioManager.STREAM_MUSIC,
-                                    am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
-                                    0);
-                            am.setStreamVolume(
-                                    AudioManager.STREAM_RING,
-                                    am.getStreamMaxVolume(AudioManager.STREAM_RING),
-                                    0);
-                            am.setStreamVolume(
-                                    AudioManager.STREAM_SYSTEM,
-                                    am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),
-                                    0);
-                            am.setStreamVolume(
-                                    AudioManager.STREAM_NOTIFICATION,
-                                    am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
-                                    0);
-                            r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.wakewin));
-                            mSound = Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.mewin);
+                                id = (int) System.currentTimeMillis();
+                                notificationManager.notify(id, notification);
+                                break;
+                            case 8:
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_MUSIC,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_RING,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_RING),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_SYSTEM,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_NOTIFICATION,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
+                                        0);
+                                r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.wakewin));
+                                mSound = Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.mewin);
 
-                            mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.wakewin));
-                            count = 1;
-                            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                @Override
-                                public void onCompletion(MediaPlayer mp) {
-                                    if (count < 30) {
-                                        mp.start();
-                                        count++;
+                                mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.wakewin));
+                                count = 1;
+                                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                    @Override
+                                    public void onCompletion(MediaPlayer mp) {
+                                        if (count < 30) {
+                                            mp.start();
+                                            count++;
+                                        }
                                     }
-                                }
-                            });
-                            mp.start();
+                                });
+                                mp.start();
 
-                            inboxStyle = new NotificationCompat.InboxStyle();
-                            inboxStyle.addLine(message);
-                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                    .setAutoCancel(true)
-                                    .setContentTitle("Boss $$$ " + strCoin)
-                                    .setContentText("PUMP ................")
-                                    .setContentIntent(resultPendingIntent)
-                                    .setSound(mSound)
-                                    .setStyle(new NotificationCompat.BigTextStyle()
-                                            .bigText(fromHtml(message)))
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setDefaults(Notification.DEFAULT_VIBRATE)
-                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                    .build();
+                                inboxStyle = new NotificationCompat.InboxStyle();
+                                inboxStyle.addLine(message);
+                                notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                        .setAutoCancel(true)
+                                        .setContentTitle("Boss $$$ " + strCoin)
+                                        .setContentText("PUMP ................")
+                                        .setContentIntent(resultPendingIntent)
+                                        .setSound(mSound)
+                                        .setStyle(new NotificationCompat.BigTextStyle()
+                                                .bigText(fromHtml(message)))
+                                        .setSmallIcon(R.mipmap.ic_launcher)
+                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                        .build();
 
-                            id = (int) System.currentTimeMillis();
-                            notificationManager.notify(id, notification);
-                            break;
-                        default:
-                            break;
+                                id = (int) System.currentTimeMillis();
+                                notificationManager.notify(id, notification);
+                                break;
+                            default:
+                                break;
+                        }
                     }
+
+                }else{
+                    //
+                    if (levelRing > 1) {
+                        switch (levelRing) {
+                            case 1:
+                                break;
+                            case 2:
+                                r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.sao1));
+                                //r.play();
+                                break;
+                            case 3:
+                                r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.gold));
+                                //r.play();
+                                TimeUnit.SECONDS.sleep(1);
+                                r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.gold));
+                                //r.play();
+                                TimeUnit.SECONDS.sleep(1);
+                                r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.gold));
+                                //r.play();
+                                break;
+                            case 4:
+
+                                am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
+                                mSound = Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.mewin);
+                                inboxStyle = new NotificationCompat.InboxStyle();
+
+                                inboxStyle.addLine(message);
+
+                                notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                        .setAutoCancel(true)
+                                        .setContentTitle("Boss $$$ " + strCoin)
+                                        .setContentText("PUMP PUMP PUMP PUMP")
+                                        .setContentIntent(resultPendingIntent)
+                                        .setSound(null)
+                                        .setStyle(new NotificationCompat.BigTextStyle()
+                                                .bigText(fromHtml(message)))
+                                        .setSmallIcon(R.mipmap.ic_launcher)
+                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                        .build();
+
+
+                                id = (int) System.currentTimeMillis();
+                                notificationManager.notify(id, notification);
+
+                                break;
+                            case 5:
+                                r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.wakewin));
+                                //r.play();
+                                mSound = Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.mewin);
+                                am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
+                                am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
+                                am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
+                                inboxStyle = new NotificationCompat.InboxStyle();
+
+                                inboxStyle.addLine(message);
+
+                                notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                        .setAutoCancel(true)
+                                        .setContentTitle("Boss $$$ " + strCoin)
+                                        .setContentText("PUMP PUMP PUMP PUMP PUMP")
+                                        .setContentIntent(resultPendingIntent)
+                                        .setSound(null)
+                                        .setStyle(new NotificationCompat.BigTextStyle()
+                                                .bigText(fromHtml(message)))
+                                        .setSmallIcon(R.mipmap.ic_launcher)
+                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                        .build();
+
+                                id = (int) System.currentTimeMillis();
+                                notificationManager.notify(id, notification);
+
+
+                                break;
+                            case 6:
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_MUSIC,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_RING,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_RING),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_SYSTEM,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_NOTIFICATION,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
+                                        0);
+                                r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.sao1));
+                                mSound = Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.gowin3);
+
+                                mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.sao1));
+                                count = 1;
+                                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                    @Override
+                                    public void onCompletion(MediaPlayer mp) {
+                                        if (count < 10) {
+                                            mp.start();
+                                            count++;
+                                        }
+                                    }
+                                });
+                                //mp.start();
+
+                                inboxStyle = new NotificationCompat.InboxStyle();
+                                inboxStyle.addLine(message);
+                                notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                        .setAutoCancel(true)
+                                        .setContentTitle("Boss $$$ " + strCoin)
+                                        .setContentText("PUMP PUMP PUMP PUMP PUMP PUMP ")
+                                        .setContentIntent(resultPendingIntent)
+                                        .setSound(null)
+                                        .setStyle(new NotificationCompat.BigTextStyle()
+                                                .bigText(fromHtml(message)))
+                                        .setSmallIcon(R.mipmap.ic_launcher)
+                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                        .build();
+
+                                id = (int) System.currentTimeMillis();
+                                notificationManager.notify(id, notification);
+                                break;
+                            case 7:
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_MUSIC,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_RING,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_RING),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_SYSTEM,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_NOTIFICATION,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
+                                        0);
+                                r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.sao1));
+                                mSound = Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.mewin);
+
+                                mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.sao1));
+                                count = 1;
+                                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                    @Override
+                                    public void onCompletion(MediaPlayer mp) {
+                                        if (count < 20) {
+                                            mp.start();
+                                            count++;
+                                        }
+                                    }
+                                });
+                                //mp.start();
+
+                                inboxStyle = new NotificationCompat.InboxStyle();
+                                inboxStyle.addLine(message);
+                                notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                        .setAutoCancel(true)
+                                        .setContentTitle("Boss $$$ " + strCoin)
+                                        .setContentText("PUMP PUMP PUMP PUMP PUMP PUMP PUMP")
+                                        .setContentIntent(resultPendingIntent)
+                                        .setSound(null)
+                                        .setStyle(new NotificationCompat.BigTextStyle()
+                                                .bigText(fromHtml(message)))
+                                        .setSmallIcon(R.mipmap.ic_launcher)
+                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                        .build();
+
+                                id = (int) System.currentTimeMillis();
+                                notificationManager.notify(id, notification);
+                                break;
+                            case 8:
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_MUSIC,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_RING,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_RING),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_SYSTEM,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),
+                                        0);
+                                am.setStreamVolume(
+                                        AudioManager.STREAM_NOTIFICATION,
+                                        am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
+                                        0);
+                                r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.wakewin));
+                                mSound = Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.mewin);
+
+                                mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
+                                        + mContext.getPackageName() + "/" + R.raw.wakewin));
+                                count = 1;
+                                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                    @Override
+                                    public void onCompletion(MediaPlayer mp) {
+                                        if (count < 30) {
+                                            mp.start();
+                                            count++;
+                                        }
+                                    }
+                                });
+                                //mp.start();
+
+                                inboxStyle = new NotificationCompat.InboxStyle();
+                                inboxStyle.addLine(message);
+                                notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                        .setAutoCancel(true)
+                                        .setContentTitle("Boss $$$ " + strCoin)
+                                        .setContentText("PUMP ................")
+                                        .setContentIntent(resultPendingIntent)
+                                        .setSound(null)
+                                        .setStyle(new NotificationCompat.BigTextStyle()
+                                                .bigText(fromHtml(message)))
+                                        .setSmallIcon(R.mipmap.ic_launcher)
+                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                        .build();
+
+                                id = (int) System.currentTimeMillis();
+                                notificationManager.notify(id, notification);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
                 }
 
 

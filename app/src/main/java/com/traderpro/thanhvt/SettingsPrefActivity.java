@@ -30,6 +30,8 @@ public class SettingsPrefActivity extends AppCompatActivity {
     TextView tvNameNN;
     TextView tvKeyCode;
     TextView tvDesDonate;
+    TextView tvSound;
+    Switch onOffSwitchSound;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +46,10 @@ public class SettingsPrefActivity extends AppCompatActivity {
         imgETH = (ImageView) findViewById(R.id.imageButton2);
         tvNgonNgu = (TextView) findViewById(R.id.textView39);
         tvKeyCode = (TextView) findViewById(R.id.textView_key);
+        tvSound = (TextView) findViewById(R.id.textView_Sound);
         tvDesDonate = (TextView) findViewById(R.id.textView2);
         onOffSwitch = (Switch) findViewById(R.id.switch1);
+        onOffSwitchSound = (Switch) findViewById(R.id.switch2);
         onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -54,10 +58,12 @@ public class SettingsPrefActivity extends AppCompatActivity {
                 if(!isChecked) {
                     tvNgonNgu.setText(R.string.lang);
                     tvKeyCode.setText(R.string.key_code);
+                    tvSound.setText(R.string.sound);
                     tvDesDonate.setText(R.string.description_donate);
                 }else {
                     tvNgonNgu.setText(R.string.lang_Vn);
                     tvKeyCode.setText(R.string.key_code_Vn);
+                    tvSound.setText(R.string.sound_Vn);
                     tvDesDonate.setText(R.string.description_donate_Vn);
                     //onOffSwitch.setText();
                 }
@@ -70,14 +76,43 @@ public class SettingsPrefActivity extends AppCompatActivity {
 
         });
 
+        onOffSwitchSound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.v("Switch State=", "" + isChecked);
+                if(!isChecked) {
+
+                }else {
+
+                    //onOffSwitch.setText();
+                }
+
+                SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SOUND, 0);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("SOUND", isChecked == true ? "ON" : "OFF");
+                editor.commit();
+            }
+
+        });
+
         SharedPreferences pref = getSharedPreferences(Config.NGON_NGU, 0);
         String strNN = pref.getString("NN", "VN");
         onOffSwitch.setChecked(strNN.equals("VN") ? true : false);
         //tvNgonNgu.setText();
         tvNgonNgu.setText(strNN.equals("VN") ? R.string.lang_Vn : R.string.lang);
         tvKeyCode.setText(strNN.equals("VN") ? R.string.key_code_Vn : R.string.key_code);
+        tvSound.setText(strNN.equals("VN") ? R.string.sound_Vn : R.string.sound);
         tvDesDonate.setText(strNN.equals("VN") ? R.string.description_donate_Vn : R.string.description_donate);
 
+        // sound
+        SharedPreferences pref2 = getSharedPreferences(Config.SOUND, 0);
+        String strSound = pref2.getString("SOUND", "ON");
+        if(strSound.equals("ON")){
+            //
+        }else{
+            //
+        }
 
         String key = getIntent().getStringExtra("KEY");
         //Log.e("key", key);
