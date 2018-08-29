@@ -80,9 +80,11 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
 
         if(strNN.equalsIgnoreCase("VN")){
             String strLaiLo = "";
-
-            String strTimeMua = p.strTime.substring(0, p.strTime.lastIndexOf(":"));
+            String strTimeMua="";
+            if(p.strTime.lastIndexOf(":")>=0){
+                strTimeMua = p.strTime.substring(0, p.strTime.lastIndexOf(":"));
             strTimeMua = strTimeMua.replace(":", "h");
+            }
             viewHolder.txtGiaMua.setText(p.strGia);
             viewHolder.txtTimeMua.setText("được báo mua lúc " + strTimeMua);
             viewHolder.txtCoin.setText(p.strCoin);
@@ -96,9 +98,11 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             viewHolder.txtProfit.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("===> thì profit thay đổi " + p.strProfit));
         }else{
             String strLaiLo = "";
-
-            String strTimeMua = p.strTime.substring(0, p.strTime.lastIndexOf(":"));
+            String strTimeMua="";
+            if(p.strTime.lastIndexOf(":")>=0){
+             strTimeMua = p.strTime.substring(0, p.strTime.lastIndexOf(":"));
             strTimeMua = strTimeMua.replace(":", "h");
+            }
             viewHolder.txtGiaMua.setText(p.strGia);
             viewHolder.txtTimeMua.setText("on time buy: " + strTimeMua);
             viewHolder.txtCoin.setText(p.strCoin);

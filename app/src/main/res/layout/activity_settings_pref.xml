@@ -124,12 +124,12 @@
     <Switch
         android:id="@+id/switch2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="37dp"
         android:layout_alignBottom="@+id/textView_Sound"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="12dp"
-        android:checked="true"
-         />
+        android:layout_marginBottom="-10dp"
+        android:layout_marginEnd="271dp"
+        android:checked="true" />
 
     <TextView
         android:id="@+id/textView_Sound"
@@ -141,6 +141,26 @@
         android:text="Âm thanh"
         android:textStyle="bold" />
 
+    <Switch
+        android:id="@+id/switch3"
+        android:layout_width="wrap_content"
+        android:layout_height="37dp"
+        android:layout_alignBottom="@+id/textView_Sound"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="-10dp"
+        android:layout_marginEnd="12dp"
+        android:checked="true" />
+
+    <TextView
+        android:id="@+id/textView_Sound2"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/switch1"
+        android:layout_marginEnd="27dp"
+        android:layout_marginTop="62dp"
+        android:text="Rung"
+        android:textStyle="bold" />
     <Switch
         android:id="@+id/switch1"
         android:layout_width="wrap_content"

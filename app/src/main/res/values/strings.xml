@@ -115,6 +115,8 @@
     <string name="tanh">English</string>Â
     <string name="sound_Vn">Âm thanh</string>
     <string name="sound">Sound</string>
+    <string name="vibrate_Vn">Rung</string>
+    <string name="vibrate">Vibrate</string>
     <string name="title_activity_api_trade">Trade API</string>
     <string name="title_activity_api_trade_Vn">Trade API</string>
     <string name="trade_api">Trade API</string>

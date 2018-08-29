@@ -127,7 +127,12 @@ public class NotificationUtils {
             }
         } else {
             showSmallNotification(mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
+            SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
+            String strSound = pref2.getString("SOUND", "ON");
+            if(strSound.equals("ON")){
             playNotificationSound();
+            }
+
         }
     }
 
@@ -137,7 +142,16 @@ public class NotificationUtils {
         try {
 
             final String chanelID = "com.traderpro.thanhvt";
-
+            SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
+            String strSound = pref2.getString("SOUND", "ON");
+            SharedPreferences pref3 = mContext.getSharedPreferences(Config.VIBRATE, 0);
+            String strVibrate = pref3.getString("VIBRATE", "ON");
+            int VibrateIndex = -1;
+            if(strVibrate.equals("ON")){
+                VibrateIndex = Notification.DEFAULT_VIBRATE;
+            }else{
+                VibrateIndex = Notification.DEFAULT_LIGHTS;
+            }
             if (message.contains("VOL HT")) {
                 // Parse message
                 String strCoin = "";
@@ -218,8 +232,8 @@ public class NotificationUtils {
                     }
                     mBuilder = new NotificationCompat.Builder(mContext, chanelID);
                 }
-                SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
-                String strSound = pref2.getString("SOUND", "ON");
+
+
                 if(strSound.equals("ON")){
                     //
                     if (levelRing > 1) {
@@ -262,7 +276,7 @@ public class NotificationUtils {
                                         .setStyle(new NotificationCompat.BigTextStyle()
                                                 .bigText(fromHtml(message)))
                                         .setSmallIcon(R.mipmap.ic_launcher)
-                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setDefaults(VibrateIndex)
                                         .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                                         .build();
 
@@ -293,7 +307,7 @@ public class NotificationUtils {
                                         .setStyle(new NotificationCompat.BigTextStyle()
                                                 .bigText(fromHtml(message)))
                                         .setSmallIcon(R.mipmap.ic_launcher)
-                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setDefaults(VibrateIndex)
                                         .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                                         .build();
 
@@ -349,7 +363,7 @@ public class NotificationUtils {
                                         .setStyle(new NotificationCompat.BigTextStyle()
                                                 .bigText(fromHtml(message)))
                                         .setSmallIcon(R.mipmap.ic_launcher)
-                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setDefaults(VibrateIndex)
                                         .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                                         .build();
 
@@ -403,7 +417,7 @@ public class NotificationUtils {
                                         .setStyle(new NotificationCompat.BigTextStyle()
                                                 .bigText(fromHtml(message)))
                                         .setSmallIcon(R.mipmap.ic_launcher)
-                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setDefaults(VibrateIndex)
                                         .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                                         .build();
 
@@ -457,7 +471,7 @@ public class NotificationUtils {
                                         .setStyle(new NotificationCompat.BigTextStyle()
                                                 .bigText(fromHtml(message)))
                                         .setSmallIcon(R.mipmap.ic_launcher)
-                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setDefaults(VibrateIndex)
                                         .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                                         .build();
 
@@ -511,7 +525,7 @@ public class NotificationUtils {
                                         .setStyle(new NotificationCompat.BigTextStyle()
                                                 .bigText(fromHtml(message)))
                                         .setSmallIcon(R.mipmap.ic_launcher)
-                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setDefaults(VibrateIndex)
                                         .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                                         .build();
 
@@ -542,7 +556,7 @@ public class NotificationUtils {
                                         .setStyle(new NotificationCompat.BigTextStyle()
                                                 .bigText(fromHtml(message)))
                                         .setSmallIcon(R.mipmap.ic_launcher)
-                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setDefaults(VibrateIndex)
                                         .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                                         .build();
 
@@ -580,7 +594,7 @@ public class NotificationUtils {
                                     @Override
                                     public void onCompletion(MediaPlayer mp) {
                                         if (count < 10) {
-                                            mp.start();
+                                            //mp.start();
                                             count++;
                                         }
                                     }
@@ -598,7 +612,7 @@ public class NotificationUtils {
                                         .setStyle(new NotificationCompat.BigTextStyle()
                                                 .bigText(fromHtml(message)))
                                         .setSmallIcon(R.mipmap.ic_launcher)
-                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setDefaults(VibrateIndex)
                                         .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                                         .build();
 
@@ -634,7 +648,7 @@ public class NotificationUtils {
                                     @Override
                                     public void onCompletion(MediaPlayer mp) {
                                         if (count < 20) {
-                                            mp.start();
+                                            //mp.start();
                                             count++;
                                         }
                                     }
@@ -652,7 +666,7 @@ public class NotificationUtils {
                                         .setStyle(new NotificationCompat.BigTextStyle()
                                                 .bigText(fromHtml(message)))
                                         .setSmallIcon(R.mipmap.ic_launcher)
-                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setDefaults(VibrateIndex)
                                         .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                                         .build();
 
@@ -688,7 +702,7 @@ public class NotificationUtils {
                                     @Override
                                     public void onCompletion(MediaPlayer mp) {
                                         if (count < 30) {
-                                            mp.start();
+                                            //mp.start();
                                             count++;
                                         }
                                     }
@@ -706,7 +720,7 @@ public class NotificationUtils {
                                         .setStyle(new NotificationCompat.BigTextStyle()
                                                 .bigText(fromHtml(message)))
                                         .setSmallIcon(R.mipmap.ic_launcher)
-                                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                                        .setDefaults(VibrateIndex)
                                         .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                                         .build();
 
@@ -718,7 +732,7 @@ public class NotificationUtils {
                         }
                     }
 
-                }
+                }//End off Sound
 
 
                 // End parse
@@ -735,56 +749,106 @@ public class NotificationUtils {
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(fromHtml(message)))
                         .setSmallIcon(R.mipmap.ic_launcher)
-                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                        .setDefaults(VibrateIndex)
                         .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                         .build();
 
                 id = (int) System.currentTimeMillis();
                 notificationManager.notify(id, notification);
             } else if (title.contains("warning")) {
-                NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+                if(strSound.equals("ON")){
+                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
-                inboxStyle.addLine(message);
+                    inboxStyle.addLine(message);
 
-                Notification notification;
-                notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                        .setAutoCancel(true)
-                        .setContentTitle("SOS")
-                        .setContentText(title)
-                        .setContentIntent(resultPendingIntent)
-                        .setSound(alarmSound)
-                        .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText(fromHtml(message)))
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setDefaults(Notification.DEFAULT_VIBRATE)
-                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                        .build();
+                    Notification notification;
+                    notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                            .setAutoCancel(true)
+                            .setContentTitle("SOS")
+                            .setContentText(title)
+                            .setContentIntent(resultPendingIntent)
+                            .setSound(alarmSound)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(fromHtml(message)))
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setDefaults(VibrateIndex)
+                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                            .build();
 
-                NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                int id = (int) System.currentTimeMillis();
-                notificationManager.notify(id, notification);
+                    NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                    int id = (int) System.currentTimeMillis();
+                    notificationManager.notify(id, notification);
+                }else{
+                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+
+                    inboxStyle.addLine(message);
+
+                    Notification notification;
+                    notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                            .setAutoCancel(true)
+                            .setContentTitle("SOS")
+                            .setContentText(title)
+                            .setContentIntent(resultPendingIntent)
+                            .setSound(null)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(fromHtml(message)))
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setDefaults(VibrateIndex)
+                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                            .build();
+
+                    NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                    int id = (int) System.currentTimeMillis();
+                    notificationManager.notify(id, notification);
+                }
+
             } else if (title.contains("REGISTER")) {
-                NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+                if(strSound.equals("ON")){
+                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
-                inboxStyle.addLine(message);
+                    inboxStyle.addLine(message);
 
-                Notification notification;
-                notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                        .setAutoCancel(true)
-                        .setContentTitle("BOSS")
-                        .setContentText(title)
-                        .setContentIntent(resultPendingIntent)
-                        .setSound(alarmSound)
-                        .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText(fromHtml(message)))
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setDefaults(Notification.DEFAULT_VIBRATE)
-                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                        .build();
+                    Notification notification;
+                    notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                            .setAutoCancel(true)
+                            .setContentTitle("BOSS")
+                            .setContentText(title)
+                            .setContentIntent(resultPendingIntent)
+                            .setSound(alarmSound)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(fromHtml(message)))
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setDefaults(VibrateIndex)
+                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                            .build();
 
-                NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                int id = (int) System.currentTimeMillis();
-                notificationManager.notify(id, notification);
+                    NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                    int id = (int) System.currentTimeMillis();
+                    notificationManager.notify(id, notification);
+                }else{
+                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+
+                    inboxStyle.addLine(message);
+
+                    Notification notification;
+                    notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                            .setAutoCancel(true)
+                            .setContentTitle("BOSS")
+                            .setContentText(title)
+                            .setContentIntent(resultPendingIntent)
+                            .setSound(null)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(fromHtml(message)))
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setDefaults(VibrateIndex)
+                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                            .build();
+
+                    NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                    int id = (int) System.currentTimeMillis();
+                    notificationManager.notify(id, notification);
+                }
+
 
                 if (title.contains("NEW")) {
                     ArrayList<UserDevice> lstUser = readLstUser(mContext);
@@ -831,41 +895,80 @@ public class NotificationUtils {
                     insertExcelFile(mContext, lstUser, u);
                 }
             } else if (title.contains("BUYYY")) {
-                NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                if(strSound.equals("ON")){
+                    NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 
-                MediaPlayer mp;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    int importance = NotificationManager.IMPORTANCE_HIGH;
-                    NotificationChannel mChannel = notificationManager.getNotificationChannel(chanelID);
-                    if (mChannel == null) {
-                        mChannel = new NotificationChannel(chanelID, title, importance);
-                        mChannel.enableVibration(true);
-                        mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                        notificationManager.createNotificationChannel(mChannel);
+                    MediaPlayer mp;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        int importance = NotificationManager.IMPORTANCE_HIGH;
+                        NotificationChannel mChannel = notificationManager.getNotificationChannel(chanelID);
+                        if (mChannel == null) {
+                            mChannel = new NotificationChannel(chanelID, title, importance);
+                            mChannel.enableVibration(true);
+                            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                            notificationManager.createNotificationChannel(mChannel);
+                        }
+                        mBuilder = new NotificationCompat.Builder(mContext, chanelID);
                     }
-                    mBuilder = new NotificationCompat.Builder(mContext, chanelID);
+                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+                    inboxStyle.addLine(message);
+
+                    Notification notification;
+                    notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                            .setAutoCancel(true)
+                            .setContentTitle(title)
+                            .setContentText(title)
+                            .setContentIntent(resultPendingIntent)
+                            .setSound(alarmSound)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(fromHtml(message)))
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setDefaults(VibrateIndex)
+                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                            .build();
+
+
+                    int id = (int) System.currentTimeMillis();
+                    notificationManager.notify(id, notification);
+                }else{
+                    NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+
+                    MediaPlayer mp;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        int importance = NotificationManager.IMPORTANCE_HIGH;
+                        NotificationChannel mChannel = notificationManager.getNotificationChannel(chanelID);
+                        if (mChannel == null) {
+                            mChannel = new NotificationChannel(chanelID, title, importance);
+                            mChannel.enableVibration(true);
+                            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                            notificationManager.createNotificationChannel(mChannel);
+                        }
+                        mBuilder = new NotificationCompat.Builder(mContext, chanelID);
+                    }
+                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+                    inboxStyle.addLine(message);
+
+                    Notification notification;
+                    notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                            .setAutoCancel(true)
+                            .setContentTitle(title)
+                            .setContentText(title)
+                            .setContentIntent(resultPendingIntent)
+                            .setSound(null)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(fromHtml(message)))
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setDefaults(VibrateIndex)
+                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                            .build();
+
+
+                    int id = (int) System.currentTimeMillis();
+                    notificationManager.notify(id, notification);
                 }
-                NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-                inboxStyle.addLine(message);
 
-                Notification notification;
-                notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                        .setAutoCancel(true)
-                        .setContentTitle(title)
-                        .setContentText(title)
-                        .setContentIntent(resultPendingIntent)
-                        .setSound(alarmSound)
-                        .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText(fromHtml(message)))
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setDefaults(Notification.DEFAULT_VIBRATE)
-                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                        .build();
-
-
-                int id = (int) System.currentTimeMillis();
-                notificationManager.notify(id, notification);
 
                 String strTime = "";
                 String strCoin = "";
@@ -915,54 +1018,107 @@ public class NotificationUtils {
                 String strProfit = "PROFIT";
                 Uri mSound;
 
-                if (title.contains("StopLoss")) {
-                    mSound = Uri.parse("android.resource://"
-                            + mContext.getPackageName() + "/" + R.raw.pdown);
-                    strCoin = title.substring(title.lastIndexOf("StopLoss") + 8, title.indexOf("***") - 1);
-                    strCoin = strCoin.trim();
-                    strGiaBan = message.substring(message.indexOf(":") + 6, message.indexOf(":") + 16);
-                    strGiaBan = strGiaBan.trim();
-                    strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
-                    strProfit = "-" + message.substring(message.lastIndexOf(":") + 1, message.lastIndexOf("</b>")).trim();
-                    strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
-                    notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                            .setAutoCancel(true)
-                            .setContentTitle("Bán dừng lỗ ngay")
-                            .setContentText(title)
-                            .setContentIntent(resultPendingIntent)
-                            .setSound(mSound)
-                            .setStyle(new NotificationCompat.BigTextStyle()
-                                    .bigText(fromHtml(message)))
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setDefaults(Notification.DEFAULT_VIBRATE)
-                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                            .build();
-                } else {
-                    mSound = Uri.parse("android.resource://"
-                            + mContext.getPackageName() + "/" + R.raw.pup);
-                    strCoin = title.substring(title.lastIndexOf("TakeProfit") + 10, title.indexOf("***") - 1);
-                    strCoin = strCoin.trim();
-                    strGiaBan = message.substring(message.indexOf(":") + 6, message.indexOf(":") + 16);
-                    strGiaBan = strGiaBan.trim();
-                    strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
-                    strProfit = "+" + message.substring(message.lastIndexOf(":") + 1, message.lastIndexOf("</b>")).trim();
-                    strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
-                    notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                            .setAutoCancel(true)
-                            .setContentTitle("Bán chốt lời ngay")
-                            .setContentText(title)
-                            .setContentIntent(resultPendingIntent)
-                            .setSound(mSound)
-                            .setStyle(new NotificationCompat.BigTextStyle()
-                                    .bigText(fromHtml(message)))
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setDefaults(Notification.DEFAULT_VIBRATE)
-                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                            .build();
+                //check sound
+                if(strSound.equals("ON")){
+                    if (title.contains("StopLoss")) {
+                        mSound = Uri.parse("android.resource://"
+                                + mContext.getPackageName() + "/" + R.raw.pdown);
+                        strCoin = title.substring(title.lastIndexOf("StopLoss") + 8, title.indexOf("***") - 1);
+                        strCoin = strCoin.trim();
+                        strGiaBan = message.substring(message.indexOf(":") + 6, message.indexOf(":") + 16);
+                        strGiaBan = strGiaBan.trim();
+                        strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
+                        strProfit = "-" + message.substring(message.lastIndexOf(":") + 1, message.lastIndexOf("</b>")).trim();
+                        strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
+                        notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                .setAutoCancel(true)
+                                .setContentTitle("Bán dừng lỗ ngay")
+                                .setContentText(title)
+                                .setContentIntent(resultPendingIntent)
+                                .setSound(mSound)
+                                .setStyle(new NotificationCompat.BigTextStyle()
+                                        .bigText(fromHtml(message)))
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setDefaults(VibrateIndex)
+                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                .build();
+                    } else {
+                        mSound = Uri.parse("android.resource://"
+                                + mContext.getPackageName() + "/" + R.raw.pup);
+                        strCoin = title.substring(title.lastIndexOf("TakeProfit") + 10, title.indexOf("***") - 1);
+                        strCoin = strCoin.trim();
+                        strGiaBan = message.substring(message.indexOf(":") + 6, message.indexOf(":") + 16);
+                        strGiaBan = strGiaBan.trim();
+                        strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
+                        strProfit = "+" + message.substring(message.lastIndexOf(":") + 1, message.lastIndexOf("</b>")).trim();
+                        strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
+                        notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                .setAutoCancel(true)
+                                .setContentTitle("Bán chốt lời ngay")
+                                .setContentText(title)
+                                .setContentIntent(resultPendingIntent)
+                                .setSound(mSound)
+                                .setStyle(new NotificationCompat.BigTextStyle()
+                                        .bigText(fromHtml(message)))
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setDefaults(VibrateIndex)
+                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                .build();
+                    }
+
+                    int id = (int) System.currentTimeMillis();
+                    notificationManager.notify(id, notification);
+                }else{
+                    if (title.contains("StopLoss")) {
+                        mSound = Uri.parse("android.resource://"
+                                + mContext.getPackageName() + "/" + R.raw.pdown);
+                        strCoin = title.substring(title.lastIndexOf("StopLoss") + 8, title.indexOf("***") - 1);
+                        strCoin = strCoin.trim();
+                        strGiaBan = message.substring(message.indexOf(":") + 6, message.indexOf(":") + 16);
+                        strGiaBan = strGiaBan.trim();
+                        strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
+                        strProfit = "-" + message.substring(message.lastIndexOf(":") + 1, message.lastIndexOf("</b>")).trim();
+                        strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
+                        notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                .setAutoCancel(true)
+                                .setContentTitle("Bán dừng lỗ ngay")
+                                .setContentText(title)
+                                .setContentIntent(resultPendingIntent)
+                                .setSound(null)
+                                .setStyle(new NotificationCompat.BigTextStyle()
+                                        .bigText(fromHtml(message)))
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setDefaults(VibrateIndex)
+                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                .build();
+                    } else {
+                        mSound = Uri.parse("android.resource://"
+                                + mContext.getPackageName() + "/" + R.raw.pup);
+                        strCoin = title.substring(title.lastIndexOf("TakeProfit") + 10, title.indexOf("***") - 1);
+                        strCoin = strCoin.trim();
+                        strGiaBan = message.substring(message.indexOf(":") + 6, message.indexOf(":") + 16);
+                        strGiaBan = strGiaBan.trim();
+                        strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
+                        strProfit = "+" + message.substring(message.lastIndexOf(":") + 1, message.lastIndexOf("</b>")).trim();
+                        strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
+                        notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                .setAutoCancel(true)
+                                .setContentTitle("Bán chốt lời ngay")
+                                .setContentText(title)
+                                .setContentIntent(resultPendingIntent)
+                                .setSound(null)
+                                .setStyle(new NotificationCompat.BigTextStyle()
+                                        .bigText(fromHtml(message)))
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setDefaults(VibrateIndex)
+                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                .build();
+                    }
+
+                    int id = (int) System.currentTimeMillis();
+                    notificationManager.notify(id, notification);
                 }
 
-                int id = (int) System.currentTimeMillis();
-                notificationManager.notify(id, notification);
 
                 Calendar rightNow = Calendar.getInstance();
                 int nam = rightNow.get(Calendar.YEAR);
@@ -1019,27 +1175,52 @@ public class NotificationUtils {
                 myOutWriter.close();
                 fOut.close();
             } else if (title.contains("CONFIG API")) {
-                NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+                if(strSound.equals("ON")){
+                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
-                inboxStyle.addLine(message);
+                    inboxStyle.addLine(message);
 
-                Notification notification;
-                notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                        .setAutoCancel(true)
-                        .setContentTitle(title)
-                        .setContentText(title)
-                        .setContentIntent(resultPendingIntent)
-                        .setSound(alarmSound)
-                        .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText(fromHtml(message)))
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setDefaults(Notification.DEFAULT_VIBRATE)
-                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                        .build();
+                    Notification notification;
+                    notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                            .setAutoCancel(true)
+                            .setContentTitle(title)
+                            .setContentText(title)
+                            .setContentIntent(resultPendingIntent)
+                            .setSound(alarmSound)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(fromHtml(message)))
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setDefaults(VibrateIndex)
+                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                            .build();
 
-                NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                int id = (int) System.currentTimeMillis();
-                notificationManager.notify(id, notification);
+                    NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                    int id = (int) System.currentTimeMillis();
+                    notificationManager.notify(id, notification);
+                }else{
+                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+
+                    inboxStyle.addLine(message);
+
+                    Notification notification;
+                    notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                            .setAutoCancel(true)
+                            .setContentTitle(title)
+                            .setContentText(title)
+                            .setContentIntent(resultPendingIntent)
+                            .setSound(null)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(fromHtml(message)))
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setDefaults(VibrateIndex)
+                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                            .build();
+
+                    NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                    int id = (int) System.currentTimeMillis();
+                    notificationManager.notify(id, notification);
+                }
+
                 JSONObject jsonPush = new JSONObject();
                 String[] spl = message.split("\\|");
                 if (spl.length > 2) {
@@ -1086,41 +1267,80 @@ public class NotificationUtils {
                 myOutWriter.close();
                 fOut.close();
             } else {
-                NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                if(strSound.equals("ON")){
+                    NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 
-                MediaPlayer mp;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    int importance = NotificationManager.IMPORTANCE_HIGH;
-                    NotificationChannel mChannel = notificationManager.getNotificationChannel(chanelID);
-                    if (mChannel == null) {
-                        mChannel = new NotificationChannel(chanelID, title, importance);
-                        mChannel.enableVibration(true);
-                        mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                        notificationManager.createNotificationChannel(mChannel);
+                    MediaPlayer mp;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        int importance = NotificationManager.IMPORTANCE_HIGH;
+                        NotificationChannel mChannel = notificationManager.getNotificationChannel(chanelID);
+                        if (mChannel == null) {
+                            mChannel = new NotificationChannel(chanelID, title, importance);
+                            mChannel.enableVibration(true);
+                            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                            notificationManager.createNotificationChannel(mChannel);
+                        }
+                        mBuilder = new NotificationCompat.Builder(mContext, chanelID);
                     }
-                    mBuilder = new NotificationCompat.Builder(mContext, chanelID);
+                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+
+                    inboxStyle.addLine(message);
+
+                    Notification notification;
+                    notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                            .setAutoCancel(true)
+                            .setContentTitle(title)
+                            .setContentText(title)
+                            .setContentIntent(resultPendingIntent)
+                            .setSound(alarmSound)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(fromHtml(message)))
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setDefaults(VibrateIndex)
+                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                            .build();
+
+                    int id = (int) System.currentTimeMillis();
+                    notificationManager.notify(id, notification);
+                }else{
+                    NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+
+                    MediaPlayer mp;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        int importance = NotificationManager.IMPORTANCE_HIGH;
+                        NotificationChannel mChannel = notificationManager.getNotificationChannel(chanelID);
+                        if (mChannel == null) {
+                            mChannel = new NotificationChannel(chanelID, title, importance);
+                            mChannel.enableVibration(true);
+                            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                            notificationManager.createNotificationChannel(mChannel);
+                        }
+                        mBuilder = new NotificationCompat.Builder(mContext, chanelID);
+                    }
+                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+
+                    inboxStyle.addLine(message);
+
+                    Notification notification;
+                    notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                            .setAutoCancel(true)
+                            .setContentTitle(title)
+                            .setContentText(title)
+                            .setContentIntent(resultPendingIntent)
+                            .setSound(null)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(fromHtml(message)))
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setDefaults(VibrateIndex)
+                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                            .build();
+
+                    int id = (int) System.currentTimeMillis();
+                    notificationManager.notify(id, notification);
                 }
-                NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
-                inboxStyle.addLine(message);
-
-                Notification notification;
-                notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                        .setAutoCancel(true)
-                        .setContentTitle(title)
-                        .setContentText(title)
-                        .setContentIntent(resultPendingIntent)
-                        .setSound(alarmSound)
-                        .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText(fromHtml(message)))
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setDefaults(Notification.DEFAULT_VIBRATE)
-                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                        .build();
-
-                int id = (int) System.currentTimeMillis();
-                notificationManager.notify(id, notification);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1130,26 +1350,60 @@ public class NotificationUtils {
     }
 
     private void showBigNotification(Bitmap bitmap, NotificationCompat.Builder mBuilder, int icon, String title, String message, String timeStamp, PendingIntent resultPendingIntent, Uri alarmSound) {
-        NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
-        bigPictureStyle.setBigContentTitle(title);
-        bigPictureStyle.setSummaryText(Html.fromHtml(message).toString());
-        bigPictureStyle.bigPicture(bitmap);
-        Notification notification;
-        notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
-                .setAutoCancel(true)
-                .setContentTitle(title)
-                .setContentIntent(resultPendingIntent)
-                .setSound(alarmSound)
-                .setStyle(bigPictureStyle)
-                .setWhen(getTimeMilliSec(timeStamp))
-                .setDefaults(Notification.DEFAULT_VIBRATE)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                .setContentText(message)
-                .build();
+        SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
+        String strSound = pref2.getString("SOUND", "ON");
+        SharedPreferences pref3 = mContext.getSharedPreferences(Config.VIBRATE, 0);
+        String strVibrate = pref3.getString("VIBRATE", "ON");
+        int VibrateIndex = -1;
+        if(strVibrate.equals("ON")){
+            VibrateIndex = Notification.DEFAULT_VIBRATE;
+        }else{
+            VibrateIndex = Notification.DEFAULT_LIGHTS;
+        }
+        if(strSound.equals("ON")){
+            NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
+            bigPictureStyle.setBigContentTitle(title);
+            bigPictureStyle.setSummaryText(Html.fromHtml(message).toString());
+            bigPictureStyle.bigPicture(bitmap);
+            Notification notification;
+            notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
+                    .setAutoCancel(true)
+                    .setContentTitle(title)
+                    .setContentIntent(resultPendingIntent)
+                    .setSound(alarmSound)
+                    .setStyle(bigPictureStyle)
+                    .setWhen(getTimeMilliSec(timeStamp))
+                    .setDefaults(VibrateIndex)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                    .setContentText(message)
+                    .build();
 
-        NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(Config.NOTIFICATION_ID_BIG_IMAGE, notification);
+            NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(Config.NOTIFICATION_ID_BIG_IMAGE, notification);
+        }else{
+            NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
+            bigPictureStyle.setBigContentTitle(title);
+            bigPictureStyle.setSummaryText(Html.fromHtml(message).toString());
+            bigPictureStyle.bigPicture(bitmap);
+            Notification notification;
+            notification = mBuilder.setSmallIcon(icon).setTicker(title).setWhen(0)
+                    .setAutoCancel(true)
+                    .setContentTitle(title)
+                    .setContentIntent(resultPendingIntent)
+                    .setSound(null)
+                    .setStyle(bigPictureStyle)
+                    .setWhen(getTimeMilliSec(timeStamp))
+                    .setDefaults(VibrateIndex)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                    .setContentText(message)
+                    .build();
+
+            NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(Config.NOTIFICATION_ID_BIG_IMAGE, notification);
+        }
+
     }
 
     /**

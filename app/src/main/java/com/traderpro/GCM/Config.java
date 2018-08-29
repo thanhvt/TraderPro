@@ -15,7 +15,8 @@ public class Config {
     public static final String SHARED_PREF = "ah_firebase";
 
     public static final String NGON_NGU = "VN";
-    public static final String SOUND = "ON";
+    public static final String SOUND = "SOUND";
+    public static final String VIBRATE = "VIBRATE";
 
     public static final String BOT_API = "NON";
 }

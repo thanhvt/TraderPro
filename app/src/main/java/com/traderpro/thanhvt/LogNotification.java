@@ -363,7 +363,9 @@ public class LogNotification extends Fragment {
                     @Override
                     public void run() {
 //                        customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notification, lstNotiEntity, bittrexData);
+                        if(customAdapter!=null){
                         customAdapter.notifyDataSetChanged();
+                        }
 //                        listView.setAdapter(customAdapter);
 
                     }
