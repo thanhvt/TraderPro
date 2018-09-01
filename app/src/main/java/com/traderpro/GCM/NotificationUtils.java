@@ -6,6 +6,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -70,6 +71,8 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.json.JSONObject;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 /**
  * Created by Ravi on 31/03/15.
@@ -882,6 +885,9 @@ public class NotificationUtils {
                             "Be ready to receive our signals which is analyzed and carefully selected by the experts and the best tools in the world.";
                     new AsyncPush().execute("Welcome Trading Analytics", strMess, u.DEVICE_TOKEN);
 
+                    ClipboardManager clipboard = (ClipboardManager) mContext.getSystemService(CLIPBOARD_SERVICE);
+                    clipboard.setText(u.DEVICE_TOKEN);
+
                 } else {
                     ArrayList<UserDevice> lstUser = readLstUser(mContext);
                     String[] temp = message.split("\\|");
@@ -899,6 +905,8 @@ public class NotificationUtils {
                         break;
                     }
                     insertExcelFile(mContext, lstUser, u);
+                    ClipboardManager clipboard = (ClipboardManager) mContext.getSystemService(CLIPBOARD_SERVICE);
+                    clipboard.setText(u.DEVICE_TOKEN);
                 }
             } else if (title.contains("BUYYY")) {
                 Intent intent = new Intent(mContext, BidAskActivity.class);
