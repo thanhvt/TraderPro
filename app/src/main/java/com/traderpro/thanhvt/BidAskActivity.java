@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,8 +45,9 @@ public class BidAskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bid_ask);
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -58,7 +60,24 @@ public class BidAskActivity extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
+        Bundle extras = getIntent().getExtras();
+        if(extras == null)
+        {
+            Log.e("NOT OKIE","NOT OKIESSSS");
+            //Cry about not being clicked on
+        }
+        else if (extras.getBoolean("NotiClick"))
+        {
+            //Do your stuff here mate :)
+            Log.e("OKIE","OKIESSSS");
+            boolean buy = extras.getBoolean("buy");
+            if(buy){
+                Log.e("OKIE2","OKIESSSS2");
+                mSectionsPagerAdapter.getItem(2);
+            }else{
+                Log.e("OKIE1","OKIESSSS1");
+            }
+        }
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.NGON_NGU, 0);
         String strNN = pref.getString("NN", "VN");
@@ -156,6 +175,7 @@ public class BidAskActivity extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 //            return PlaceholderFragment.newInstance(position + 1);
+            Log.e("MUA",""+position);
             if(position == 0){
                 TabMua tabMua = new TabMua();
                 return tabMua;

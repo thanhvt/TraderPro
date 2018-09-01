@@ -28,6 +28,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 
+import com.traderpro.thanhvt.AboutActivity;
+import com.traderpro.thanhvt.BidAskActivity;
 import com.traderpro.thanhvt.NotificationEntity;
 import com.traderpro.thanhvt.R;
 import com.traderpro.thanhvt.TraderUtils;
@@ -97,15 +99,17 @@ public class NotificationUtils {
         // notification icon
         final int icon = R.mipmap.ic_launcher;
 
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        final PendingIntent resultPendingIntent =
-                PendingIntent.getActivity(
-                        mContext,
-                        0,
-                        intent,
-                        PendingIntent.FLAG_CANCEL_CURRENT
-                );
-
+       // intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+       // final PendingIntent resultPendingIntent =
+       //         PendingIntent.getActivity(
+       //                 mContext,
+       //                 0,
+       //                 intent,
+       //                 PendingIntent.FLAG_CANCEL_CURRENT
+       //         );
+         intent = new Intent(mContext, BidAskActivity.class);
+        intent.putExtra("NotiClick",true);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
                 mContext);
 
@@ -146,6 +150,8 @@ public class NotificationUtils {
             String strSound = pref2.getString("SOUND", "ON");
             SharedPreferences pref3 = mContext.getSharedPreferences(Config.VIBRATE, 0);
             String strVibrate = pref3.getString("VIBRATE", "ON");
+            Log.e("SOUND:", strSound);
+            Log.e("VIBRATE:", strVibrate);
             int VibrateIndex = -1;
             if(strVibrate.equals("ON")){
                 VibrateIndex = Notification.DEFAULT_VIBRATE;
@@ -895,6 +901,13 @@ public class NotificationUtils {
                     insertExcelFile(mContext, lstUser, u);
                 }
             } else if (title.contains("BUYYY")) {
+                Intent intent = new Intent(mContext, BidAskActivity.class);
+                intent.putExtra("NotiClick",true);
+                intent.putExtra("buy",true);
+                intent.putExtra("coin","COIN");
+                intent.putExtra("number",100);
+                intent.putExtra("price","100$");
+                PendingIntent pIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 if(strSound.equals("ON")){
                     NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
                     notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -919,7 +932,7 @@ public class NotificationUtils {
                             .setAutoCancel(true)
                             .setContentTitle(title)
                             .setContentText(title)
-                            .setContentIntent(resultPendingIntent)
+                            .setContentIntent(pIntent)
                             .setSound(alarmSound)
                             .setStyle(new NotificationCompat.BigTextStyle()
                                     .bigText(fromHtml(message)))
@@ -949,13 +962,12 @@ public class NotificationUtils {
                     }
                     NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
                     inboxStyle.addLine(message);
-
                     Notification notification;
                     notification = mBuilder.setSmallIcon(icon).setTicker(title)
                             .setAutoCancel(true)
                             .setContentTitle(title)
                             .setContentText(title)
-                            .setContentIntent(resultPendingIntent)
+                            .setContentIntent(pIntent)
                             .setSound(null)
                             .setStyle(new NotificationCompat.BigTextStyle()
                                     .bigText(fromHtml(message)))
@@ -1017,7 +1029,9 @@ public class NotificationUtils {
                 String strTimeBan = "TIME_BAN";
                 String strProfit = "PROFIT";
                 Uri mSound;
-
+                Intent intent = new Intent(mContext, BidAskActivity.class);
+                intent.putExtra("NotiClick",true);
+                PendingIntent pIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 //check sound
                 if(strSound.equals("ON")){
                     if (title.contains("StopLoss")) {
@@ -1034,7 +1048,7 @@ public class NotificationUtils {
                                 .setAutoCancel(true)
                                 .setContentTitle("Bán dừng lỗ ngay")
                                 .setContentText(title)
-                                .setContentIntent(resultPendingIntent)
+                                .setContentIntent(pIntent)
                                 .setSound(mSound)
                                 .setStyle(new NotificationCompat.BigTextStyle()
                                         .bigText(fromHtml(message)))
@@ -1056,7 +1070,7 @@ public class NotificationUtils {
                                 .setAutoCancel(true)
                                 .setContentTitle("Bán chốt lời ngay")
                                 .setContentText(title)
-                                .setContentIntent(resultPendingIntent)
+                                .setContentIntent(pIntent)
                                 .setSound(mSound)
                                 .setStyle(new NotificationCompat.BigTextStyle()
                                         .bigText(fromHtml(message)))
@@ -1083,7 +1097,7 @@ public class NotificationUtils {
                                 .setAutoCancel(true)
                                 .setContentTitle("Bán dừng lỗ ngay")
                                 .setContentText(title)
-                                .setContentIntent(resultPendingIntent)
+                                .setContentIntent(pIntent)
                                 .setSound(null)
                                 .setStyle(new NotificationCompat.BigTextStyle()
                                         .bigText(fromHtml(message)))
@@ -1105,7 +1119,7 @@ public class NotificationUtils {
                                 .setAutoCancel(true)
                                 .setContentTitle("Bán chốt lời ngay")
                                 .setContentText(title)
-                                .setContentIntent(resultPendingIntent)
+                                .setContentIntent(pIntent)
                                 .setSound(null)
                                 .setStyle(new NotificationCompat.BigTextStyle()
                                         .bigText(fromHtml(message)))
