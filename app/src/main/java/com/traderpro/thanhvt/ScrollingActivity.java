@@ -95,10 +95,6 @@ public class ScrollingActivity extends AppCompatActivity {
         Intent myIntent = new Intent(getApplicationContext(), DetectSignalService.class);
         startService(myIntent);
 
-//        ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-//        clipboard.setText("0x73fac412d8968c6555ee2c5a7d7cc5c22c4a8b37");
-
-
         NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
 //        notificationUtils.readExcel(getApplicationContext());
 //        notificationUtils.saveExcelFile(getApplicationContext());
