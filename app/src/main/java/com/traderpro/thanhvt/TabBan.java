@@ -3,40 +3,20 @@ package com.traderpro.thanhvt;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
-import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.TypedValue;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.traderpro.model.accountapi.Order;
 
@@ -44,7 +24,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabBan extends Fragment{
+public class TabBan extends Fragment {
 
     public Context mContex;
     AutoCompleteTextView txtCoin;
@@ -81,7 +61,8 @@ public class TabBan extends Fragment{
                 final String strCapCoin = txtCoin.getText().toString();
                 final String strSoLuong = txtBaoNhieu.getText().toString();
                 final String strGia = txtGia.getText().toString();
-                if(strCapCoin.length() == 0 || strSoLuong.length() == 0 || strGia.length() == 0) return;
+                if (strCapCoin.length() == 0 || strSoLuong.length() == 0 || strGia.length() == 0)
+                    return;
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(R.string.app_name);
                 builder.setMessage("Đại ca, chắc chắn bán " + strSoLuong
@@ -183,8 +164,7 @@ public class TabBan extends Fragment{
                 itemOrder.setType(data.get(i, "OrderType"));
                 itemOrder.setQuantity(BigDecimal.valueOf(Double.parseDouble(data.get(i, "Quantity"))));
                 itemOrder.setLimit(BigDecimal.valueOf(Double.parseDouble(data.get(i, "Limit"))));
-                if (itemOrder.getType().contains("SELL"))
-                {
+                if (itemOrder.getType().contains("SELL")) {
                     lstCurrentOrder.add(itemOrder);
 //                    System.out.println(lstCurrentOrder.get(i).getExchange() + "|" + lstCurrentOrder.get(i).getQuantity() + "|" +
 //                            lstCurrentOrder.get(i).getLimit());
@@ -200,7 +180,7 @@ public class TabBan extends Fragment{
 
         @Override
         protected void onPostExecute(String s) {
-            if(getActivity() != null)
+            if (getActivity() != null)
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

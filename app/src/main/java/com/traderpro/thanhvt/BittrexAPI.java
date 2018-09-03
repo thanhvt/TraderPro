@@ -6,16 +6,17 @@
 package com.traderpro.thanhvt;
 
 /**
- *
  * @author ThanhVT
  */
-import java.security.InvalidKeyException;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
-
-import java.net.*;
-import java.io.*;
 
 public class BittrexAPI {
 
@@ -180,11 +181,11 @@ public class BittrexAPI {
         return BittrexRequest("https://bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=" + market + "&tickInterval=" + tick, Bittrex.PUBLIC);
     }
 
-    public static String layLichSuGia(String market){
+    public static String layLichSuGia(String market) {
         return BittrexRequest("https://bittrex.com/Api/v2.0/pub/market/GetTicks?marketName=" + market + "&tickInterval=hour", Bittrex.PUBLIC);
     }
 
-    public static String getLatestTick(String market, String strTheoThoiGian){
+    public static String getLatestTick(String market, String strTheoThoiGian) {
         return BittrexRequest("https://bittrex.com/Api/v2.0/pub/market/GetLatestTick?marketName=" + market + "&tickInterval=" + strTheoThoiGian, Bittrex.PUBLIC);
     }
 }

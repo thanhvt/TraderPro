@@ -110,7 +110,7 @@ public class LogActivity extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
-            if(getActivity() != null){
+            if (getActivity() != null) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

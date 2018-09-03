@@ -2,9 +2,9 @@ package com.traderpro.thanhvt;
 
 import android.content.ClipboardManager;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +34,7 @@ public class SettingsPrefActivity extends AppCompatActivity {
     TextView tvVibrate;
     Switch onOffSwitchSound;
     Switch onOffSwitchVibrate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,13 +60,13 @@ public class SettingsPrefActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.v("Switch State=", "" + isChecked);
-                if(!isChecked) {
+                if (!isChecked) {
                     tvNgonNgu.setText(R.string.lang);
                     tvKeyCode.setText(R.string.key_code);
                     tvSound.setText(R.string.sound);
                     tvVibrate.setText(R.string.vibrate);
                     tvDesDonate.setText(R.string.description_donate);
-                }else {
+                } else {
                     tvNgonNgu.setText(R.string.lang_Vn);
                     tvKeyCode.setText(R.string.key_code_Vn);
                     tvSound.setText(R.string.sound_Vn);
@@ -87,9 +88,9 @@ public class SettingsPrefActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.v("Switch State=", "" + isChecked);
-                if(!isChecked) {
+                if (!isChecked) {
 
-                }else {
+                } else {
 
                     //onOffSwitch.setText();
                 }
@@ -107,9 +108,9 @@ public class SettingsPrefActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.v("Switch State=", "" + isChecked);
-                if(!isChecked) {
+                if (!isChecked) {
 
-                }else {
+                } else {
 
                     //onOffSwitch.setText();
                 }
@@ -138,9 +139,9 @@ public class SettingsPrefActivity extends AppCompatActivity {
         tvDesDonate.setText(strNN.equals("VN") ? R.string.description_donate_Vn : R.string.description_donate);
 
         // sound
-        if(strSound.equals("ON")){
+        if (strSound.equals("ON")) {
             //
-        }else{
+        } else {
             //
         }
 

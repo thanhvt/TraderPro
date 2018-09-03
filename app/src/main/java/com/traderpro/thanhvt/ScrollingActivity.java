@@ -1,7 +1,6 @@
 package com.traderpro.thanhvt;
 
 import android.content.BroadcastReceiver;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -13,8 +12,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.Settings;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -29,7 +26,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -42,8 +38,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -511,7 +505,8 @@ public class ScrollingActivity extends AppCompatActivity {
             Intent m = new Intent(ScrollingActivity.this, TradeApiActivity.class);
             startActivity(m);
             return true;
-        } if (id == R.id.action_active) {
+        }
+        if (id == R.id.action_active) {
             Intent m = new Intent(ScrollingActivity.this, BidAskActivity.class);
             startActivity(m);
             return true;

@@ -73,22 +73,22 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
         strGia = strGia.replace("~", "");
         Double gia = Double.parseDouble(strGia);
         Double chenhHT = 0D;
-        if(p.strGiaHienTai != null && p.strGiaHienTai > 0){
+        if (p.strGiaHienTai != null && p.strGiaHienTai > 0) {
             chenhHT = (Math.abs(p.strGiaHienTai - gia) / gia) * 100;
         }
 
 
-        if(strNN.equalsIgnoreCase("VN")){
+        if (strNN.equalsIgnoreCase("VN")) {
             String strLaiLo = "";
-            String strTimeMua="";
-            if(p.strTime.lastIndexOf(":")>=0){
+            String strTimeMua = "";
+            if (p.strTime.lastIndexOf(":") >= 0) {
                 strTimeMua = p.strTime.substring(0, p.strTime.lastIndexOf(":"));
-            strTimeMua = strTimeMua.replace(":", "h");
+                strTimeMua = strTimeMua.replace(":", "h");
             }
             viewHolder.txtGiaMua.setText(p.strGia);
             viewHolder.txtTimeMua.setText("được báo mua lúc " + strTimeMua);
             viewHolder.txtCoin.setText(p.strCoin);
-            if(p.strGiaHienTai != null) {
+            if (p.strGiaHienTai != null) {
                 viewHolder.txtGiaHienTai.setText("Giá hiện tại: " + String.format("%.8f", p.strGiaHienTai)
                         + " (" + (p.strGiaHienTai > gia ? "+" : "-") + String.format("%.2f", chenhHT) + "%)");
             }
@@ -96,17 +96,17 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             viewHolder.txtTimeBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("mà hệ thống báo bán lúc " + p.strTimeBan + ""));
             viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Sẽ báo khi thấy có dấu hiệu " : "");
             viewHolder.txtProfit.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("===> thì profit thay đổi " + p.strProfit));
-        }else{
+        } else {
             String strLaiLo = "";
-            String strTimeMua="";
-            if(p.strTime.lastIndexOf(":")>=0){
-             strTimeMua = p.strTime.substring(0, p.strTime.lastIndexOf(":"));
-            strTimeMua = strTimeMua.replace(":", "h");
+            String strTimeMua = "";
+            if (p.strTime.lastIndexOf(":") >= 0) {
+                strTimeMua = p.strTime.substring(0, p.strTime.lastIndexOf(":"));
+                strTimeMua = strTimeMua.replace(":", "h");
             }
             viewHolder.txtGiaMua.setText(p.strGia);
             viewHolder.txtTimeMua.setText("on time buy: " + strTimeMua);
             viewHolder.txtCoin.setText(p.strCoin);
-            if(p.strGiaHienTai != null) {
+            if (p.strGiaHienTai != null) {
                 viewHolder.txtGiaHienTai.setText("Current price: " + String.format("%.8f", p.strGiaHienTai)
                         + " (" + (p.strGiaHienTai > gia ? "+" : "-") + String.format("%.2f", chenhHT) + "%)");
             }
@@ -116,7 +116,7 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             viewHolder.txtProfit.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("===> then profit changes " + p.strProfit));
         }
 
-        if(p.strProfit.contains("+")){
+        if (p.strProfit.contains("+")) {
             viewHolder.txtCoin.setTextColor(Color.parseColor("#27f546"));
             viewHolder.txtGiaHienTai.setTextColor(Color.parseColor("#27f546"));
             viewHolder.txtGiaMua.setTextColor(Color.parseColor("#27f546"));
@@ -125,8 +125,7 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             viewHolder.txtTimeBan.setTextColor(Color.parseColor("#27f546"));
             viewHolder.txtProfit.setTextColor(Color.parseColor("#27f546"));
             viewHolder.txtText3.setTextColor(Color.parseColor("#27f546"));
-        }
-        else if(p.strProfit.contains("-")){
+        } else if (p.strProfit.contains("-")) {
             viewHolder.txtCoin.setTextColor(Color.parseColor("#ff0000"));
             viewHolder.txtGiaHienTai.setTextColor(Color.parseColor("#ff0000"));
             viewHolder.txtGiaMua.setTextColor(Color.parseColor("#ff0000"));
@@ -135,8 +134,7 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             viewHolder.txtTimeBan.setTextColor(Color.parseColor("#ff0000"));
             viewHolder.txtProfit.setTextColor(Color.parseColor("#ff0000"));
             viewHolder.txtText3.setTextColor(Color.parseColor("#ff0000"));
-        }
-        else {
+        } else {
 
             viewHolder.txtCoin.setTextColor(Color.parseColor("#aa00ff"));
             viewHolder.txtGiaHienTai.setTextColor(Color.parseColor("#aa00ff"));

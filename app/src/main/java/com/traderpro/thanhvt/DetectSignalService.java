@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -15,14 +14,10 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 import android.text.Html;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
-import com.traderpro.model.accountapi.Order;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -30,7 +25,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -366,7 +360,7 @@ public class DetectSignalService extends Service {
 
                 start = System.currentTimeMillis();
                 data.set(BittrexAPI.getLatestTick("BTC-" + lstCoin.get(i), "fiveMin"));
-                if(data.getObject().size() > 0) {
+                if (data.getObject().size() > 0) {
                     Gia5Phut = Double.parseDouble(data.getObject()
                             .get(0)
                             .get(3));
@@ -385,7 +379,7 @@ public class DetectSignalService extends Service {
 
                 start = System.currentTimeMillis();
                 data.set(BittrexAPI.getLatestTick("BTC-" + lstCoin.get(i), "thirtyMin"));
-                if(data.getObject().size() > 0) {
+                if (data.getObject().size() > 0) {
                     Gia30Phut = Double.parseDouble(data.getObject()
                             .get(0)
                             .get(3));
@@ -428,8 +422,7 @@ public class DetectSignalService extends Service {
                             + "<br/>" + "Vol 1H trước: " + Vol1HTrc;
                     strNoiDungGhiFile += "\n" + "---------- " + lstCoin.get(i) + " OK OK OK 1 ------->";
                     taoThongBao("Vãi đek, ăn không đại ca " + lstCoin.get(i), strContent);
-                }
-                else if (GiaHienTai > Gia5Phut && GiaHienTai > Gia30Phut && dieuKien2_VOL1H == 1 && dieuKien3_VOL2H == 1) {
+                } else if (GiaHienTai > Gia5Phut && GiaHienTai > Gia30Phut && dieuKien2_VOL1H == 1 && dieuKien3_VOL2H == 1) {
                     // Chac cham pump
                     Log.e("Detect", "OK OK OK");
                     String strContent = "Giá hiện tại: " + GiaHienTai
@@ -437,33 +430,29 @@ public class DetectSignalService extends Service {
                             + "<br/>" + "Vol 1H trước: " + Vol1HTrc;
                     strNoiDungGhiFile += "\n" + "---------- " + lstCoin.get(i) + " OK OK OK 2 ------->";
                     taoThongBao("Vãi sếp, ăn k ??? " + lstCoin.get(i), strContent);
-                }
-                else if(VOLHT > avgBaseVol * 20 && GiaHienTai > Gia1HTrc * 1.2){
+                } else if (VOLHT > avgBaseVol * 20 && GiaHienTai > Gia1HTrc * 1.2) {
                     Log.e("Detect", "OK OK OK");
                     String strContent = "Giá hiện tại: " + GiaHienTai
                             + "<br/>" + "Vol hiện tại: " + VOLHT
                             + "<br/>" + "Vol 1H trước: " + Vol1HTrc;
                     strNoiDungGhiFile += "\n" + "---------- " + lstCoin.get(i) + " OK OK OK 3 ------->";
                     taoThongBao("Vãi sếp, case 3 ăn k ??? " + lstCoin.get(i), strContent);
-                }
-                else if(Vol1HTrc > avgBaseVol * 2 && Vol2HTrc > avgBaseVol * 2 && GiaHienTai > Gia4HTrc){
+                } else if (Vol1HTrc > avgBaseVol * 2 && Vol2HTrc > avgBaseVol * 2 && GiaHienTai > Gia4HTrc) {
                     Log.e("Detect", "OK OK OK");
                     String strContent = "Giá hiện tại: " + GiaHienTai
                             + "<br/>" + "Vol hiện tại: " + VOLHT
                             + "<br/>" + "Vol 1H trước: " + Vol1HTrc;
                     strNoiDungGhiFile += "\n" + "---------- " + lstCoin.get(i) + " OK OK OK 4 ------->";
                     taoThongBao("Vãi sếp, case 4 ăn k ??? " + lstCoin.get(i), strContent);
-                }
-                else if(VOLHT > avgBaseVol && Vol1HTrc > avgBaseVol && Vol2HTrc > avgBaseVol && Vol1HTrc > Vol2HTrc
-                        && GiaHienTai > Gia1HTrc && GiaHienTai > Gia4HTrc){
+                } else if (VOLHT > avgBaseVol && Vol1HTrc > avgBaseVol && Vol2HTrc > avgBaseVol && Vol1HTrc > Vol2HTrc
+                        && GiaHienTai > Gia1HTrc && GiaHienTai > Gia4HTrc) {
                     Log.e("Detect", "OK OK OK");
                     String strContent = "Giá hiện tại: " + GiaHienTai
                             + "<br/>" + "Vol hiện tại: " + VOLHT
                             + "<br/>" + "Vol 1H trước: " + Vol1HTrc;
                     strNoiDungGhiFile += "\n" + "---------- " + lstCoin.get(i) + " OK OK OK 5 ------->";
                     taoThongBao("Vãi sếp, cas 5 ăn k ??? " + lstCoin.get(i), strContent);
-                }
-                else if (VOLHT > avgBaseVol && Vol1HTrc > avgBaseVol && Vol2HTrc > avgBaseVol && Vol1HTrc > Vol2HTrc
+                } else if (VOLHT > avgBaseVol && Vol1HTrc > avgBaseVol && Vol2HTrc > avgBaseVol && Vol1HTrc > Vol2HTrc
                         && lstTop.contains(lstCoin.get(i))) {
                     System.out.println("Detect " + "OK OK OK");
                     String strContent = "Giá HT: " + GiaHienTai
@@ -471,8 +460,7 @@ public class DetectSignalService extends Service {
                             + "<br/>" + "Vol 1H trc: " + Vol1HTrc;
                     strNoiDungGhiFile += "\n" + "---------- " + lstCoin.get(i) + " OK OK OK 7 ------->";
                     taoThongBao("Vãi coin top, case 7 ăn k ??? " + lstCoin.get(i), strContent);
-                }
-                else if (VOLHT > avgBaseVol * 2 && Vol1HTrc > avgBaseVol * 2 && Vol2HTrc > avgBaseVol * 2
+                } else if (VOLHT > avgBaseVol * 2 && Vol1HTrc > avgBaseVol * 2 && Vol2HTrc > avgBaseVol * 2
                         && lstTop.contains(lstCoin.get(i))) {
                     System.out.println("Detect " + "OK OK OK");
                     String strContent = "Giá HT: " + GiaHienTai
@@ -480,8 +468,7 @@ public class DetectSignalService extends Service {
                             + "<br/>" + "Vol 1H trc: " + Vol1HTrc;
                     strNoiDungGhiFile += "\n" + "---------- " + lstCoin.get(i) + " OK OK OK 9 ------->";
                     taoThongBao("Vol x2, case 9 ăn k ??? " + lstCoin.get(i), strContent);
-                }
-                else if (VOLHT > avgBaseVol && Vol1HTrc > avgBaseVol && Vol2HTrc > avgBaseVol && Vol1HTrc > Vol2HTrc
+                } else if (VOLHT > avgBaseVol && Vol1HTrc > avgBaseVol && Vol2HTrc > avgBaseVol && Vol1HTrc > Vol2HTrc
                         && VOLHT > 50) {
                     System.out.println("Detect " + "OK OK OK");
                     String strContent = "Giá HT: " + GiaHienTai
@@ -542,18 +529,16 @@ public class DetectSignalService extends Service {
     }
 
     // Checking for all possible internet providers
-    public boolean isConnectingToInternet(){
+    public boolean isConnectingToInternet() {
 
         ConnectivityManager connectivity =
                 (ConnectivityManager) getSystemService(
                         Context.CONNECTIVITY_SERVICE);
-        if (connectivity != null)
-        {
+        if (connectivity != null) {
             NetworkInfo[] info = connectivity.getAllNetworkInfo();
             if (info != null)
                 for (int i = 0; i < info.length; i++)
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
-                    {
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
                         return true;
                     }
 

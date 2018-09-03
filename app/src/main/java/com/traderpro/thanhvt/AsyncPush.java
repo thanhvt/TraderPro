@@ -1,7 +1,6 @@
 package com.traderpro.thanhvt;
 
 import android.os.AsyncTask;
-import android.provider.Settings;
 import android.util.Log;
 
 import org.json.JSONObject;
@@ -15,7 +14,7 @@ import java.util.Calendar;
 public class AsyncPush {
 
 
-    public AsyncPush(){
+    public AsyncPush() {
 
     }
 

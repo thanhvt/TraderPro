@@ -2,7 +2,7 @@ package com.traderpro.thanhvt;
 
 import java.io.Serializable;
 
-public class NotificationEntity implements Serializable{
+public class NotificationEntity implements Serializable {
     public String strExchange;
     public String strCoin;
     public String strGia;

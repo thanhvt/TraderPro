@@ -3,17 +3,12 @@ package com.traderpro.thanhvt;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.binance.api.client.BinanceApiClientFactory;
 import com.traderpro.GCM.Config;
@@ -54,9 +49,9 @@ public class AboutActivity extends AppCompatActivity {
                 //.setDescription("Trading Analytics is a Crypto Signal app for Bitcoin and Altcoin. It gives you access to cryptocurrency rates, coin market cap, detailed cryptocurrency trade, crypto news. Moreover it allows you to easily see blockchain cryptocurrency prices and price changes, coin market cap and 24h volume charts, coin details and advanced infomation.")
                 .setDescription(des)
                 .setImage(R.mipmap.ic_launcher)
-                .addItem(new Element().setTitle(app) .setGravity(Gravity.CENTER))
+                .addItem(new Element().setTitle(app).setGravity(Gravity.CENTER))
                 //.addItem(new Element().setTitle(strNN.equals("VN") ? R.string.title_using_bot_Vn : R.string.title_using_bot)
-                .addItem(new Element().setTitle(version+ " 1.3.1").setGravity(Gravity.CENTER))
+                .addItem(new Element().setTitle(version + " 1.3.1").setGravity(Gravity.CENTER))
 //                .addItem(adsElement)
                 .addGroup(connect)
                 .addEmail("itradinganalytics@gmail.com")
@@ -74,8 +69,7 @@ public class AboutActivity extends AppCompatActivity {
                 .addItem(new Element().setTitle(privacy))
                 .addItem(new Element().setTitle(term))
                 .addItem(getCopyRightsElement())
-                .create()
-                ;
+                .create();
         LinearLayout layout = (LinearLayout) findViewById(R.id.lill);
         layout.addView(aboutPage);
 //        setContentView(aboutPage);

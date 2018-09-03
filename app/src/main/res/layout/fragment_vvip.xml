@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#000000">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,7 +48,6 @@
             android:textStyle="bold" />
 
     </LinearLayout>
-
 
 
     <LinearLayout
@@ -99,22 +99,23 @@
             android:textColor="#ff0000" />
     </LinearLayout>
     <!--<ScrollView-->
-        <!--android:id="@+id/SCROLLER_ID"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="fill_parent"-->
-        <!--android:scrollbars="vertical"-->
-        <!--android:fillViewport="true">-->
-        <!--<ListView-->
-            <!--android:id="@+id/lvTradeHistory"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:scrollingCache="false"-->
-            <!--android:animationCache="false"-->
-            <!--android:smoothScrollbar="true" />-->
+    <!--android:id="@+id/SCROLLER_ID"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:scrollbars="vertical"-->
+    <!--android:fillViewport="true">-->
+    <!--<ListView-->
+    <!--android:id="@+id/lvTradeHistory"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:scrollingCache="false"-->
+    <!--android:animationCache="false"-->
+    <!--android:smoothScrollbar="true" />-->
     <!--</ScrollView>-->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ListView
             android:id="@+id/lvTradeHistory"
             android:layout_width="match_parent"

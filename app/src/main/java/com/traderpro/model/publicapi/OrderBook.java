@@ -1,7 +1,5 @@
 package com.traderpro.model.publicapi;
 
-import com.traderpro.model.publicapi.OrderBookEntry;
-
 import java.util.List;
 
 /**

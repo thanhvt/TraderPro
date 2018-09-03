@@ -2,16 +2,15 @@ package com.traderpro.thanhvt;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.traderpro.GCM.Config;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ReportActivity extends AppCompatActivity {
 
@@ -21,10 +20,10 @@ public class ReportActivity extends AppCompatActivity {
 
     TextView tvThua1, tvThua2, tvThua3;
 
-    TextView tvTitle1,tvTitle2,tvTitle3,tvTitle4,tvTitle5,tvTitle6,tvTitle7,tvTitle8,tvTitle9,tvTitle10,tvTitle11,tvTitle12;
-    TextView tvTitleThang1,tvTitleThang2;
-    TextView tvTitleAn1,tvTitleAn2,tvTitleAn3,tvTitleAn4,tvTitleAn5,tvTitleAn6;
-    TextView tvTitleThua1,tvTitleThua2,tvTitleThua3,tvTitleThua4;
+    TextView tvTitle1, tvTitle2, tvTitle3, tvTitle4, tvTitle5, tvTitle6, tvTitle7, tvTitle8, tvTitle9, tvTitle10, tvTitle11, tvTitle12;
+    TextView tvTitleThang1, tvTitleThang2;
+    TextView tvTitleAn1, tvTitleAn2, tvTitleAn3, tvTitleAn4, tvTitleAn5, tvTitleAn6;
+    TextView tvTitleThua1, tvTitleThua2, tvTitleThua3, tvTitleThua4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +57,7 @@ public class ReportActivity extends AppCompatActivity {
         int case5_vol1 = 0, case5_vol2 = 0, case5_vol3 = 0, case5_vol4 = 0, case5_vol5 = 0, case5_vol6 = 0;
         int case6_vol1 = 0, case6_vol2 = 0, case6_vol3 = 0, case6_vol4 = 0, case6_vol5 = 0, case6_vol6 = 0;
 
-        int countThua1 =0, countThua2 = 0, countThua3 = 0;
+        int countThua1 = 0, countThua2 = 0, countThua3 = 0;
 
         for (NotificationEntity en : lstEntity) {
             Double giaBao = Double.parseDouble(en.strGia);
@@ -68,14 +67,14 @@ public class ReportActivity extends AppCompatActivity {
             Double volTB = Double.parseDouble(en.strVolTB);
 
             //
-            if(giaMin != null){
-                if(giaMin < giaBao * 0.995){
+            if (giaMin != null) {
+                if (giaMin < giaBao * 0.995) {
                     countThua1++;
                 }
-                if(giaMin < giaBao * 0.99){
+                if (giaMin < giaBao * 0.99) {
                     countThua2++;
                 }
-                if(giaMin < giaBao * 0.97){
+                if (giaMin < giaBao * 0.97) {
                     countThua3++;
                 }
             }
@@ -265,7 +264,7 @@ public class ReportActivity extends AppCompatActivity {
         countThua1 = countThua1 / 4;
         countThua2 = countThua2 / 4;
         countThua3 = countThua3 / 4;
-        if(strNN.equalsIgnoreCase("VN")){
+        if (strNN.equalsIgnoreCase("VN")) {
             tvThua1.setText(countThua1 + " lần");
             tvThua2.setText(countThua2 + " lần");
             tvThua3.setText(countThua3 + " lần");
@@ -311,7 +310,7 @@ public class ReportActivity extends AppCompatActivity {
             tvTitleThua2.setText("Tỷ lệ thua ~ 1%");
             tvTitleThua3.setText("Tỷ lệ thua > 3%");
             tvTitleThua4.setText("Tỷ lệ thua > 5%");
-        }else{
+        } else {
             tvThua1.setText(countThua1 + " times");
             tvThua2.setText(countThua2 + " times");
             tvThua3.setText(countThua3 + " times");

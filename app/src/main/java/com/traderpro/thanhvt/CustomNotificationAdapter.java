@@ -164,7 +164,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtPriceMax = (TextView) view.findViewById(R.id.txtPriceMax);
 
 
-            if(mResource == R.layout.layout_notificustom){
+            if (mResource == R.layout.layout_notificustom) {
                 viewHolder.txtBS = (TextView) view.findViewById(R.id.txtBS);
                 viewHolder.txtTM = (TextView) view.findViewById(R.id.txtTM);
             }
@@ -183,7 +183,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
         }
 
 
-        if(strNN.equalsIgnoreCase("VN")){
+        if (strNN.equalsIgnoreCase("VN")) {
             viewHolder.txtExchange.setText(p.strCoin + " - " + "Sàn: " + p.strExchange + " |" + p.strCase + "|");
             viewHolder.txtTime.setText("Time " + p.strTime);
             viewHolder.txtPriceDetected.setText(p.strGia);
@@ -195,7 +195,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             Double tangSoLan = (Double.parseDouble(p.strVol) / Double.parseDouble(p.strVolTB)) * 100;
             viewHolder.txtVolumeGoc.setText("√ Tăng trưởng: " + String.format("%.1f", tangSoLan) + "% (" + p.strVolTB + ")");
 
-            if(mResource == R.layout.layout_notificustom){
+            if (mResource == R.layout.layout_notificustom) {
                 viewHolder.txtBS.setText("Người mua/người bán: " + p.strBuySell);
                 viewHolder.txtTM.setText("Lệnh khớp/lệnh đặt: " + p.strTakerMaker);
             }
@@ -203,8 +203,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtU.setText("Giá báo:");
             viewHolder.txtPriceMax.setText("Kỳ vọng:");
             viewHolder.txtVolDec.setText("Phân tích volume:");
-        }
-        else {
+        } else {
             viewHolder.txtExchange.setText(p.strCoin + " - " + "Exchange: " + p.strExchange + " |" + p.strCase + "|");
             viewHolder.txtTime.setText("Time " + p.strTime);
             viewHolder.txtPriceDetected.setText(p.strGia);
@@ -216,7 +215,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             Double tangSoLan = (Double.parseDouble(p.strVol) / Double.parseDouble(p.strVolTB)) * 100;
             viewHolder.txtVolumeGoc.setText("√ Growth rate: " + String.format("%.1f", tangSoLan) + "% (" + p.strVolTB + ")");
 
-            if(mResource == R.layout.layout_notificustom){
+            if (mResource == R.layout.layout_notificustom) {
                 viewHolder.txtBS.setText("Number of Buyer/Seller: " + p.strBuySell);
                 viewHolder.txtTM.setText("Number of Taker/Maker: " + p.strTakerMaker);
             }
@@ -237,7 +236,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtVolumeTang.setTextColor(Color.parseColor("#00FFFF"));
             viewHolder.txtPriceMax.setTextColor(Color.parseColor("#00FFFF"));
 
-            if(mResource == R.layout.layout_notificustom){
+            if (mResource == R.layout.layout_notificustom) {
                 viewHolder.txtBS.setTextColor(Color.parseColor("#00FFFF"));
                 viewHolder.txtTM.setTextColor(Color.parseColor("#00FFFF"));
             }
@@ -249,7 +248,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtVolumeTang.setTextColor(Color.parseColor("#FFC125"));
             viewHolder.txtPriceMax.setTextColor(Color.parseColor("#FFC125"));
 
-            if(mResource == R.layout.layout_notificustom){
+            if (mResource == R.layout.layout_notificustom) {
                 viewHolder.txtBS.setTextColor(Color.parseColor("#FFC125"));
                 viewHolder.txtTM.setTextColor(Color.parseColor("#FFC125"));
             }

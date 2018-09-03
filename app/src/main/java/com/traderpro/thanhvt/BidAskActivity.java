@@ -1,25 +1,20 @@
 package com.traderpro.thanhvt;
 
 import android.content.SharedPreferences;
-import android.support.design.widget.TabLayout;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.TextView;
 
 import com.traderpro.GCM.Config;
 
@@ -61,27 +56,24 @@ public class BidAskActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
         Bundle extras = getIntent().getExtras();
-        if(extras == null)
-        {
-            Log.e("NOT OKIE","NOT OKIESSSS");
+        if (extras == null) {
+            Log.e("NOT OKIE", "NOT OKIESSSS");
             //Cry about not being clicked on
-        }
-        else if (extras.getBoolean("NotiClick"))
-        {
+        } else if (extras.getBoolean("NotiClick")) {
             //Do your stuff here mate :)
-            Log.e("OKIE","OKIESSSS");
+            Log.e("OKIE", "OKIESSSS");
             boolean buy = extras.getBoolean("buy");
-            if(buy){
-                Log.e("OKIE2","OKIESSSS2");
+            if (buy) {
+                Log.e("OKIE2", "OKIESSSS2");
                 mSectionsPagerAdapter.getItem(2);
-            }else{
-                Log.e("OKIE1","OKIESSSS1");
+            } else {
+                Log.e("OKIE1", "OKIESSSS1");
             }
         }
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.NGON_NGU, 0);
         String strNN = pref.getString("NN", "VN");
-        if(strNN.equalsIgnoreCase("VN")){
+        if (strNN.equalsIgnoreCase("VN")) {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -89,7 +81,7 @@ public class BidAskActivity extends AppCompatActivity {
                             .setAction("Action", null).show();
                 }
             });
-        }else{
+        } else {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -175,12 +167,11 @@ public class BidAskActivity extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 //            return PlaceholderFragment.newInstance(position + 1);
-            Log.e("MUA",""+position);
-            if(position == 0){
+            Log.e("MUA", "" + position);
+            if (position == 0) {
                 TabMua tabMua = new TabMua();
                 return tabMua;
-            }
-            else {
+            } else {
                 TabBan tabBan = new TabBan();
                 return tabBan;
             }

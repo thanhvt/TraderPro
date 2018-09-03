@@ -1,7 +1,5 @@
 package com.traderpro.model.common;
 
-import com.traderpro.model.common.BittrexApiException;
-
 import java.util.Optional;
 
 /**

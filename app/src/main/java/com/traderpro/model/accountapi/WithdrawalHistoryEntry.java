@@ -7,17 +7,17 @@ import java.time.LocalDateTime;
  */
 public class WithdrawalHistoryEntry {
 
-     private String paymentUuid;
-     private String currency;
-     private String amount;
-     private String address;
-     private LocalDateTime opened;
-     private Boolean authorized;
-     private Boolean pendingPayment;
-     private Double txCost;
-     private String txId;
-     private Boolean canceled;
-     private Boolean invalidAddress;
+    private String paymentUuid;
+    private String currency;
+    private String amount;
+    private String address;
+    private LocalDateTime opened;
+    private Boolean authorized;
+    private Boolean pendingPayment;
+    private Double txCost;
+    private String txId;
+    private Boolean canceled;
+    private Boolean invalidAddress;
 
     public String getPaymentUuid() {
         return paymentUuid;

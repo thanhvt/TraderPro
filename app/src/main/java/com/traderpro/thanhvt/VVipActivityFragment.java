@@ -4,19 +4,17 @@ import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -314,7 +312,7 @@ public class VVipActivityFragment extends Fragment {
                 ArrayList<NotificationEntity> lstTmp = new ArrayList<>();
                 for (NotificationEntity noti : lstNotiEntity) {
                     if (noti.strGiaBan.equals("GIA_BAN")) {
-                            lstTmp.add(noti);
+                        lstTmp.add(noti);
                     }
                 }
                 customAdapter = new CustomVVipAdapter(getActivity(), R.layout.layout_botsignal, lstTmp);
@@ -378,7 +376,7 @@ public class VVipActivityFragment extends Fragment {
             }
             SharedPreferences pref = getActivity().getSharedPreferences(Config.NGON_NGU, 0);
             String strNN = pref.getString("NN", "VN");
-            if(strNN.equalsIgnoreCase("VN")) {
+            if (strNN.equalsIgnoreCase("VN")) {
                 txtLoiLo.setText("Lãi: " + lanLai + " lần (+" + String.format("%.2f", dLai) + "%)");
                 txtLoiLo3.setText("Lỗ: " + lanLo + " lần (-" + String.format("%.2f", dLo) + "%)");
                 txtLoiLo2.setText("Đang chờ ra: " + lanCho + " lần");
@@ -393,7 +391,7 @@ public class VVipActivityFragment extends Fragment {
                     txtTongKet.setBackgroundColor(Color.parseColor("#ff0000"));
                 }
 
-            }else{
+            } else {
                 txtLoiLo.setText("Win: " + lanLai + " times (+" + String.format("%.2f", dLai) + "%)");
                 txtLoiLo3.setText("Lost: " + lanLo + " times (-" + String.format("%.2f", dLo) + "%)");
                 txtLoiLo2.setText("Waiting: " + lanCho + " times");

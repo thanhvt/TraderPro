@@ -1,16 +1,12 @@
 package com.traderpro.thanhvt;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.traderpro.model.accountapi.Order;
 import com.traderpro.model.accountapi.OrderHistoryEntry;
 
 import java.util.List;
@@ -52,7 +48,7 @@ public class CustomOrderHistoryAdapter extends ArrayAdapter<OrderHistoryEntry> {
             p.strDate = p.strDate.replace("T", " ");
             String[] x = p.strDate.split(" ");
             String y = x[1].substring(0, x[1].lastIndexOf(":"));
-            tt1.setText(y+ " " + x[0]);
+            tt1.setText(y + " " + x[0]);
             tt2.setText(p.getExchange());
             tt3.setText(p.getQuantity() + "");
             tt4.setText(p.getLimit() + "");

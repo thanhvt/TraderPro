@@ -24,7 +24,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 
@@ -39,11 +38,9 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 import java.util.Timer;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
@@ -190,7 +187,7 @@ public class LogNotification extends Fragment {
                 } else {
                     lstNotiEntity.removeAll(lstNotiBittrex);
                 }
-                if(customAdapter!=null){
+                if (customAdapter != null) {
                     customAdapter.notifyDataSetChanged();
                 }
 
@@ -206,7 +203,7 @@ public class LogNotification extends Fragment {
                     lstNotiEntity.removeAll(lstNotiBinance);
                 }
 
-                if(customAdapter!=null){
+                if (customAdapter != null) {
                     customAdapter.notifyDataSetChanged();
                 }
             }
@@ -337,8 +334,7 @@ public class LogNotification extends Fragment {
             if (mEn.strExchange.equals("Binance")) {
                 mEn.strGiaMax = getGiaMaxBinance(params[0], params[1]);
                 mEn.strGiaMin = getGiaMinBinance(params[0], params[1]);
-            }
-            else if (mEn.strExchange.equals("Bittrex")) {
+            } else if (mEn.strExchange.equals("Bittrex")) {
 //                mEn.strGiaMax = getGiaMaxBittrex(params[0], params[1]);
             }
             return null;
@@ -363,8 +359,8 @@ public class LogNotification extends Fragment {
                     @Override
                     public void run() {
 //                        customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notification, lstNotiEntity, bittrexData);
-                        if(customAdapter!=null){
-                        customAdapter.notifyDataSetChanged();
+                        if (customAdapter != null) {
+                            customAdapter.notifyDataSetChanged();
                         }
 //                        listView.setAdapter(customAdapter);
 
@@ -478,13 +474,13 @@ public class LogNotification extends Fragment {
                 String res = readJsonFromUrl(mUrl);
                 JSONArray jsonArr = new JSONArray(res);
                 Double giaMax1 = subGetGiaMax(jsonArr);
-                Double giaMin1 =  subGetGiaMin(jsonArr);
+                Double giaMin1 = subGetGiaMin(jsonArr);
 
                 mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=1h&startTime=" + strTime + "&endTime=" + rightNow.getTimeInMillis();
                 res = readJsonFromUrl(mUrl);
                 jsonArr = new JSONArray(res);
                 Double giaMax2 = subGetGiaMax(jsonArr);
-                Double giaMin2 =  subGetGiaMin(jsonArr);
+                Double giaMin2 = subGetGiaMin(jsonArr);
                 // Cuoi gio
                 Calendar endHour = Calendar.getInstance();
                 endHour.setTimeInMillis(startTime);
@@ -494,7 +490,7 @@ public class LogNotification extends Fragment {
                 res = readJsonFromUrl(mUrl);
                 jsonArr = new JSONArray(res);
                 Double giaMax3 = subGetGiaMax(jsonArr);
-                Double giaMin3 =  subGetGiaMin(jsonArr);
+                Double giaMin3 = subGetGiaMin(jsonArr);
 //                giaMax = giaMax1 > giaMax2 ? giaMax1 : giaMax2;
                 giaMax = Math.max(Math.max(giaMax1, giaMax2), giaMax3);
                 giaMin = Math.min(Math.min(giaMin1, giaMin2), giaMin3);
@@ -596,13 +592,13 @@ public class LogNotification extends Fragment {
                 String res = readJsonFromUrl(mUrl);
                 JSONArray jsonArr = new JSONArray(res);
                 Double giaMax1 = subGetGiaMax(jsonArr);
-                Double giaMin1 =  subGetGiaMin(jsonArr);
+                Double giaMin1 = subGetGiaMin(jsonArr);
 
                 mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=1h&startTime=" + strTime + "&endTime=" + rightNow.getTimeInMillis();
                 res = readJsonFromUrl(mUrl);
                 jsonArr = new JSONArray(res);
                 Double giaMax2 = subGetGiaMax(jsonArr);
-                Double giaMin2 =  subGetGiaMin(jsonArr);
+                Double giaMin2 = subGetGiaMin(jsonArr);
                 // Cuoi gio
                 Calendar endHour = Calendar.getInstance();
                 endHour.setTimeInMillis(startTime);
@@ -612,7 +608,7 @@ public class LogNotification extends Fragment {
                 res = readJsonFromUrl(mUrl);
                 jsonArr = new JSONArray(res);
                 Double giaMax3 = subGetGiaMax(jsonArr);
-                Double giaMin3 =  subGetGiaMin(jsonArr);
+                Double giaMin3 = subGetGiaMin(jsonArr);
 //                giaMax = giaMax1 > giaMax2 ? giaMax1 : giaMax2;
                 giaMax = Math.max(Math.max(giaMax1, giaMax2), giaMax3);
                 giaMin = Math.min(Math.min(giaMin1, giaMin2), giaMin3);
@@ -771,11 +767,11 @@ public class LogNotification extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
-        if(grantResults.length>0){
-        if (requestCode == PERMISSIONS_REQUEST_READ_PHONE_STATE
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            getDeviceImei();
-        }
+        if (grantResults.length > 0) {
+            if (requestCode == PERMISSIONS_REQUEST_READ_PHONE_STATE
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getDeviceImei();
+            }
         }
     }
 
@@ -784,8 +780,8 @@ public class LogNotification extends Fragment {
         try {
 
             mTelephonyManager = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-            if(mTelephonyManager!=null){
-            strDevice = mTelephonyManager.getDeviceId();
+            if (mTelephonyManager != null) {
+                strDevice = mTelephonyManager.getDeviceId();
             }
 
             String deviceId = Settings.System.getString(getActivity().getContentResolver(),

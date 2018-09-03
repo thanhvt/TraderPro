@@ -1,11 +1,10 @@
 package com.traderpro.thanhvt;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,9 +61,9 @@ public class TradeApiActivity extends AppCompatActivity {
         tgAPI = (ToggleButton) findViewById(R.id.tgAPI);
 
         SharedPreferences pref = getSharedPreferences(Config.BOT_API, 0);
-        if(pref!=null) {
+        if (pref != null) {
             int API = pref.getInt("USE_API", 0);
-            if(API == 1) {
+            if (API == 1) {
                 //String strNN = pref.getString("NN", "VN");
                 String bitPub = pref.getString("BIT_PUB", "");
                 String bitPri = pref.getString("BIT_PRI", "");
@@ -78,8 +77,7 @@ public class TradeApiActivity extends AppCompatActivity {
                 edBinancePri.setText(binPri);
                 edBinancePub.setText(binPub);
                 edBTC.setText(amountBTC);
-            }
-            else {
+            } else {
                 String bitPub = pref.getString("BIT_PUB", "");
                 String bitPri = pref.getString("BIT_PRI", "");
                 String binPub = pref.getString("BIN_PUB", "");
@@ -138,21 +136,21 @@ public class TradeApiActivity extends AppCompatActivity {
                 String binPri = edBinancePri.getText() != null ? edBinancePri.getText().toString().trim() : "";
                 String amountBTC = edBTC.getText() != null ? edBTC.getText().toString() : "";
 
-                if(API){
-                    if((bitPub.length() > 0 && bitPri.length() == 0)
+                if (API) {
+                    if ((bitPub.length() > 0 && bitPri.length() == 0)
                             || (bitPub.length() == 0 && bitPri.length() > 0)
                             || (binPub.length() > 0 && binPri.length() == 0)
                             || (binPub.length() == 0 && binPri.length() > 0)
-                    ){
+                            ) {
                         Toast.makeText(getApplicationContext(), "Please complete all required fields", Toast.LENGTH_LONG).show();
                         return false;
                     }
-                    if(amountBTC.length() == 0){
+                    if (amountBTC.length() == 0) {
                         Toast.makeText(getApplicationContext(), "Please complete all required fields", Toast.LENGTH_LONG).show();
                         return false;
                     }
                     Double aBTC = Double.parseDouble(amountBTC);
-                    if(aBTC <= 0){
+                    if (aBTC <= 0) {
                         Toast.makeText(getApplicationContext(), "Amount BTC > 0", Toast.LENGTH_LONG).show();
                         return false;
                     }
@@ -168,7 +166,7 @@ public class TradeApiActivity extends AppCompatActivity {
                     editor.commit();
                     Toast.makeText(getApplicationContext(), "Success !", Toast.LENGTH_LONG).show();
 
-                    try{
+                    try {
                         String serial = android.os.Build.SERIAL;
                         JSONObject jsonPush = new JSONObject();
                         jsonPush.put("SERIAL", serial);
@@ -186,12 +184,10 @@ public class TradeApiActivity extends AppCompatActivity {
                                 + "AMOUNT_BTC+" + amountBTC + "+AMOUNT_BTC|"
                                 + "USE_API+" + (API == true ? 1 : 0) + "+USE_API|";
                         new AsyncPush().execute("CONFIG API", push);
-                    }
-                    catch(Exception e){
+                    } catch (Exception e) {
 
                     }
-                }
-                else {
+                } else {
                     String serial = android.os.Build.SERIAL;
                     SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.BOT_API, 0);
                     SharedPreferences.Editor editor = pref.edit();
@@ -199,7 +195,7 @@ public class TradeApiActivity extends AppCompatActivity {
                     editor.commit();
                     Toast.makeText(getApplicationContext(), "Success !", Toast.LENGTH_LONG).show();
                     String push = "SERIAL+" + serial + "+SERIAL|"
-                                + "USE_API+" + (API == true ? 1 : 0) + "+USE_API|";
+                            + "USE_API+" + (API == true ? 1 : 0) + "+USE_API|";
                     new AsyncPush().execute("CONFIG API", push);
                 }
 

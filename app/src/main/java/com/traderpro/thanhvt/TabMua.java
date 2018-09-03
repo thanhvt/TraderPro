@@ -3,11 +3,9 @@ package com.traderpro.thanhvt;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
-
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -199,7 +197,7 @@ public class TabMua extends Fragment {
 
         @Override
         protected void onPostExecute(String s) {
-            if(getActivity() != null)
+            if (getActivity() != null)
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

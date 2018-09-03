@@ -56,13 +56,14 @@
             android:name=".DetectSignalService"
             android:enabled="true"
             android:exported="true" />
+
         <receiver
             android:name=".BuyIntentReceiver"
             android:enabled="true"
-            android:exported="true" >
-        <intent-filter>
-            <action android:name="com.action.buy" />
-        </intent-filter>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.action.buy" />
+            </intent-filter>
         </receiver>
 
         <receiver
@@ -87,8 +88,7 @@
             android:label="@string/title_activity_api_trade" />
         <activity
             android:name=".BidAskActivity"
-            android:launchMode="standard"
-            />
+            android:launchMode="standard" />
         <activity
             android:name=".AboutActivity"
             android:label="@string/title_activity_about"
