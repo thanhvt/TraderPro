@@ -13,7 +13,7 @@ Cơ chế hoạt động
 •	Sự biến động giá trong một thời điểm
 •	Sự biến động volume trong một thời điểm 
 •	Kết hợp với các chỉ báo cơ bản BB, RSI, …
-	Truy tìm và đưa ra gợi ý đồng Coin nào đang có khả năng tăng giá, giảm giá, mua vào bán ra tại thời điểm nào là hợp lý.  
+=>	Truy tìm và đưa ra gợi ý đồng Coin nào đang có khả năng tăng giá, giảm giá, mua vào bán ra tại thời điểm nào là hợp lý.  
 
 Vì sao nên lựa chọn Trader Analytics
 -	Server chạy 24/24, quét gần 150 coin có mặt trên Bittrex và gần 120 coin có mặt trên Binance
