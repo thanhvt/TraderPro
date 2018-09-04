@@ -134,11 +134,11 @@ public class NotificationUtils {
             }
         } else {
             showSmallNotification(mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
-            SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
-            String strSound = pref2.getString("SOUND", "ON");
-            if (strSound.equals("ON")) {
+            //SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
+            //String strSound = pref2.getString("SOUND", "ON");
+            //if (strSound.equals("ON")) {
                 playNotificationSound();
-            }
+            //}
 
         }
     }
@@ -518,7 +518,7 @@ public class NotificationUtils {
                                 break;
                             case 4:
 
-                                am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
+                                //am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
                                 mSound = Uri.parse("android.resource://"
                                         + mContext.getPackageName() + "/" + R.raw.mewin);
                                 inboxStyle = new NotificationCompat.InboxStyle();
@@ -549,9 +549,9 @@ public class NotificationUtils {
                                 //r.play();
                                 mSound = Uri.parse("android.resource://"
                                         + mContext.getPackageName() + "/" + R.raw.mewin);
-                                am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
-                                am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
-                                am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
+                                //am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
+                                //am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
+                                //am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
                                 inboxStyle = new NotificationCompat.InboxStyle();
 
                                 inboxStyle.addLine(message);
@@ -575,39 +575,39 @@ public class NotificationUtils {
 
                                 break;
                             case 6:
-                                am.setStreamVolume(
-                                        AudioManager.STREAM_MUSIC,
-                                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
-                                        0);
-                                am.setStreamVolume(
-                                        AudioManager.STREAM_RING,
-                                        am.getStreamMaxVolume(AudioManager.STREAM_RING),
-                                        0);
-                                am.setStreamVolume(
-                                        AudioManager.STREAM_SYSTEM,
-                                        am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),
-                                        0);
-                                am.setStreamVolume(
-                                        AudioManager.STREAM_NOTIFICATION,
-                                        am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
-                                        0);
+                                //am.setStreamVolume(
+                                //        AudioManager.STREAM_MUSIC,
+                                //        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+                                //        0);
+                                //am.setStreamVolume(
+                                //        AudioManager.STREAM_RING,
+                                //        am.getStreamMaxVolume(AudioManager.STREAM_RING),
+                               //         0);
+                                //am.setStreamVolume(
+                                //        AudioManager.STREAM_SYSTEM,
+                               //         am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),
+                               //         0);
+                               // am.setStreamVolume(
+                               //         AudioManager.STREAM_NOTIFICATION,
+                               //         am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
+                               //         0);
                                 r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
                                         + mContext.getPackageName() + "/" + R.raw.sao1));
                                 mSound = Uri.parse("android.resource://"
                                         + mContext.getPackageName() + "/" + R.raw.gowin3);
 
-                                mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
-                                        + mContext.getPackageName() + "/" + R.raw.sao1));
+                                //mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
+                                //        + mContext.getPackageName() + "/" + R.raw.sao1));
                                 count = 1;
-                                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                    @Override
-                                    public void onCompletion(MediaPlayer mp) {
-                                        if (count < 10) {
-                                            //mp.start();
-                                            count++;
-                                        }
-                                    }
-                                });
+                                //mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                 //   @Override
+                                 //   public void onCompletion(MediaPlayer mp) {
+                                 //       if (count < 10) {
+                                 //           //mp.start();
+                                 //           count++;
+                                 //       }
+                                 //   }
+                                //});
                                 //mp.start();
 
                                 inboxStyle = new NotificationCompat.InboxStyle();
@@ -629,39 +629,39 @@ public class NotificationUtils {
                                 notificationManager.notify(id, notification);
                                 break;
                             case 7:
-                                am.setStreamVolume(
-                                        AudioManager.STREAM_MUSIC,
-                                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
-                                        0);
-                                am.setStreamVolume(
-                                        AudioManager.STREAM_RING,
-                                        am.getStreamMaxVolume(AudioManager.STREAM_RING),
-                                        0);
-                                am.setStreamVolume(
-                                        AudioManager.STREAM_SYSTEM,
-                                        am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),
-                                        0);
-                                am.setStreamVolume(
-                                        AudioManager.STREAM_NOTIFICATION,
-                                        am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
-                                        0);
+//                                am.setStreamVolume(
+//                                        AudioManager.STREAM_MUSIC,
+//                                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+//                                        0);
+//                                am.setStreamVolume(
+//                                        AudioManager.STREAM_RING,
+//                                        am.getStreamMaxVolume(AudioManager.STREAM_RING),
+//                                        0);
+//                                am.setStreamVolume(
+//                                        AudioManager.STREAM_SYSTEM,
+//                                        am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),
+//                                        0);
+//                                am.setStreamVolume(
+//                                        AudioManager.STREAM_NOTIFICATION,
+//                                        am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
+//                                        0);
                                 r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
                                         + mContext.getPackageName() + "/" + R.raw.sao1));
                                 mSound = Uri.parse("android.resource://"
                                         + mContext.getPackageName() + "/" + R.raw.mewin);
 
-                                mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
-                                        + mContext.getPackageName() + "/" + R.raw.sao1));
-                                count = 1;
-                                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                    @Override
-                                    public void onCompletion(MediaPlayer mp) {
-                                        if (count < 20) {
-                                            //mp.start();
-                                            count++;
-                                        }
-                                    }
-                                });
+//                                mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
+//                                        + mContext.getPackageName() + "/" + R.raw.sao1));
+//                                count = 1;
+//                                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//                                    @Override
+//                                    public void onCompletion(MediaPlayer mp) {
+//                                        if (count < 20) {
+//                                            //mp.start();
+//                                            count++;
+//                                        }
+//                                    }
+//                                });
                                 //mp.start();
 
                                 inboxStyle = new NotificationCompat.InboxStyle();
@@ -683,39 +683,39 @@ public class NotificationUtils {
                                 notificationManager.notify(id, notification);
                                 break;
                             case 8:
-                                am.setStreamVolume(
-                                        AudioManager.STREAM_MUSIC,
-                                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
-                                        0);
-                                am.setStreamVolume(
-                                        AudioManager.STREAM_RING,
-                                        am.getStreamMaxVolume(AudioManager.STREAM_RING),
-                                        0);
-                                am.setStreamVolume(
-                                        AudioManager.STREAM_SYSTEM,
-                                        am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),
-                                        0);
-                                am.setStreamVolume(
-                                        AudioManager.STREAM_NOTIFICATION,
-                                        am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
-                                        0);
+//                                am.setStreamVolume(
+//                                        AudioManager.STREAM_MUSIC,
+//                                        am.getStreamMaxVolume(AudioManager.STREAM_MUSIC),
+//                                        0);
+//                                am.setStreamVolume(
+//                                        AudioManager.STREAM_RING,
+//                                        am.getStreamMaxVolume(AudioManager.STREAM_RING),
+//                                        0);
+//                                am.setStreamVolume(
+//                                        AudioManager.STREAM_SYSTEM,
+//                                        am.getStreamMaxVolume(AudioManager.STREAM_SYSTEM),
+//                                        0);
+//                                am.setStreamVolume(
+//                                        AudioManager.STREAM_NOTIFICATION,
+//                                        am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
+//                                        0);
                                 r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
                                         + mContext.getPackageName() + "/" + R.raw.wakewin));
                                 mSound = Uri.parse("android.resource://"
                                         + mContext.getPackageName() + "/" + R.raw.mewin);
 
-                                mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
-                                        + mContext.getPackageName() + "/" + R.raw.wakewin));
-                                count = 1;
-                                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                    @Override
-                                    public void onCompletion(MediaPlayer mp) {
-                                        if (count < 30) {
-                                            //mp.start();
-                                            count++;
-                                        }
-                                    }
-                                });
+//                                mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
+//                                        + mContext.getPackageName() + "/" + R.raw.wakewin));
+//                                count = 1;
+//                                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//                                    @Override
+//                                    public void onCompletion(MediaPlayer mp) {
+//                                        if (count < 30) {
+//                                            //mp.start();
+//                                            count++;
+//                                        }
+//                                    }
+//                                });
                                 //mp.start();
 
                                 inboxStyle = new NotificationCompat.InboxStyle();
@@ -748,19 +748,35 @@ public class NotificationUtils {
                 inboxStyle = new NotificationCompat.InboxStyle();
 
                 inboxStyle.addLine(message);
+    if(strSound.equals("ON")){
+        notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                .setAutoCancel(true)
+                .setContentTitle("Boss $$$ " + strCoin)
+                .setContentText(title)
+                .setContentIntent(resultPendingIntent)
+                .setSound(alarmSound)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(fromHtml(message)))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setDefaults(VibrateIndex)
+                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                .build();
 
-                notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                        .setAutoCancel(true)
-                        .setContentTitle("Boss $$$ " + strCoin)
-                        .setContentText(title)
-                        .setContentIntent(resultPendingIntent)
-                        .setSound(alarmSound)
-                        .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText(fromHtml(message)))
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setDefaults(VibrateIndex)
-                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                        .build();
+    }else{
+        notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                .setAutoCancel(true)
+                .setContentTitle("Boss $$$ " + strCoin)
+                .setContentText(title)
+                .setContentIntent(resultPendingIntent)
+                .setSound(null)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(fromHtml(message)))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setDefaults(VibrateIndex)
+                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                .build();
+
+    }
 
                 id = (int) System.currentTimeMillis();
                 notificationManager.notify(id, notification);

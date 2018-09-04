@@ -73,15 +73,18 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                     //binPub = pref.getString("BIN_PUB", "");
                     //binPri = pref.getString("BIN_PRI", "");
                     amountBTC = pref.getString("AMOUNT_BTC", "");
+                    PUBLIC_KEY = pref.getString("BIT_PUB", "");
+                    PRIVATE_KEY = pref.getString("BIT_PRI", "");
                 } else {
                     String bitPub = pref.getString("BIT_PUB", "");
                     String bitPri = pref.getString("BIT_PRI", "");
                     //binPub = pref.getString("BIN_PUB", "");
                     //binPri = pref.getString("BIN_PRI", "");
                     amountBTC = pref.getString("AMOUNT_BTC", "");
+                    PUBLIC_KEY = pref.getString("BIT_PUB", "");
+                    PRIVATE_KEY = pref.getString("BIT_PRI", "");
                 }
                 if (API == 1) {
-
                     float numberF = Float.parseFloat(amountBTC) / Float.parseFloat(price);
                     number = (int) numberF;
                     Log.e("NUMBER: ", number + "");
@@ -96,6 +99,9 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                     } else if (BUYSELL.equals("SELL")) {
                         newOrderResponse = client.newOrder(marketSell(strCoin + "BTC", "" + number).newOrderRespType(NewOrderResponseType.FULL));
                     }
+                }else{
+                    // not buy sell
+
                 }
             }
 
