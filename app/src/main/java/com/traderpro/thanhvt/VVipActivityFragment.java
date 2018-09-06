@@ -473,6 +473,9 @@ public class VVipActivityFragment extends Fragment {
 //            e.strVol = tmp[3].trim();
 //            e.strVolTB = tmp[4].trim();
             e.strTime = tmp[0].trim();
+            e.numberBuy = tmp.length > 8 ? tmp[7].trim() : "0";
+            e.numberSell = tmp.length > 8 ? tmp[8].trim() : "0";
+            Log.e("NUMBER BUY ", e.numberBuy);
 //            e.strCase = tmp.length > 6 ? tmp[6].trim() : "0";
 //            e.strBuySell = tmp.length > 7 ? tmp[7].trim() : "";
 //            e.strTakerMaker = tmp.length > 8 ? tmp[8].trim() : "";

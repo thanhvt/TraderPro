@@ -19,6 +19,8 @@ public class NotificationEntity implements Serializable {
     public String strGiaBan;
     public String strTimeBan;
     public String strProfit;
+    public String numberBuy="0";
+    public String numberSell ="0";
 
     public Double strGiaHienTai;
 
