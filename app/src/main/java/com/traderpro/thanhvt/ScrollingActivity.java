@@ -86,8 +86,8 @@ public class ScrollingActivity extends AppCompatActivity {
 
         requestAppPermissions();
 
-        Intent myIntent = new Intent(getApplicationContext(), DetectSignalService.class);
-        startService(myIntent);
+//        Intent myIntent = new Intent(getApplicationContext(), DetectSignalService.class);
+//        startService(myIntent);
 
         NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
 //        notificationUtils.readExcel(getApplicationContext());

@@ -10,8 +10,8 @@ public class BootCompletedIntentReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
-        Intent myIntent = new Intent(context, DetectSignalService.class);
-        context.startService(myIntent);
+//        Intent myIntent = new Intent(context, DetectSignalService.class);
+//        context.startService(myIntent);
 
 //        NotiEventReceiver.setupAlarm(context);
     }
