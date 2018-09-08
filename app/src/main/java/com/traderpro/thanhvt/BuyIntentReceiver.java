@@ -38,8 +38,8 @@ public class BuyIntentReceiver extends BroadcastReceiver {
         float number = 0;
         String BUYSELL = extras.getString("BUYSELL");
         String strCoin = extras.getString("COIN");
-        String PUBLIC_KEY = "yfhnEwr47LSL7Lbdx2bymCAVoi9YkAZINVkKckotEy7YtbotIuudGisaEnWlyjS1";
-        String PRIVATE_KEY = "eXoM5w9uAeqZYoRioeWctmgsbkJUBUeQn5AXnLZVoBq3DsoJLQLbFrAcoH6Z094C";
+        String PUBLIC_KEY = "";
+        String PRIVATE_KEY = "";
         String price = extras.getString("PRICE");
         if (price.contains("~")) {
             price = price.replace("~", "");
@@ -71,8 +71,8 @@ public class BuyIntentReceiver extends BroadcastReceiver {
             //String binPri ="";
             //String binPub = "";
             float number = 0;
-            String PUBLIC_KEY = "yfhnEwr47LSL7Lbdx2bymCAVoi9YkAZINVkKckotEy7YtbotIuudGisaEnWlyjS1";
-            String PRIVATE_KEY = "eXoM5w9uAeqZYoRioeWctmgsbkJUBUeQn5AXnLZVoBq3DsoJLQLbFrAcoH6Z094C";
+            String PUBLIC_KEY = "";
+            String PRIVATE_KEY = "";
             SharedPreferences pref = mContext.getSharedPreferences(Config.BOT_API, 0);
             if (pref != null) {
                 int API = pref.getInt("USE_API", 0);
