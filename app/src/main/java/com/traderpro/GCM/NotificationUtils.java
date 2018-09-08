@@ -958,6 +958,8 @@ public class NotificationUtils {
                 intent.putExtra("COIN", strCoin);
                 intent.putExtra("Exchange", strExchange);
                 intent.putExtra("PRICE", strGiaMua);
+                intent.putExtra("INTENT",title);
+                intent.putExtra("MESSAGE",message);
                 IntentFilter filter = new IntentFilter("com.action.buy");
                 BuyIntentReceiver receiver = new BuyIntentReceiver();
                 mContext.registerReceiver(receiver, filter);
@@ -1126,7 +1128,9 @@ public class NotificationUtils {
                         intent.putExtra("BUYSELL", "SELL");
                         intent.putExtra("COIN", strCoin);
                         intent.putExtra("Exchange", strExchange);
-                        intent.putExtra("PRICE", strGiaMua);
+                        intent.putExtra("PRICE", strGiaBan);
+                        intent.putExtra("INTENT",title);
+                        intent.putExtra("MESSAGE",message);
                         IntentFilter filter = new IntentFilter("com.action.buy");
                         BuyIntentReceiver receiver = new BuyIntentReceiver();
                         mContext.registerReceiver(receiver, filter);
@@ -1178,7 +1182,9 @@ public class NotificationUtils {
                         intent.putExtra("BUYSELL", "SELL");
                         intent.putExtra("COIN", strCoin);
                         intent.putExtra("Exchange", strExchange);
-                        intent.putExtra("PRICE", strGiaMua);
+                        intent.putExtra("PRICE", strGiaBan);
+                        intent.putExtra("INTENT",title);
+                        intent.putExtra("MESSAGE",message);
                         IntentFilter filter = new IntentFilter("com.action.buy");
                         BuyIntentReceiver receiver = new BuyIntentReceiver();
                         mContext.registerReceiver(receiver, filter);
@@ -1236,6 +1242,8 @@ public class NotificationUtils {
                         intent.putExtra("COIN", strCoin);
                         intent.putExtra("Exchange", strExchange);
                         intent.putExtra("PRICE", strGiaMua);
+                        intent.putExtra("INTENT",title);
+                        intent.putExtra("MESSAGE",message);
                         IntentFilter filter = new IntentFilter("com.action.buy");
                         BuyIntentReceiver receiver = new BuyIntentReceiver();
                         mContext.registerReceiver(receiver, filter);
@@ -1288,6 +1296,8 @@ public class NotificationUtils {
                         intent.putExtra("COIN", strCoin);
                         intent.putExtra("Exchange", strExchange);
                         intent.putExtra("PRICE", strGiaMua);
+                        intent.putExtra("INTENT",title);
+                        intent.putExtra("MESSAGE",message);
                         IntentFilter filter = new IntentFilter("com.action.buy");
                         BuyIntentReceiver receiver = new BuyIntentReceiver();
                         mContext.registerReceiver(receiver, filter);

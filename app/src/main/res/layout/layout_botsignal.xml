@@ -166,6 +166,17 @@
 
 
     </LinearLayout>
+    <ImageView
+        android:id="@+id/imageBuy"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/editText"
+        android:layout_marginEnd="15dp"
+       android:src="@drawable/copyic"
+        android:visibility="gone"
+        />
 
     <View
         android:id="@+id/divider"

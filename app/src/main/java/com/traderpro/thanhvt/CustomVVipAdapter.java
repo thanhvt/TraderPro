@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.traderpro.GCM.Config;
@@ -40,6 +41,9 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
         TextView txtTimeBan;
         TextView txtCoin;
         TextView txtText3;
+        ImageView imgBuy;
+        TextView txtText1;
+        TextView txtText2;
         Double pMax;
         Double pProfit;
     }
@@ -61,7 +65,10 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             viewHolder.txtProfit = (TextView) view.findViewById(R.id.txtProfit);
             viewHolder.txtTimeBan = (TextView) view.findViewById(R.id.txtTimeBan);
             viewHolder.txtCoin = (TextView) view.findViewById(R.id.txtCoin);
+            viewHolder.txtText1 = (TextView) view.findViewById(R.id.txtText1);
+            viewHolder.txtText2 = (TextView) view.findViewById(R.id.txtText2);
             viewHolder.txtText3 = (TextView) view.findViewById(R.id.txtText3);
+            viewHolder.imgBuy = (ImageView) view.findViewById(R.id.imageBuy);
             view.setTag(viewHolder);
         } else {
             viewHolder = (CustomVVipAdapter.NotiHolder) view.getTag();
@@ -94,7 +101,33 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             }
             viewHolder.txtPriceBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "(hệ thống đang quét giá bán tốt nhất)" : (p.strGiaBan + ""));
             viewHolder.txtTimeBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("mà hệ thống báo bán lúc " + p.strTimeBan + ""));
+            if(p.numberBuy!="0"){
+                viewHolder.txtText3.setText("Mua vào: "+ p.numberBuy +" đơn vị");
+                viewHolder.imgBuy.setVisibility(View.VISIBLE);
+                viewHolder.txtText1.setText("Mua vào giá ");
+                viewHolder.txtText2.setVisibility(View.GONE);
+                viewHolder.txtPriceBan.setVisibility(View.GONE );
+                viewHolder.txtTimeBan.setVisibility(View.GONE);
+            }else{
+                viewHolder.imgBuy.setVisibility(View.GONE);
             viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Sẽ báo khi thấy có dấu hiệu " : "");
+            }
+            if(p.numberSell!="0"){
+                viewHolder.txtText3.setText("Bán ra: "+ p.numberSell +" đơn vị");
+                viewHolder.imgBuy.setVisibility(View.VISIBLE);
+                viewHolder.txtText1.setVisibility(View.GONE);
+                viewHolder.txtGiaMua.setVisibility(View.GONE);
+                viewHolder.txtTimeMua.setVisibility(View.GONE);
+                //viewHolder.txtText2.setVisibility(View.GONE);
+                viewHolder.txtPriceBan.setVisibility(View.VISIBLE );
+                viewHolder.txtTimeBan.setVisibility(View.VISIBLE);
+                viewHolder.txtPriceBan.setText("Giá bán ra:  "+ p.strGia);
+                viewHolder.txtTimeBan.setText("được báo bán lúc " + p.strTimeBan);
+                //viewHolder.txtTimeBan.setVisibility(View.GONE);
+            }else{
+                viewHolder.imgBuy.setVisibility(View.GONE);
+                viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Sẽ báo khi thấy có dấu hiệu " : "");
+            }
             viewHolder.txtProfit.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("===> thì profit thay đổi " + p.strProfit));
         } else {
             String strLaiLo = "";
