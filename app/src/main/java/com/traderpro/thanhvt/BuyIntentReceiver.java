@@ -12,16 +12,12 @@ import android.util.Log;
 import com.binance.api.client.BinanceApiClientFactory;
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.domain.account.NewOrderResponse;
-import com.binance.api.client.domain.account.NewOrderResponseType;
 import com.traderpro.GCM.Config;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Calendar;
-
-import static com.binance.api.client.domain.account.NewOrder.marketBuy;
-import static com.binance.api.client.domain.account.NewOrder.marketSell;
 
 public class BuyIntentReceiver extends BroadcastReceiver {
     public Context mContext;
@@ -53,7 +49,7 @@ public class BuyIntentReceiver extends BroadcastReceiver {
         //editor.putString("BIN_PUB", binPub);
         //editor.putString("BIN_PRI", binPri);
         //editor.putString("AMOUNT_BTC", amountBTC);
-        new ExchangeSellBuy().execute(BUYSELL, strCoin, price,title,message);
+        new ExchangeSellBuy().execute(BUYSELL, strCoin, price, title, message);
 
     }
 
@@ -66,7 +62,7 @@ public class BuyIntentReceiver extends BroadcastReceiver {
             String strCoin = params[1];
             String price = params[2];
             String title = params[3];
-            String message =params[4];
+            String message = params[4];
             String amountBTC = "";
             //String binPri ="";
             //String binPub = "";
@@ -123,7 +119,7 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                         }
                         strGiaMua = message.substring(message.indexOf("PRICE: ") + 7);
                         String content = strTime + "|" + strCoin + "|" + strGiaMua + "|" + strGiaBan
-                                + "|" + strTimeBan + "|" + strProfit + "|" + "Binance"+"|"+ numberF+""+"|"+"0";
+                                + "|" + strTimeBan + "|" + strProfit + "|" + "Binance" + "|" + numberF + "" + "|" + "0";
                         ghiFileBot(content);
                     } else if (BUYSELL.equals("SELL")) {
                         //newOrderResponse = client.newOrder(marketSell(strCoin + "BTC", "" + number).newOrderRespType(NewOrderResponseType.FULL));
@@ -138,7 +134,7 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                         if (title.contains("StopLoss")) {
                             strCoin = title.substring(title.lastIndexOf("StopLoss") + 8, title.indexOf("***") - 1);
                             strCoin = strCoin.trim();
-                        }else{
+                        } else {
                             strCoin = title.substring(title.lastIndexOf("TakeProfit") + 10, title.indexOf("***") - 1);
                             strCoin = strCoin.trim();
                         }
@@ -147,12 +143,12 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                         strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
                         strProfit = "+" + message.substring(message.lastIndexOf(":") + 1, message.lastIndexOf("</b>")).trim();
                         strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
-                         strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
+                        strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
                         String content = strTime + "|" + strCoin + "|" + strGiaMua + "|" + strGiaBan
-                                + "|" + strTimeBan + "|" + strProfit + "|" + "Binance"+"|"+"0"+"|"+ numberF+"";
+                                + "|" + strTimeBan + "|" + strProfit + "|" + "Binance" + "|" + "0" + "|" + numberF + "";
                         ghiFileBot(content);
                     }
-                }else{
+                } else {
                     // not buy sell
 
                 }
@@ -162,6 +158,7 @@ public class BuyIntentReceiver extends BroadcastReceiver {
             return null;
         }
     }
+
     public void ghiFileBot(String strNoiDung) {
         // write on SD card file data in the text box
         try {

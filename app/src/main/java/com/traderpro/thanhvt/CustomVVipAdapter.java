@@ -101,30 +101,30 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             }
             viewHolder.txtPriceBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "(hệ thống đang quét giá bán tốt nhất)" : (p.strGiaBan + ""));
             viewHolder.txtTimeBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("mà hệ thống báo bán lúc " + p.strTimeBan + ""));
-            if(p.numberBuy!="0"){
-                viewHolder.txtText3.setText("Mua vào: "+ p.numberBuy +" đơn vị");
+            if (p.numberBuy != "0") {
+                viewHolder.txtText3.setText("Mua vào: " + p.numberBuy + " đơn vị");
                 viewHolder.imgBuy.setVisibility(View.VISIBLE);
                 viewHolder.txtText1.setText("Mua vào giá ");
                 viewHolder.txtText2.setVisibility(View.GONE);
-                viewHolder.txtPriceBan.setVisibility(View.GONE );
+                viewHolder.txtPriceBan.setVisibility(View.GONE);
                 viewHolder.txtTimeBan.setVisibility(View.GONE);
-            }else{
+            } else {
                 viewHolder.imgBuy.setVisibility(View.GONE);
-            viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Sẽ báo khi thấy có dấu hiệu " : "");
+                viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Sẽ báo khi thấy có dấu hiệu " : "");
             }
-            if(p.numberSell!="0"){
-                viewHolder.txtText3.setText("Bán ra: "+ p.numberSell +" đơn vị");
+            if (p.numberSell != "0") {
+                viewHolder.txtText3.setText("Bán ra: " + p.numberSell + " đơn vị");
                 viewHolder.imgBuy.setVisibility(View.VISIBLE);
                 viewHolder.txtText1.setVisibility(View.GONE);
                 viewHolder.txtGiaMua.setVisibility(View.GONE);
                 viewHolder.txtTimeMua.setVisibility(View.GONE);
                 //viewHolder.txtText2.setVisibility(View.GONE);
-                viewHolder.txtPriceBan.setVisibility(View.VISIBLE );
+                viewHolder.txtPriceBan.setVisibility(View.VISIBLE);
                 viewHolder.txtTimeBan.setVisibility(View.VISIBLE);
-                viewHolder.txtPriceBan.setText("Giá bán ra:  "+ p.strGia);
+                viewHolder.txtPriceBan.setText("Giá bán ra:  " + p.strGia);
                 viewHolder.txtTimeBan.setText("được báo bán lúc " + p.strTimeBan);
                 //viewHolder.txtTimeBan.setVisibility(View.GONE);
-            }else{
+            } else {
                 viewHolder.imgBuy.setVisibility(View.GONE);
                 viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Sẽ báo khi thấy có dấu hiệu " : "");
             }
