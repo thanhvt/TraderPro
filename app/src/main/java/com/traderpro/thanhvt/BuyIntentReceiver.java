@@ -12,16 +12,12 @@ import android.util.Log;
 import com.binance.api.client.BinanceApiClientFactory;
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.domain.account.NewOrderResponse;
-import com.binance.api.client.domain.account.NewOrderResponseType;
 import com.traderpro.GCM.Config;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Calendar;
-
-import static com.binance.api.client.domain.account.NewOrder.marketBuy;
-import static com.binance.api.client.domain.account.NewOrder.marketSell;
 
 public class BuyIntentReceiver extends BroadcastReceiver {
     public Context mContext;
@@ -38,8 +34,8 @@ public class BuyIntentReceiver extends BroadcastReceiver {
         float number = 0;
         String BUYSELL = extras.getString("BUYSELL");
         String strCoin = extras.getString("COIN");
-        String PUBLIC_KEY = "yfhnEwr47LSL7Lbdx2bymCAVoi9YkAZINVkKckotEy7YtbotIuudGisaEnWlyjS1";
-        String PRIVATE_KEY = "eXoM5w9uAeqZYoRioeWctmgsbkJUBUeQn5AXnLZVoBq3DsoJLQLbFrAcoH6Z094C";
+        String PUBLIC_KEY = "";
+        String PRIVATE_KEY = "";
         String price = extras.getString("PRICE");
         if (price.contains("~")) {
             price = price.replace("~", "");
@@ -53,7 +49,7 @@ public class BuyIntentReceiver extends BroadcastReceiver {
         //editor.putString("BIN_PUB", binPub);
         //editor.putString("BIN_PRI", binPri);
         //editor.putString("AMOUNT_BTC", amountBTC);
-        new ExchangeSellBuy().execute(BUYSELL, strCoin, price,title,message);
+        new ExchangeSellBuy().execute(BUYSELL, strCoin, price, title, message);
 
     }
 
@@ -66,35 +62,21 @@ public class BuyIntentReceiver extends BroadcastReceiver {
             String strCoin = params[1];
             String price = params[2];
             String title = params[3];
-            String message =params[4];
+            String message = params[4];
             String amountBTC = "";
             //String binPri ="";
             //String binPub = "";
             float number = 0;
-            String PUBLIC_KEY = "yfhnEwr47LSL7Lbdx2bymCAVoi9YkAZINVkKckotEy7YtbotIuudGisaEnWlyjS1";
-            String PRIVATE_KEY = "eXoM5w9uAeqZYoRioeWctmgsbkJUBUeQn5AXnLZVoBq3DsoJLQLbFrAcoH6Z094C";
+            String PUBLIC_KEY = "";
+            String PRIVATE_KEY = "";
             SharedPreferences pref = mContext.getSharedPreferences(Config.BOT_API, 0);
             if (pref != null) {
                 int API = pref.getInt("USE_API", 0);
                 if (API == 1) {
-                    //String strNN = pref.getString("NN", "VN");
-                    String bitPub = pref.getString("BIT_PUB", "");
-                    String bitPri = pref.getString("BIT_PRI", "");
-                    //binPub = pref.getString("BIN_PUB", "");
-                    //binPri = pref.getString("BIN_PRI", "");
                     amountBTC = pref.getString("AMOUNT_BTC", "");
-                    PUBLIC_KEY = pref.getString("BIT_PUB", "");
-                    PRIVATE_KEY = pref.getString("BIT_PRI", "");
-                } else {
-                    String bitPub = pref.getString("BIT_PUB", "");
-                    String bitPri = pref.getString("BIT_PRI", "");
-                    //binPub = pref.getString("BIN_PUB", "");
-                    //binPri = pref.getString("BIN_PRI", "");
-                    amountBTC = pref.getString("AMOUNT_BTC", "");
-                    PUBLIC_KEY = pref.getString("BIT_PUB", "");
-                    PRIVATE_KEY = pref.getString("BIT_PRI", "");
-                }
-                if (API == 1) {
+                    PUBLIC_KEY = pref.getString("BIN_PUB", "");
+                    PRIVATE_KEY = pref.getString("BIN_PRI", "");
+
                     float numberF = Float.parseFloat(amountBTC) / Float.parseFloat(price);
                     number = (int) numberF;
                     Log.e("NUMBER: ", number + "");
@@ -123,7 +105,7 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                         }
                         strGiaMua = message.substring(message.indexOf("PRICE: ") + 7);
                         String content = strTime + "|" + strCoin + "|" + strGiaMua + "|" + strGiaBan
-                                + "|" + strTimeBan + "|" + strProfit + "|" + "Binance"+"|"+ number+""+"|"+"0";
+                                + "|" + strTimeBan + "|" + strProfit + "|" + "Binance" + "|" + numberF + "" + "|" + "0";
                         ghiFileBot(content);
                     } else if (BUYSELL.equals("SELL")) {
                         //newOrderResponse = client.newOrder(marketSell(strCoin + "BTC", "" + number).newOrderRespType(NewOrderResponseType.FULL));
@@ -138,7 +120,7 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                         if (title.contains("StopLoss")) {
                             strCoin = title.substring(title.lastIndexOf("StopLoss") + 8, title.indexOf("***") - 1);
                             strCoin = strCoin.trim();
-                        }else{
+                        } else {
                             strCoin = title.substring(title.lastIndexOf("TakeProfit") + 10, title.indexOf("***") - 1);
                             strCoin = strCoin.trim();
                         }
@@ -147,14 +129,13 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                         strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
                         strProfit = "+" + message.substring(message.lastIndexOf(":") + 1, message.lastIndexOf("</b>")).trim();
                         strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
-                         strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
+                        strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
                         String content = strTime + "|" + strCoin + "|" + strGiaMua + "|" + strGiaBan
-                                + "|" + strTimeBan + "|" + strProfit + "|" + "Binance"+"|"+"0"+"|"+ number+"";
+                                + "|" + strTimeBan + "|" + strProfit + "|" + "Binance" + "|" + "0" + "|" + numberF + "";
                         ghiFileBot(content);
                     }
-                }else{
-                    // not buy sell
-
+                } else {
+                    // Hiển thị Toast báo cần cấu hình API
                 }
             }
 
@@ -162,6 +143,7 @@ public class BuyIntentReceiver extends BroadcastReceiver {
             return null;
         }
     }
+
     public void ghiFileBot(String strNoiDung) {
         // write on SD card file data in the text box
         try {
