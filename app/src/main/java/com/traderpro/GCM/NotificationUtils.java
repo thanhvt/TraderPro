@@ -656,6 +656,7 @@ public class NotificationUtils {
                 String strTimeBan = "TIME_BAN";
                 String strProfit = "PROFIT";
                 String strExchange = "";
+                String strID = "";
                 if (title.contains("***")) {
                     strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
                     strCoin = title.substring(title.lastIndexOf("BNB") + 3, title.indexOf("BUYYY") - 1);
@@ -664,9 +665,10 @@ public class NotificationUtils {
                     strTime = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
 
                 }
+                strID = message.substring(message.indexOf("ID: ") + 4);
                 strGiaMua = message.substring(message.indexOf("PRICE: ") + 7, message.indexOf("|") - 1).trim();
                 String content = strTime + "|" + strCoin + "|" + strGiaMua + "|" + strGiaBan
-                        + "|" + strTimeBan + "|" + strProfit + "|" + "Binance";
+                        + "|" + strTimeBan + "|" + strProfit + "|" + "Binance" + "|" + strID;
                 ghiFileBot(content);
 
                 //Intent intent = new Intent(mContext, BidAskActivity.class);
@@ -684,118 +686,120 @@ public class NotificationUtils {
                 intent.putExtra("PRICE", strGiaMua);
                 intent.putExtra("INTENT", title);
                 intent.putExtra("MESSAGE", message);
+                intent.putExtra("ID", strID);
                 IntentFilter filter = new IntentFilter("com.action.buy");
                 BuyIntentReceiver receiver = new BuyIntentReceiver();
                 mContext.registerReceiver(receiver, filter);
                 ///mContext.sendBroadcast(intent);
                 PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                if (strSound.equals("ON")) {
-                    NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+//                if (strSound.equals("ON"))
+//                {
+                NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 
-                    MediaPlayer mp;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        int importance = NotificationManager.IMPORTANCE_HIGH;
-                        NotificationChannel mChannel = notificationManager.getNotificationChannel(chanelID);
-                        if (mChannel == null) {
-                            mChannel = new NotificationChannel(chanelID, title, importance);
-                            mChannel.enableVibration(true);
-                            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                            notificationManager.createNotificationChannel(mChannel);
-                        }
-                        mBuilder = new NotificationCompat.Builder(mContext, chanelID);
+                MediaPlayer mp;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    int importance = NotificationManager.IMPORTANCE_HIGH;
+                    NotificationChannel mChannel = notificationManager.getNotificationChannel(chanelID);
+                    if (mChannel == null) {
+                        mChannel = new NotificationChannel(chanelID, title, importance);
+                        mChannel.enableVibration(true);
+                        mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                        notificationManager.createNotificationChannel(mChannel);
                     }
-                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-                    inboxStyle.addLine(message);
+                    mBuilder = new NotificationCompat.Builder(mContext, chanelID);
+                }
+                NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+                inboxStyle.addLine(message);
 
-                    Notification notification;
-                    if (strExchange.equals("Binance")) {
-                        notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                .addAction(R.mipmap.ic_launcher, "BUY", pIntent) // #0
-                                .setAutoCancel(true)
-                                .setContentTitle(title)
-                                .setContentText(title)
-                                .setContentIntent(resultPendingIntent)
-                                .setSound(alarmSound)
-                                .setStyle(new NotificationCompat.BigTextStyle()
-                                        .bigText(fromHtml(message)))
-                                .setSmallIcon(R.mipmap.ic_launcher)
-                                .setDefaults(VibrateIndex)
-                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                .build();
-                    } else {
-                        notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                //.addAction(R.mipmap.ic_launcher, "BUY",pIntent ) // #0
-                                .setAutoCancel(true)
-                                .setContentTitle(title)
-                                .setContentText(title)
-                                .setContentIntent(resultPendingIntent)
-                                .setSound(alarmSound)
-                                .setStyle(new NotificationCompat.BigTextStyle()
-                                        .bigText(fromHtml(message)))
-                                .setSmallIcon(R.mipmap.ic_launcher)
-                                .setDefaults(VibrateIndex)
-                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                .build();
-                    }
-
-
-                    int id = (int) System.currentTimeMillis();
-                    notificationManager.notify(id, notification);
+                Notification notification;
+                if (strExchange.equals("Binance")) {
+                    notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                            .addAction(R.mipmap.ic_launcher, "BUY", pIntent) // #0
+                            .setAutoCancel(true)
+                            .setContentTitle(title)
+                            .setContentText(title)
+                            .setContentIntent(resultPendingIntent)
+                            .setSound(strSound.equals("ON") ? alarmSound : null)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(fromHtml(message)))
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setDefaults(VibrateIndex)
+                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                            .build();
                 } else {
-                    NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-
-                    MediaPlayer mp;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        int importance = NotificationManager.IMPORTANCE_HIGH;
-                        NotificationChannel mChannel = notificationManager.getNotificationChannel(chanelID);
-                        if (mChannel == null) {
-                            mChannel = new NotificationChannel(chanelID, title, importance);
-                            mChannel.enableVibration(true);
-                            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-                            notificationManager.createNotificationChannel(mChannel);
-                        }
-                        mBuilder = new NotificationCompat.Builder(mContext, chanelID);
-                    }
-                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-                    inboxStyle.addLine(message);
-                    Notification notification;
-                    if (strExchange.equals("Binance")) {
-                        notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                .addAction(R.mipmap.ic_launcher, "BUY", pIntent) // #0
-                                .setAutoCancel(true)
-                                .setContentTitle(title)
-                                .setContentText(title)
-                                .setContentIntent(resultPendingIntent)
-                                .setSound(null)
-                                .setStyle(new NotificationCompat.BigTextStyle()
-                                        .bigText(fromHtml(message)))
-                                .setSmallIcon(R.mipmap.ic_launcher)
-                                .setDefaults(VibrateIndex)
-                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                .build();
-                    } else {
-                        notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                //.addAction(R.mipmap.ic_launcher, "BUY",pIntent ) // #0
-                                .setAutoCancel(true)
-                                .setContentTitle(title)
-                                .setContentText(title)
-                                .setContentIntent(resultPendingIntent)
-                                .setSound(null)
-                                .setStyle(new NotificationCompat.BigTextStyle()
-                                        .bigText(fromHtml(message)))
-                                .setSmallIcon(R.mipmap.ic_launcher)
-                                .setDefaults(VibrateIndex)
-                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                .build();
-                    }
-
-
-                    int id = (int) System.currentTimeMillis();
-                    notificationManager.notify(id, notification);
+                    notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                            //.addAction(R.mipmap.ic_launcher, "BUY",pIntent ) // #0
+                            .setAutoCancel(true)
+                            .setContentTitle(title)
+                            .setContentText(title)
+                            .setContentIntent(resultPendingIntent)
+                            .setSound(strSound.equals("ON") ? alarmSound : null)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(fromHtml(message)))
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setDefaults(VibrateIndex)
+                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                            .build();
                 }
 
+
+                int id = (int) System.currentTimeMillis();
+                notificationManager.notify(id, notification);
+//                }
+//                else {
+//                    NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+//                    notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//                    MediaPlayer mp;
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                        int importance = NotificationManager.IMPORTANCE_HIGH;
+//                        NotificationChannel mChannel = notificationManager.getNotificationChannel(chanelID);
+//                        if (mChannel == null) {
+//                            mChannel = new NotificationChannel(chanelID, title, importance);
+//                            mChannel.enableVibration(true);
+//                            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+//                            notificationManager.createNotificationChannel(mChannel);
+//                        }
+//                        mBuilder = new NotificationCompat.Builder(mContext, chanelID);
+//                    }
+//                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+//                    inboxStyle.addLine(message);
+//                    Notification notification;
+//                    if (strExchange.equals("Binance")) {
+//                        notification = mBuilder.setSmallIcon(icon).setTicker(title)
+//                                .addAction(R.mipmap.ic_launcher, "BUY", pIntent) // #0
+//                                .setAutoCancel(true)
+//                                .setContentTitle(title)
+//                                .setContentText(title)
+//                                .setContentIntent(resultPendingIntent)
+//                                .setSound(null)
+//                                .setStyle(new NotificationCompat.BigTextStyle()
+//                                        .bigText(fromHtml(message)))
+//                                .setSmallIcon(R.mipmap.ic_launcher)
+//                                .setDefaults(VibrateIndex)
+//                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+//                                .build();
+//                    } else {
+//                        notification = mBuilder.setSmallIcon(icon).setTicker(title)
+//                                //.addAction(R.mipmap.ic_launcher, "BUY",pIntent ) // #0
+//                                .setAutoCancel(true)
+//                                .setContentTitle(title)
+//                                .setContentText(title)
+//                                .setContentIntent(resultPendingIntent)
+//                                .setSound(null)
+//                                .setStyle(new NotificationCompat.BigTextStyle()
+//                                        .bigText(fromHtml(message)))
+//                                .setSmallIcon(R.mipmap.ic_launcher)
+//                                .setDefaults(VibrateIndex)
+//                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+//                                .build();
+//                    }
+//
+//
+//                    int id = (int) System.currentTimeMillis();
+//                    notificationManager.notify(id, notification);
+//                }
 
             } else if (title.contains("StopLoss") || title.contains("TakeProfit")) {
                 NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -824,6 +828,7 @@ public class NotificationUtils {
                 String strGiaBan = "GIA_BAN";
                 String strTimeBan = "TIME_BAN";
                 String strProfit = "PROFIT";
+                String strID = "";
                 Uri mSound;
                 //Intent intent = new Intent(mContext, BidAskActivity.class);
                 //intent.putExtra("NotiClick",true);
@@ -834,233 +839,242 @@ public class NotificationUtils {
                 //intent.setFlags(Intent.Fl)
 
                 //check sound
-                if (strSound.equals("ON")) {
-                    if (title.contains("StopLoss")) {
-                        mSound = Uri.parse("android.resource://"
-                                + mContext.getPackageName() + "/" + R.raw.pdown);
-                        strCoin = title.substring(title.lastIndexOf("StopLoss") + 8, title.indexOf("***") - 1);
-                        strCoin = strCoin.trim();
-                        strGiaBan = message.substring(message.indexOf(":") + 6, message.indexOf(":") + 16);
-                        strGiaBan = strGiaBan.trim();
-                        strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
-                        strProfit = "-" + message.substring(message.lastIndexOf("LOSS: ") + 6, message.lastIndexOf("%") + 1).trim();
-                        strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
-                        String strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
-                        Intent intent = new Intent();
-                        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        intent.setAction("com.action.buy");
-                        intent.putExtra("BUYSELL", "SELL");
-                        intent.putExtra("COIN", strCoin);
-                        intent.putExtra("Exchange", strExchange);
-                        intent.putExtra("PRICE", strGiaBan);
-                        intent.putExtra("INTENT", title);
-                        intent.putExtra("MESSAGE", message);
-                        IntentFilter filter = new IntentFilter("com.action.buy");
-                        BuyIntentReceiver receiver = new BuyIntentReceiver();
-                        mContext.registerReceiver(receiver, filter);
-                        ///mContext.sendBroadcast(intent);
-                        PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        if (strExchange.equals("Binance")) {
-                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                    .addAction(R.mipmap.ic_launcher, "SELL LOST", pIntent)
-                                    .setAutoCancel(true)
-                                    .setContentTitle("Bán dừng lỗ ngay")
-                                    .setContentText(title)
-                                    .setContentIntent(pIntent)
-                                    .setSound(mSound)
-                                    .setStyle(new NotificationCompat.BigTextStyle()
-                                            .bigText(fromHtml(message)))
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setDefaults(VibrateIndex)
-                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                    .build();
-                        } else {
-                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                    .setAutoCancel(true)
-                                    .setContentTitle("Bán dừng lỗ ngay")
-                                    .setContentText(title)
-                                    .setContentIntent(pIntent)
-                                    .setSound(mSound)
-                                    .setStyle(new NotificationCompat.BigTextStyle()
-                                            .bigText(fromHtml(message)))
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setDefaults(VibrateIndex)
-                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                    .build();
-                        }
-
+//                if (strSound.equals("ON")) {
+                if (title.contains("StopLoss")) {
+                    mSound = Uri.parse("android.resource://"
+                            + mContext.getPackageName() + "/" + R.raw.pdown);
+                    strCoin = title.substring(title.lastIndexOf("StopLoss") + 8, title.indexOf("***") - 1);
+                    strCoin = strCoin.trim();
+                    strGiaBan = message.substring(message.indexOf(":") + 6, message.indexOf(":") + 16);
+                    strGiaBan = strGiaBan.trim();
+                    strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
+                    strProfit = "-" + message.substring(message.lastIndexOf("LOSS: ") + 6, message.lastIndexOf("%") + 1).trim();
+                    strID = message.substring(message.indexOf("ID: ") + 8);
+                    strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
+                    String strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
+                    Intent intent = new Intent();
+                    intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    intent.setAction("com.action.buy");
+                    intent.putExtra("BUYSELL", "SELL");
+                    intent.putExtra("COIN", strCoin);
+                    intent.putExtra("Exchange", strExchange);
+                    intent.putExtra("PRICE", strGiaBan);
+                    intent.putExtra("INTENT", title);
+                    intent.putExtra("MESSAGE", message);
+                    intent.putExtra("ID", strID);
+                    IntentFilter filter = new IntentFilter("com.action.buy");
+                    BuyIntentReceiver receiver = new BuyIntentReceiver();
+                    mContext.registerReceiver(receiver, filter);
+                    ///mContext.sendBroadcast(intent);
+                    PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    if (strExchange.equals("Binance")) {
+                        notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                .addAction(R.mipmap.ic_launcher, "SELL LOST", pIntent)
+                                .setAutoCancel(true)
+                                .setContentTitle("Bán dừng lỗ ngay")
+                                .setContentText(title)
+                                .setContentIntent(pIntent)
+                                .setSound(strSound.equals("ON") ? mSound : null)
+                                .setStyle(new NotificationCompat.BigTextStyle()
+                                        .bigText(fromHtml(message)))
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setDefaults(VibrateIndex)
+                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                .build();
                     } else {
-                        mSound = Uri.parse("android.resource://"
-                                + mContext.getPackageName() + "/" + R.raw.pup);
-                        strCoin = title.substring(title.lastIndexOf("TakeProfit") + 10, title.indexOf("***") - 1);
-                        strCoin = strCoin.trim();
-                        strGiaBan = message.substring(message.indexOf(":") + 6, message.indexOf(":") + 16);
-                        strGiaBan = strGiaBan.trim();
-                        strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
-                        strProfit = "+" + message.substring(message.lastIndexOf("PROFIT: ") + 8, message.lastIndexOf("%") + 1).trim();
-                        strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
-                        String strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
-                        Intent intent = new Intent();
-                        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        intent.setAction("com.action.buy");
-                        intent.putExtra("BUYSELL", "SELL");
-                        intent.putExtra("COIN", strCoin);
-                        intent.putExtra("Exchange", strExchange);
-                        intent.putExtra("PRICE", strGiaBan);
-                        intent.putExtra("INTENT", title);
-                        intent.putExtra("MESSAGE", message);
-                        IntentFilter filter = new IntentFilter("com.action.buy");
-                        BuyIntentReceiver receiver = new BuyIntentReceiver();
-                        mContext.registerReceiver(receiver, filter);
-                        ///mContext.sendBroadcast(intent);
-                        PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        if (strExchange.equals("Binance")) {
-                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                    .addAction(R.mipmap.ic_launcher, "SELL WIN", pIntent)
-                                    .setAutoCancel(true)
-                                    .setContentTitle("Bán chốt lời ngay")
-                                    .setContentText(title)
-                                    .setContentIntent(pIntent)
-                                    .setSound(mSound)
-                                    .setStyle(new NotificationCompat.BigTextStyle()
-                                            .bigText(fromHtml(message)))
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setDefaults(VibrateIndex)
-                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                    .build();
-                        } else {
-                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                    .setAutoCancel(true)
-                                    .setContentTitle("Bán chốt lời ngay")
-                                    .setContentText(title)
-                                    .setContentIntent(pIntent)
-                                    .setSound(mSound)
-                                    .setStyle(new NotificationCompat.BigTextStyle()
-                                            .bigText(fromHtml(message)))
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setDefaults(VibrateIndex)
-                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                    .build();
-                        }
-
+                        notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                .setAutoCancel(true)
+                                .setContentTitle("Bán dừng lỗ ngay")
+                                .setContentText(title)
+                                .setContentIntent(pIntent)
+                                .setSound(strSound.equals("ON") ? mSound : null)
+                                .setStyle(new NotificationCompat.BigTextStyle()
+                                        .bigText(fromHtml(message)))
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setDefaults(VibrateIndex)
+                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                .build();
                     }
 
-                    int id = (int) System.currentTimeMillis();
-                    notificationManager.notify(id, notification);
                 } else {
-                    if (title.contains("StopLoss")) {
-                        mSound = Uri.parse("android.resource://"
-                                + mContext.getPackageName() + "/" + R.raw.pdown);
-                        strCoin = title.substring(title.lastIndexOf("StopLoss") + 8, title.indexOf("***") - 1);
-                        strCoin = strCoin.trim();
-                        strGiaBan = message.substring(message.indexOf(":") + 6, message.indexOf(":") + 16);
-                        strGiaBan = strGiaBan.trim();
-                        strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
-                        strProfit = "-" + message.substring(message.lastIndexOf("LOSS: ") + 6, message.lastIndexOf("%") + 1).trim();
-                        strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
-                        String strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
-                        Intent intent = new Intent();
-                        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        intent.setAction("com.action.buy");
-                        intent.putExtra("BUYSELL", "SELL");
-                        intent.putExtra("COIN", strCoin);
-                        intent.putExtra("Exchange", strExchange);
-                        intent.putExtra("PRICE", strGiaMua);
-                        intent.putExtra("INTENT", title);
-                        intent.putExtra("MESSAGE", message);
-                        IntentFilter filter = new IntentFilter("com.action.buy");
-                        BuyIntentReceiver receiver = new BuyIntentReceiver();
-                        mContext.registerReceiver(receiver, filter);
-                        ///mContext.sendBroadcast(intent);
-                        PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        if (strExchange.equals("Binance")) {
-                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                    .addAction(R.mipmap.ic_launcher, "SELL LOST", pIntent)
-                                    .setAutoCancel(true)
-                                    .setContentTitle("Bán dừng lỗ ngay")
-                                    .setContentText(title)
-                                    .setContentIntent(pIntent)
-                                    .setSound(null)
-                                    .setStyle(new NotificationCompat.BigTextStyle()
-                                            .bigText(fromHtml(message)))
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setDefaults(VibrateIndex)
-                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                    .build();
-                        } else {
-                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                    .setAutoCancel(true)
-                                    .setContentTitle("Bán dừng lỗ ngay")
-                                    .setContentText(title)
-                                    .setContentIntent(pIntent)
-                                    .setSound(null)
-                                    .setStyle(new NotificationCompat.BigTextStyle()
-                                            .bigText(fromHtml(message)))
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setDefaults(VibrateIndex)
-                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                    .build();
-                        }
-
+                    mSound = Uri.parse("android.resource://"
+                            + mContext.getPackageName() + "/" + R.raw.pup);
+                    strCoin = title.substring(title.lastIndexOf("TakeProfit") + 10, title.indexOf("***") - 1);
+                    strCoin = strCoin.trim();
+                    strGiaBan = message.substring(message.indexOf(":") + 6, message.indexOf(":") + 16);
+                    strGiaBan = strGiaBan.trim();
+                    strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
+                    strProfit = "+" + message.substring(message.lastIndexOf("PROFIT: ") + 8, message.lastIndexOf("%") + 1).trim();
+                    strID = message.substring(message.indexOf("ID: ") + 8);
+                    strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
+                    String strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
+                    Intent intent = new Intent();
+                    intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    intent.setAction("com.action.buy");
+                    intent.putExtra("BUYSELL", "SELL");
+                    intent.putExtra("COIN", strCoin);
+                    intent.putExtra("Exchange", strExchange);
+                    intent.putExtra("PRICE", strGiaBan);
+                    intent.putExtra("INTENT", title);
+                    intent.putExtra("MESSAGE", message);
+                    intent.putExtra("ID", strID);
+                    IntentFilter filter = new IntentFilter("com.action.buy");
+                    BuyIntentReceiver receiver = new BuyIntentReceiver();
+                    mContext.registerReceiver(receiver, filter);
+                    ///mContext.sendBroadcast(intent);
+                    PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    if (strExchange.equals("Binance")) {
+                        notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                .addAction(R.mipmap.ic_launcher, "SELL WIN", pIntent)
+                                .setAutoCancel(true)
+                                .setContentTitle("Bán chốt lời ngay")
+                                .setContentText(title)
+                                .setContentIntent(pIntent)
+                                .setSound(strSound.equals("ON") ? mSound : null)
+                                .setStyle(new NotificationCompat.BigTextStyle()
+                                        .bigText(fromHtml(message)))
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setDefaults(VibrateIndex)
+                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                .build();
                     } else {
-                        mSound = Uri.parse("android.resource://"
-                                + mContext.getPackageName() + "/" + R.raw.pup);
-                        strCoin = title.substring(title.lastIndexOf("TakeProfit") + 10, title.indexOf("***") - 1);
-                        strCoin = strCoin.trim();
-                        strGiaBan = message.substring(message.indexOf(":") + 6, message.indexOf(":") + 16);
-                        strGiaBan = strGiaBan.trim();
-                        strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
-                        strProfit = "+" + message.substring(message.lastIndexOf("PROFIT: ") + 8, message.lastIndexOf("%") + 1).trim();
-                        strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
-                        String strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
-                        Intent intent = new Intent();
-                        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                        intent.setAction("com.action.buy");
-                        intent.putExtra("BUYSELL", "SELL");
-                        intent.putExtra("COIN", strCoin);
-                        intent.putExtra("Exchange", strExchange);
-                        intent.putExtra("PRICE", strGiaMua);
-                        intent.putExtra("INTENT", title);
-                        intent.putExtra("MESSAGE", message);
-                        IntentFilter filter = new IntentFilter("com.action.buy");
-                        BuyIntentReceiver receiver = new BuyIntentReceiver();
-                        mContext.registerReceiver(receiver, filter);
-                        ///mContext.sendBroadcast(intent);
-                        PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        if (strExchange.equals("Binance")) {
-                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                    .addAction(R.mipmap.ic_launcher, "SELL WIN", pIntent)
-                                    .setAutoCancel(true)
-                                    .setContentTitle("Bán chốt lời ngay")
-                                    .setContentText(title)
-                                    .setContentIntent(pIntent)
-                                    .setSound(null)
-                                    .setStyle(new NotificationCompat.BigTextStyle()
-                                            .bigText(fromHtml(message)))
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setDefaults(VibrateIndex)
-                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                    .build();
-                        } else {
-                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                    .setAutoCancel(true)
-                                    .setContentTitle("Bán chốt lời ngay")
-                                    .setContentText(title)
-                                    .setContentIntent(pIntent)
-                                    .setSound(null)
-                                    .setStyle(new NotificationCompat.BigTextStyle()
-                                            .bigText(fromHtml(message)))
-                                    .setSmallIcon(R.mipmap.ic_launcher)
-                                    .setDefaults(VibrateIndex)
-                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                                    .build();
-                        }
-
+                        notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                                .setAutoCancel(true)
+                                .setContentTitle("Bán chốt lời ngay")
+                                .setContentText(title)
+                                .setContentIntent(pIntent)
+                                .setSound(strSound.equals("ON") ? mSound : null)
+                                .setStyle(new NotificationCompat.BigTextStyle()
+                                        .bigText(fromHtml(message)))
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setDefaults(VibrateIndex)
+                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                .build();
                     }
 
-                    int id = (int) System.currentTimeMillis();
-                    notificationManager.notify(id, notification);
                 }
+
+                int id = (int) System.currentTimeMillis();
+                notificationManager.notify(id, notification);
+//                }
+//                else {
+//                    if (title.contains("StopLoss")) {
+//                        mSound = Uri.parse("android.resource://"
+//                                + mContext.getPackageName() + "/" + R.raw.pdown);
+//                        strCoin = title.substring(title.lastIndexOf("StopLoss") + 8, title.indexOf("***") - 1);
+//                        strCoin = strCoin.trim();
+//                        strGiaBan = message.substring(message.indexOf(":") + 6, message.indexOf(":") + 16);
+//                        strGiaBan = strGiaBan.trim();
+//                        strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
+//                        strProfit = "-" + message.substring(message.lastIndexOf("LOSS: ") + 6, message.lastIndexOf("%") + 1).trim();
+//                        strID = message.substring(message.indexOf("ID: ") + 8);
+//                        strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
+//                        String strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
+//                        Intent intent = new Intent();
+//                        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+//                        intent.setAction("com.action.buy");
+//                        intent.putExtra("BUYSELL", "SELL");
+//                        intent.putExtra("COIN", strCoin);
+//                        intent.putExtra("Exchange", strExchange);
+//                        intent.putExtra("PRICE", strGiaMua);
+//                        intent.putExtra("INTENT", title);
+//                        intent.putExtra("MESSAGE", message);
+//                        intent.putExtra("ID", strID);
+//                        IntentFilter filter = new IntentFilter("com.action.buy");
+//                        BuyIntentReceiver receiver = new BuyIntentReceiver();
+//                        mContext.registerReceiver(receiver, filter);
+//                        ///mContext.sendBroadcast(intent);
+//                        PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                        if (strExchange.equals("Binance")) {
+//                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
+//                                    .addAction(R.mipmap.ic_launcher, "SELL LOST", pIntent)
+//                                    .setAutoCancel(true)
+//                                    .setContentTitle("Bán dừng lỗ ngay")
+//                                    .setContentText(title)
+//                                    .setContentIntent(pIntent)
+//                                    .setSound(null)
+//                                    .setStyle(new NotificationCompat.BigTextStyle()
+//                                            .bigText(fromHtml(message)))
+//                                    .setSmallIcon(R.mipmap.ic_launcher)
+//                                    .setDefaults(VibrateIndex)
+//                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+//                                    .build();
+//                        } else {
+//                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
+//                                    .setAutoCancel(true)
+//                                    .setContentTitle("Bán dừng lỗ ngay")
+//                                    .setContentText(title)
+//                                    .setContentIntent(pIntent)
+//                                    .setSound(null)
+//                                    .setStyle(new NotificationCompat.BigTextStyle()
+//                                            .bigText(fromHtml(message)))
+//                                    .setSmallIcon(R.mipmap.ic_launcher)
+//                                    .setDefaults(VibrateIndex)
+//                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+//                                    .build();
+//                        }
+//
+//                    } else {
+//                        mSound = Uri.parse("android.resource://"
+//                                + mContext.getPackageName() + "/" + R.raw.pup);
+//                        strCoin = title.substring(title.lastIndexOf("TakeProfit") + 10, title.indexOf("***") - 1);
+//                        strCoin = strCoin.trim();
+//                        strGiaBan = message.substring(message.indexOf(":") + 6, message.indexOf(":") + 16);
+//                        strGiaBan = strGiaBan.trim();
+//                        strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
+//                        strProfit = "+" + message.substring(message.lastIndexOf("PROFIT: ") + 8, message.lastIndexOf("%") + 1).trim();
+//                        strID = message.substring(message.indexOf("ID: ") + 8);
+//                        strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
+//                        String strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
+//                        Intent intent = new Intent();
+//                        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+//                        intent.setAction("com.action.buy");
+//                        intent.putExtra("BUYSELL", "SELL");
+//                        intent.putExtra("COIN", strCoin);
+//                        intent.putExtra("Exchange", strExchange);
+//                        intent.putExtra("PRICE", strGiaMua);
+//                        intent.putExtra("INTENT", title);
+//                        intent.putExtra("MESSAGE", message);
+//                        intent.putExtra("ID", strID);
+//                        IntentFilter filter = new IntentFilter("com.action.buy");
+//                        BuyIntentReceiver receiver = new BuyIntentReceiver();
+//                        mContext.registerReceiver(receiver, filter);
+//                        ///mContext.sendBroadcast(intent);
+//                        PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//                        if (strExchange.equals("Binance")) {
+//                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
+//                                    .addAction(R.mipmap.ic_launcher, "SELL WIN", pIntent)
+//                                    .setAutoCancel(true)
+//                                    .setContentTitle("Bán chốt lời ngay")
+//                                    .setContentText(title)
+//                                    .setContentIntent(pIntent)
+//                                    .setSound(null)
+//                                    .setStyle(new NotificationCompat.BigTextStyle()
+//                                            .bigText(fromHtml(message)))
+//                                    .setSmallIcon(R.mipmap.ic_launcher)
+//                                    .setDefaults(VibrateIndex)
+//                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+//                                    .build();
+//                        } else {
+//                            notification = mBuilder.setSmallIcon(icon).setTicker(title)
+//                                    .setAutoCancel(true)
+//                                    .setContentTitle("Bán chốt lời ngay")
+//                                    .setContentText(title)
+//                                    .setContentIntent(pIntent)
+//                                    .setSound(null)
+//                                    .setStyle(new NotificationCompat.BigTextStyle()
+//                                            .bigText(fromHtml(message)))
+//                                    .setSmallIcon(R.mipmap.ic_launcher)
+//                                    .setDefaults(VibrateIndex)
+//                                    .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+//                                    .build();
+//                        }
+//
+//                    }
+//
+//                    int id = (int) System.currentTimeMillis();
+//                    notificationManager.notify(id, notification);
+//                }
 
 
                 Calendar rightNow = Calendar.getInstance();
@@ -1095,8 +1109,8 @@ public class NotificationUtils {
                     String itemBuy = lstObjectBuy.get(i);
                     if (!itemBuy.equalsIgnoreCase("")) {
                         String objs[] = itemBuy.split("\\|");
-                        if (objs.length == 7) {
-                            if (objs[1].equals(strCoin) && objs[2].contains(strGiaMua)) {
+                        if (objs.length >= 8) {
+                            if (objs[1].equals(strCoin) && objs[7].contains(strID)) {
                                 itemBuy = itemBuy.replace(objs[3], strGiaBan);
                                 itemBuy = itemBuy.replace(objs[4], strTimeBan);
                                 itemBuy = itemBuy.replace(objs[5], strProfit);
@@ -1111,7 +1125,6 @@ public class NotificationUtils {
                 for (int i = 0; i < lstObjectBuy.size(); i++) {
                     String itemBuy = lstObjectBuy.get(i);
                     if (!itemBuy.equals("")) {
-//                        bufferedWriter.write("\n" + itemBuy);
                         myOutWriter.append("\n" + itemBuy);
                     }
                 }

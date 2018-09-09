@@ -12,12 +12,16 @@ import android.util.Log;
 import com.binance.api.client.BinanceApiClientFactory;
 import com.binance.api.client.BinanceApiRestClient;
 import com.binance.api.client.domain.account.NewOrderResponse;
+import com.binance.api.client.domain.account.NewOrderResponseType;
 import com.traderpro.GCM.Config;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Calendar;
+
+import static com.binance.api.client.domain.account.NewOrder.marketBuy;
+import static com.binance.api.client.domain.account.NewOrder.marketSell;
 
 public class BuyIntentReceiver extends BroadcastReceiver {
     public Context mContext;
@@ -28,14 +32,8 @@ public class BuyIntentReceiver extends BroadcastReceiver {
         // an Intent broadcast.
         mContext = context;
         Bundle extras = intent.getExtras();
-        String amountBTC = "";
-        String binPri = "";
-        String binPub = "";
-        float number = 0;
         String BUYSELL = extras.getString("BUYSELL");
         String strCoin = extras.getString("COIN");
-        String PUBLIC_KEY = "";
-        String PRIVATE_KEY = "";
         String price = extras.getString("PRICE");
         if (price.contains("~")) {
             price = price.replace("~", "");
@@ -57,15 +55,12 @@ public class BuyIntentReceiver extends BroadcastReceiver {
 
         @Override
         protected String doInBackground(String... params) {
-            BittrexData data = new BittrexData();
             String BUYSELL = params[0];
             String strCoin = params[1];
             String price = params[2];
             String title = params[3];
             String message = params[4];
             String amountBTC = "";
-            //String binPri ="";
-            //String binPub = "";
             float number = 0;
             String PUBLIC_KEY = "";
             String PRIVATE_KEY = "";
@@ -81,58 +76,16 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                     number = (int) numberF;
                     Log.e("NUMBER: ", number + "");
                     Log.e("STRCOIN: ", strCoin);
-                    //        NotiEventReceiver.setupAlarm(context);
+
                     BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance(PUBLIC_KEY, PRIVATE_KEY);
                     BinanceApiRestClient client = factory.newRestClient();
                     NewOrderResponse newOrderResponse = new NewOrderResponse();
                     if (BUYSELL.equals("BUY")) {
-                        //newOrderResponse = client.newOrder(marketBuy(strCoin + "BTC", "" + number).newOrderRespType(NewOrderResponseType.FULL));
-                        String strTime = "";
-                        //String strCoin = "";
-                        String strGiaMua = "GIA_MUA";
-                        String strGiaBan = "GIA_BAN";
-                        String strTimeBan = "TIME_BAN";
-                        String strProfit = "PROFIT";
-                        String strExchange = "";
+                        newOrderResponse = client.newOrder(marketBuy(strCoin + "BTC", "" + number).newOrderRespType(NewOrderResponseType.FULL));
 
-                        if (title.contains("***")) {
-                            strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
-                            strCoin = title.substring(title.lastIndexOf("BNB") + 3, title.indexOf("BUYYY") - 1);
-                            strCoin = strCoin.trim();
-
-                            strTime = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
-
-                        }
-                        strGiaMua = message.substring(message.indexOf("PRICE: ") + 7);
-                        String content = strTime + "|" + strCoin + "|" + strGiaMua + "|" + strGiaBan
-                                + "|" + strTimeBan + "|" + strProfit + "|" + "Binance" + "|" + numberF + "" + "|" + "0";
-                        ghiFileBot(content);
                     } else if (BUYSELL.equals("SELL")) {
-                        //newOrderResponse = client.newOrder(marketSell(strCoin + "BTC", "" + number).newOrderRespType(NewOrderResponseType.FULL));
-                        String strTime = "";
-                        //String strCoin = "";
-                        String strGiaMua = "GIA_MUA";
-                        String strGiaBan = "GIA_BAN";
-                        String strTimeBan = "TIME_BAN";
-                        String strProfit = "PROFIT";
-                        String strExchange = "";
+                        newOrderResponse = client.newOrder(marketSell(strCoin + "BTC", "" + number).newOrderRespType(NewOrderResponseType.FULL));
 
-                        if (title.contains("StopLoss")) {
-                            strCoin = title.substring(title.lastIndexOf("StopLoss") + 8, title.indexOf("***") - 1);
-                            strCoin = strCoin.trim();
-                        } else {
-                            strCoin = title.substring(title.lastIndexOf("TakeProfit") + 10, title.indexOf("***") - 1);
-                            strCoin = strCoin.trim();
-                        }
-                        strGiaBan = message.substring(message.indexOf(":") + 6, message.indexOf(":") + 16);
-                        strGiaBan = strGiaBan.trim();
-                        strTimeBan = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
-                        strProfit = "+" + message.substring(message.lastIndexOf(":") + 1, message.lastIndexOf("</b>")).trim();
-                        strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
-                        strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
-                        String content = strTime + "|" + strCoin + "|" + strGiaMua + "|" + strGiaBan
-                                + "|" + strTimeBan + "|" + strProfit + "|" + "Binance" + "|" + "0" + "|" + numberF + "";
-                        ghiFileBot(content);
                     }
                 } else {
                     // Hiển thị Toast báo cần cấu hình API
