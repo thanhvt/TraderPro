@@ -123,7 +123,7 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                         }
                         strGiaMua = message.substring(message.indexOf("PRICE: ") + 7);
                         String content = strTime + "|" + strCoin + "|" + strGiaMua + "|" + strGiaBan
-                                + "|" + strTimeBan + "|" + strProfit + "|" + "Binance"+"|"+ numberF+""+"|"+"0";
+                                + "|" + strTimeBan + "|" + strProfit + "|" + "Binance"+"|"+ number+""+"|"+"0";
                         ghiFileBot(content);
                     } else if (BUYSELL.equals("SELL")) {
                         //newOrderResponse = client.newOrder(marketSell(strCoin + "BTC", "" + number).newOrderRespType(NewOrderResponseType.FULL));
@@ -149,7 +149,7 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                         strGiaMua = message.substring(message.indexOf("Buy:") + 9, message.indexOf("Buy") + 19).trim();
                          strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
                         String content = strTime + "|" + strCoin + "|" + strGiaMua + "|" + strGiaBan
-                                + "|" + strTimeBan + "|" + strProfit + "|" + "Binance"+"|"+"0"+"|"+ numberF+"";
+                                + "|" + strTimeBan + "|" + strProfit + "|" + "Binance"+"|"+"0"+"|"+ number+"";
                         ghiFileBot(content);
                     }
                 }else{
