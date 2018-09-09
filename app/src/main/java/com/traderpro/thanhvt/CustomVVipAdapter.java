@@ -84,7 +84,6 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             chenhHT = (Math.abs(p.strGiaHienTai - gia) / gia) * 100;
         }
 
-
         if (strNN.equalsIgnoreCase("VN")) {
             String strLaiLo = "";
             String strTimeMua = "";
@@ -148,32 +147,32 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             }
             viewHolder.txtPriceBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "(The system is scanning the best selling price)" : (p.strGiaBan + ""));
             viewHolder.txtTimeBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("system sells at " + p.strTimeBan + ""));
-            if(p.numberBuy!="0"){
-                viewHolder.txtText3.setText("Buy in: "+ p.numberBuy +" units");
+            if (p.numberBuy != "0") {
+                viewHolder.txtText3.setText("Buy in: " + p.numberBuy + " units");
                 viewHolder.imgBuy.setVisibility(View.VISIBLE);
                 viewHolder.imgBuy.setImageResource(R.drawable.buy);
                 viewHolder.txtText1.setText("Price buy ");
                 viewHolder.txtText2.setVisibility(View.GONE);
-                viewHolder.txtPriceBan.setVisibility(View.GONE );
+                viewHolder.txtPriceBan.setVisibility(View.GONE);
                 viewHolder.txtTimeBan.setVisibility(View.GONE);
-            }else{
+            } else {
                 viewHolder.imgBuy.setVisibility(View.GONE);
                 viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Will report when there are signs " : "");
             }
-            if(p.numberSell!="0"){
-                viewHolder.txtText3.setText("Sell out: "+ p.numberSell +" units");
+            if (p.numberSell != "0") {
+                viewHolder.txtText3.setText("Sell out: " + p.numberSell + " units");
                 viewHolder.imgBuy.setVisibility(View.VISIBLE);
                 viewHolder.imgBuy.setImageResource(R.drawable.sell);
                 viewHolder.txtText1.setVisibility(View.GONE);
                 viewHolder.txtGiaMua.setVisibility(View.GONE);
                 viewHolder.txtTimeMua.setVisibility(View.GONE);
                 //viewHolder.txtText2.setVisibility(View.GONE);
-                viewHolder.txtPriceBan.setVisibility(View.VISIBLE );
+                viewHolder.txtPriceBan.setVisibility(View.VISIBLE);
                 viewHolder.txtTimeBan.setVisibility(View.VISIBLE);
-                viewHolder.txtPriceBan.setText("Price sell:  "+ p.strGia);
+                viewHolder.txtPriceBan.setText("Price sell:  " + p.strGia);
                 viewHolder.txtTimeBan.setText("time sell " + p.strTimeBan);
                 //viewHolder.txtTimeBan.setVisibility(View.GONE);
-            }else{
+            } else {
                 viewHolder.imgBuy.setVisibility(View.GONE);
                 viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Will report when there are signs " : "");
             }

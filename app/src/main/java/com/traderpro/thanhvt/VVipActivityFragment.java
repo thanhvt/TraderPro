@@ -469,15 +469,15 @@ public class VVipActivityFragment extends Fragment {
             if (tmp.length < 6) return null;
             e.strExchange = tmp[6].trim();
             e.strCoin = tmp[1].trim();
-            e.strGia = tmp[2].trim();
+            e.strGia = tmp.length > 8 ? tmp[11].trim() : tmp[2].trim();
 //            e.strVol = tmp[3].trim();
 //            e.strVolTB = tmp[4].trim();
             e.strTime = tmp[0].trim();
-            e.numberBuy = tmp.length > 8 ? tmp[7].trim() : "0";
-            e.numberSell = tmp.length > 8 ? tmp[8].trim() : "0";
+            e.numberBuy = tmp.length > 8 && strIn.contains("BUYY") ? tmp[10].trim() : "0";
+            e.numberSell = tmp.length > 8 && strIn.contains("SELL") ? tmp[10].trim() : "0";
             Log.e("NUMBER BUY ", e.numberBuy);
 //            e.strCase = tmp.length > 6 ? tmp[6].trim() : "0";
-//            e.strBuySell = tmp.length > 7 ? tmp[7].trim() : "";
+            e.strBuySell = tmp.length > 8 ? tmp[8].trim() : "";
 //            e.strTakerMaker = tmp.length > 8 ? tmp[8].trim() : "";
 //            e.strGiaMax = 0D;
 
