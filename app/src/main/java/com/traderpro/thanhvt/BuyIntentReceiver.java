@@ -73,24 +73,10 @@ public class BuyIntentReceiver extends BroadcastReceiver {
             if (pref != null) {
                 int API = pref.getInt("USE_API", 0);
                 if (API == 1) {
-                    //String strNN = pref.getString("NN", "VN");
-                    String bitPub = pref.getString("BIT_PUB", "");
-                    String bitPri = pref.getString("BIT_PRI", "");
-                    //binPub = pref.getString("BIN_PUB", "");
-                    //binPri = pref.getString("BIN_PRI", "");
                     amountBTC = pref.getString("AMOUNT_BTC", "");
-                    PUBLIC_KEY = pref.getString("BIT_PUB", "");
-                    PRIVATE_KEY = pref.getString("BIT_PRI", "");
-                } else {
-                    String bitPub = pref.getString("BIT_PUB", "");
-                    String bitPri = pref.getString("BIT_PRI", "");
-                    //binPub = pref.getString("BIN_PUB", "");
-                    //binPri = pref.getString("BIN_PRI", "");
-                    amountBTC = pref.getString("AMOUNT_BTC", "");
-                    PUBLIC_KEY = pref.getString("BIT_PUB", "");
-                    PRIVATE_KEY = pref.getString("BIT_PRI", "");
-                }
-                if (API == 1) {
+                    PUBLIC_KEY = pref.getString("BIN_PUB", "");
+                    PRIVATE_KEY = pref.getString("BIN_PRI", "");
+
                     float numberF = Float.parseFloat(amountBTC) / Float.parseFloat(price);
                     number = (int) numberF;
                     Log.e("NUMBER: ", number + "");
@@ -149,8 +135,7 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                         ghiFileBot(content);
                     }
                 } else {
-                    // not buy sell
-
+                    // Hiển thị Toast báo cần cấu hình API
                 }
             }
 

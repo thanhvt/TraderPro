@@ -507,9 +507,9 @@ public class ScrollingActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_active) {
-            Intent m = new Intent(ScrollingActivity.this, BidAskActivity.class);
-            startActivity(m);
-            return true;
+//            Intent m = new Intent(ScrollingActivity.this, BidAskActivity.class);
+//            startActivity(m);
+//            return true;
         }
         if (id == R.id.action_about) {
             Intent m = new Intent(ScrollingActivity.this, AboutActivity.class);
