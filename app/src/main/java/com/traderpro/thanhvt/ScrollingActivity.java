@@ -93,6 +93,10 @@ public class ScrollingActivity extends AppCompatActivity {
 //        notificationUtils.readExcel(getApplicationContext());
 //        notificationUtils.saveExcelFile(getApplicationContext());
 
+//        IntentFilter filter = new IntentFilter("com.action.buy");
+//        BuyIntentReceiver receiver = new BuyIntentReceiver();
+//        registerReceiver(receiver, filter);
+
     }
 
     public void setUpGCM() {

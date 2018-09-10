@@ -11,7 +11,6 @@ import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -30,7 +29,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 
-import com.traderpro.thanhvt.BuyIntentReceiver;
 import com.traderpro.thanhvt.R;
 import com.traderpro.thanhvt.TraderUtils;
 import com.traderpro.thanhvt.UserDevice;
@@ -687,9 +685,7 @@ public class NotificationUtils {
                 intent.putExtra("INTENT", title);
                 intent.putExtra("MESSAGE", message);
                 intent.putExtra("ID", strID);
-                IntentFilter filter = new IntentFilter("com.action.buy");
-                BuyIntentReceiver receiver = new BuyIntentReceiver();
-                mContext.registerReceiver(receiver, filter);
+
                 ///mContext.sendBroadcast(intent);
                 PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 //                if (strSound.equals("ON"))
@@ -862,9 +858,7 @@ public class NotificationUtils {
                     intent.putExtra("INTENT", title);
                     intent.putExtra("MESSAGE", message);
                     intent.putExtra("ID", strID);
-                    IntentFilter filter = new IntentFilter("com.action.buy");
-                    BuyIntentReceiver receiver = new BuyIntentReceiver();
-                    mContext.registerReceiver(receiver, filter);
+
                     ///mContext.sendBroadcast(intent);
                     PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                     if (strExchange.equals("Binance")) {
@@ -918,9 +912,7 @@ public class NotificationUtils {
                     intent.putExtra("INTENT", title);
                     intent.putExtra("MESSAGE", message);
                     intent.putExtra("ID", strID);
-                    IntentFilter filter = new IntentFilter("com.action.buy");
-                    BuyIntentReceiver receiver = new BuyIntentReceiver();
-                    mContext.registerReceiver(receiver, filter);
+
                     ///mContext.sendBroadcast(intent);
                     PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                     if (strExchange.equals("Binance")) {
@@ -980,9 +972,7 @@ public class NotificationUtils {
 //                        intent.putExtra("INTENT", title);
 //                        intent.putExtra("MESSAGE", message);
 //                        intent.putExtra("ID", strID);
-//                        IntentFilter filter = new IntentFilter("com.action.buy");
-//                        BuyIntentReceiver receiver = new BuyIntentReceiver();
-//                        mContext.registerReceiver(receiver, filter);
+
 //                        ///mContext.sendBroadcast(intent);
 //                        PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 //                        if (strExchange.equals("Binance")) {
@@ -1036,9 +1026,7 @@ public class NotificationUtils {
 //                        intent.putExtra("INTENT", title);
 //                        intent.putExtra("MESSAGE", message);
 //                        intent.putExtra("ID", strID);
-//                        IntentFilter filter = new IntentFilter("com.action.buy");
-//                        BuyIntentReceiver receiver = new BuyIntentReceiver();
-//                        mContext.registerReceiver(receiver, filter);
+
 //                        ///mContext.sendBroadcast(intent);
 //                        PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 //                        if (strExchange.equals("Binance")) {
