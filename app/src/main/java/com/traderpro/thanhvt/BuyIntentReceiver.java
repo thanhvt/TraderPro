@@ -198,10 +198,12 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                                     String itemBuy = lstObjectBuy.get(i);
                                     if (!itemBuy.equalsIgnoreCase("")) {
                                         String objs[] = itemBuy.split("\\|");
-                                        if (objs.length >= 8 && objs[7].equals(ID) && itemBuy.contains("BUYY")) {
-                                            itemBuy.replace(objs[8], "SELL");
-                                            itemBuy.replace(objs[9], strTradeID);
-                                            itemBuy.replace(objs[10], newOrderResponse.getExecutedQty());
+                                        if (objs.length >= 8 && objs[7].equals(ID)) {
+                                            if (itemBuy.contains("BUYY")) {
+
+                                                itemBuy.replace(objs[8], "SELL");
+                                                itemBuy.replace(objs[9], strTradeID);
+                                                itemBuy.replace(objs[10], newOrderResponse.getExecutedQty());
 
 //                                            itemBuy.replace(objs[3], strGiaSan);
 //                                            Double giaMua = Double.parseDouble(objs[11]);
@@ -209,16 +211,17 @@ public class BuyIntentReceiver extends BroadcastReceiver {
 //                                                Double PROFIT = ((dbGiaSan - giaMua) / giaMua) * 100;
 //                                                itemBuy.replace(objs[3], strGiaSan);
 //                                            }
-                                            itemBuy.replace(objs[11], strGiaSan);
-                                            lstObjectBuy.set(i, itemBuy);
-                                        } else {
-                                            // Toast thong bao ban chua mua coin nay nen chua the bankey
-                                            handler = new Handler(mContext.getMainLooper());
-                                            handler.post(new Runnable() {
-                                                public void run() {
-                                                    Toast.makeText(mContext, "Can not sell because you didn't buy it!!!", Toast.LENGTH_LONG).show();
-                                                }
-                                            });
+                                                itemBuy.replace(objs[11], strGiaSan);
+                                                lstObjectBuy.set(i, itemBuy);
+                                            } else {
+                                                // Toast thong bao ban chua mua coin nay nen chua the bankey
+                                                handler = new Handler(mContext.getMainLooper());
+                                                handler.post(new Runnable() {
+                                                    public void run() {
+                                                        Toast.makeText(mContext, "Can not sell because you didn't buy it!!!", Toast.LENGTH_LONG).show();
+                                                    }
+                                                });
+                                            }
                                         }
                                     }
                                 }
