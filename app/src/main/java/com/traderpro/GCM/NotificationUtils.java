@@ -711,17 +711,17 @@ public class NotificationUtils {
                 Notification notification;
                 if (strExchange.equals("Binance")) {
                     notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                            .addAction(R.mipmap.ic_launcher, "BUY", pIntent) // #0
+                            .addAction(R.drawable.buycoin, "BUY", pIntent) // #0
                             .setAutoCancel(true)
                             .setContentTitle(title)
                             .setContentText(title)
-                            .setContentIntent(resultPendingIntent)
+//                            .setContentIntent(resultPendingIntent)
                             .setSound(strSound.equals("ON") ? alarmSound : null)
                             .setStyle(new NotificationCompat.BigTextStyle()
                                     .bigText(fromHtml(message)))
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setDefaults(VibrateIndex)
-                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.buycoin))
                             .build();
                 } else {
                     notification = mBuilder.setSmallIcon(icon).setTicker(title)
@@ -729,13 +729,13 @@ public class NotificationUtils {
                             .setAutoCancel(true)
                             .setContentTitle(title)
                             .setContentText(title)
-                            .setContentIntent(resultPendingIntent)
+//                            .setContentIntent(resultPendingIntent)
                             .setSound(strSound.equals("ON") ? alarmSound : null)
                             .setStyle(new NotificationCompat.BigTextStyle()
                                     .bigText(fromHtml(message)))
                             .setSmallIcon(R.mipmap.ic_launcher)
                             .setDefaults(VibrateIndex)
-                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.buycoin))
                             .build();
                 }
 
@@ -863,30 +863,30 @@ public class NotificationUtils {
                     PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                     if (strExchange.equals("Binance")) {
                         notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                .addAction(R.mipmap.ic_launcher, "SELL LOST", pIntent)
+                                .addAction(R.drawable.sellcoin, "SELL LOST", pIntent)
                                 .setAutoCancel(true)
                                 .setContentTitle("Bán dừng lỗ ngay")
                                 .setContentText(title)
-                                .setContentIntent(pIntent)
+//                                .setContentIntent(pIntent)
                                 .setSound(strSound.equals("ON") ? mSound : null)
                                 .setStyle(new NotificationCompat.BigTextStyle()
                                         .bigText(fromHtml(message)))
                                 .setSmallIcon(R.mipmap.ic_launcher)
                                 .setDefaults(VibrateIndex)
-                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.losscoin))
                                 .build();
                     } else {
                         notification = mBuilder.setSmallIcon(icon).setTicker(title)
                                 .setAutoCancel(true)
                                 .setContentTitle("Bán dừng lỗ ngay")
                                 .setContentText(title)
-                                .setContentIntent(pIntent)
+//                                .setContentIntent(pIntent)
                                 .setSound(strSound.equals("ON") ? mSound : null)
                                 .setStyle(new NotificationCompat.BigTextStyle()
                                         .bigText(fromHtml(message)))
                                 .setSmallIcon(R.mipmap.ic_launcher)
                                 .setDefaults(VibrateIndex)
-                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.losscoin))
                                 .build();
                     }
 
@@ -917,30 +917,30 @@ public class NotificationUtils {
                     PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                     if (strExchange.equals("Binance")) {
                         notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                                .addAction(R.mipmap.ic_launcher, "SELL WIN", pIntent)
+                                .addAction(R.drawable.sellcoin, "SELL WIN", pIntent)
                                 .setAutoCancel(true)
                                 .setContentTitle("Bán chốt lời ngay")
                                 .setContentText(title)
-                                .setContentIntent(pIntent)
+//                                .setContentIntent(pIntent)
                                 .setSound(strSound.equals("ON") ? mSound : null)
                                 .setStyle(new NotificationCompat.BigTextStyle()
                                         .bigText(fromHtml(message)))
                                 .setSmallIcon(R.mipmap.ic_launcher)
                                 .setDefaults(VibrateIndex)
-                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.sellcoin))
                                 .build();
                     } else {
                         notification = mBuilder.setSmallIcon(icon).setTicker(title)
                                 .setAutoCancel(true)
                                 .setContentTitle("Bán chốt lời ngay")
                                 .setContentText(title)
-                                .setContentIntent(pIntent)
+//                                .setContentIntent(pIntent)
                                 .setSound(strSound.equals("ON") ? mSound : null)
                                 .setStyle(new NotificationCompat.BigTextStyle()
                                         .bigText(fromHtml(message)))
                                 .setSmallIcon(R.mipmap.ic_launcher)
                                 .setDefaults(VibrateIndex)
-                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.sellcoin))
                                 .build();
                     }
 
