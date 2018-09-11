@@ -50,7 +50,8 @@ public class BuyIntentReceiver extends BroadcastReceiver {
         String title = extras.getString("INTENT");
         String message = extras.getString("MESSAGE");
         String strID = extras.getString("ID");
-
+        Log.d(TAG, message);
+        Log.d(TAG, strID);
         //int number = extras.getInt("PRICE");
         //Intent myIntent = new Intent(context, DetectSignalService.class);
         //context.startService(myIntent);
@@ -155,6 +156,8 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                                     }
                                 }
                             } catch (Exception e) {
+                                Log.e(TAG, e.getMessage());
+                                e.printStackTrace();
                                 // Toast thong bao de nghi kiem tra lai xem du BTC de giao dich khong, hoạc API da chinh xac chua
                                 Handler handler = new Handler(mContext.getMainLooper());
                                 handler.post(new Runnable() {
@@ -165,7 +168,19 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                             }
                         } else if (BUYSELL.equals("SELL")) {
                             try {
-                                final NewOrderResponse newOrderResponse = client.newOrder(marketSell(strCoin + "BTC", "" + number).newOrderRespType(NewOrderResponseType.FULL));
+                                int numberSell = 0;
+                                for (int i = 0; i < lstObjectBuy.size(); i++) {
+                                    String itemBuy = lstObjectBuy.get(i);
+                                    if (!itemBuy.equalsIgnoreCase("")) {
+                                        String objs[] = itemBuy.split("\\|");
+                                        if (objs.length >= 8 && objs[7].equals(ID)) {
+                                            if (objs[10].contains("."))
+                                                numberSell = Integer.parseInt(objs[10].substring(0, objs[10].indexOf(".")));
+                                            else numberSell = Integer.parseInt(objs[10]);
+                                        }
+                                    }
+                                }
+                                final NewOrderResponse newOrderResponse = client.newOrder(marketSell(strCoin + "BTC", "" + numberSell).newOrderRespType(NewOrderResponseType.FULL));
                                 String strTradeID = newOrderResponse.getOrderId() + "";
                                 Double dCum = Double.parseDouble(newOrderResponse.getCummulativeQuoteQty());
                                 Double dSL = Double.parseDouble(newOrderResponse.getExecutedQty());
@@ -176,17 +191,24 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                                 Handler handler = new Handler(mContext.getMainLooper());
                                 handler.post(new Runnable() {
                                     public void run() {
-                                        Toast.makeText(mContext, "Buy success " + newOrderResponse.getExecutedQty() + " " + strCoin + " !!!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(mContext, "Sell success " + newOrderResponse.getExecutedQty() + " " + strCoin + " !!!", Toast.LENGTH_LONG).show();
                                     }
                                 });
                                 for (int i = 0; i < lstObjectBuy.size(); i++) {
                                     String itemBuy = lstObjectBuy.get(i);
                                     if (!itemBuy.equalsIgnoreCase("")) {
                                         String objs[] = itemBuy.split("\\|");
-                                        if (objs.length >= 8 && objs[7].equals(ID) && itemBuy.contains("BUYYY")) {
+                                        if (objs.length >= 8 && objs[7].equals(ID) && itemBuy.contains("BUYY")) {
                                             itemBuy.replace(objs[8], "SELL");
                                             itemBuy.replace(objs[9], strTradeID);
                                             itemBuy.replace(objs[10], newOrderResponse.getExecutedQty());
+
+//                                            itemBuy.replace(objs[3], strGiaSan);
+//                                            Double giaMua = Double.parseDouble(objs[11]);
+//                                            if(dbGiaSan > giaMua){
+//                                                Double PROFIT = ((dbGiaSan - giaMua) / giaMua) * 100;
+//                                                itemBuy.replace(objs[3], strGiaSan);
+//                                            }
                                             itemBuy.replace(objs[11], strGiaSan);
                                             lstObjectBuy.set(i, itemBuy);
                                         } else {
@@ -201,6 +223,8 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                                     }
                                 }
                             } catch (Exception e) {
+                                Log.e(TAG, e.getMessage());
+                                e.printStackTrace();
                                 // Toast thong bao de nghi kiem tra lai xem du BTC de giao dich khong, hoạc API da chinh xac chua
                                 Handler handler = new Handler(mContext.getMainLooper());
                                 handler.post(new Runnable() {

@@ -101,34 +101,28 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             viewHolder.txtPriceBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "(hệ thống đang quét giá bán tốt nhất)" : (p.strGiaBan + ""));
             viewHolder.txtTimeBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("mà hệ thống báo bán lúc " + p.strTimeBan + ""));
             if (p.numberBuy != "0") {
-                viewHolder.txtText3.setText("Mua vào: " + p.numberBuy + " đơn vị");
+//                viewHolder.txtText3.setText("Mua vào: " + p.numberBuy + " đơn vị");
                 viewHolder.imgBuy.setVisibility(View.VISIBLE);
                 viewHolder.imgBuy.setImageResource(R.drawable.buy);
-                viewHolder.txtText1.setText("Mua vào giá ");
-                viewHolder.txtText2.setVisibility(View.GONE);
-                viewHolder.txtPriceBan.setVisibility(View.GONE);
-                viewHolder.txtTimeBan.setVisibility(View.GONE);
-            } else {
-                viewHolder.imgBuy.setVisibility(View.GONE);
-                viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Sẽ báo khi thấy có dấu hiệu " : "");
-            }
-            if (p.numberSell != "0") {
-                viewHolder.txtText3.setText("Bán ra: " + p.numberSell + " đơn vị");
+//                viewHolder.txtText1.setText("Mua vào giá ");
+//                viewHolder.txtText2.setVisibility(View.GONE);
+//                viewHolder.txtPriceBan.setVisibility(View.GONE);
+//                viewHolder.txtTimeBan.setVisibility(View.GONE);
+            } else if (p.numberSell != "0") {
+//                viewHolder.txtText3.setText("Bán ra: " + p.numberSell + " đơn vị");
                 viewHolder.imgBuy.setVisibility(View.VISIBLE);
                 viewHolder.imgBuy.setImageResource(R.drawable.sell);
-                viewHolder.txtText1.setVisibility(View.GONE);
-                viewHolder.txtGiaMua.setVisibility(View.GONE);
-                viewHolder.txtTimeMua.setVisibility(View.GONE);
-                //viewHolder.txtText2.setVisibility(View.GONE);
-                viewHolder.txtPriceBan.setVisibility(View.VISIBLE);
-                viewHolder.txtTimeBan.setVisibility(View.VISIBLE);
-                viewHolder.txtPriceBan.setText("Giá bán ra:  " + p.strGia);
-                viewHolder.txtTimeBan.setText("được báo bán lúc " + p.strTimeBan);
-                //viewHolder.txtTimeBan.setVisibility(View.GONE);
+//                viewHolder.txtText1.setVisibility(View.GONE);
+//                viewHolder.txtGiaMua.setVisibility(View.GONE);
+//                viewHolder.txtTimeMua.setVisibility(View.GONE);
+//                viewHolder.txtPriceBan.setVisibility(View.VISIBLE);
+//                viewHolder.txtTimeBan.setVisibility(View.VISIBLE);
+//                viewHolder.txtPriceBan.setText("Giá bán ra:  " + p.strGia);
+//                viewHolder.txtTimeBan.setText("được báo bán lúc " + p.strTimeBan);
             } else {
                 viewHolder.imgBuy.setVisibility(View.GONE);
-                viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Sẽ báo khi thấy có dấu hiệu " : "");
             }
+            viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Sẽ báo khi thấy có dấu hiệu " : "");
             viewHolder.txtProfit.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("===> thì profit thay đổi " + p.strProfit));
         } else {
             //
@@ -148,34 +142,28 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             viewHolder.txtPriceBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "(The system is scanning the best selling price)" : (p.strGiaBan + ""));
             viewHolder.txtTimeBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("system sells at " + p.strTimeBan + ""));
             if (p.numberBuy != "0") {
-                viewHolder.txtText3.setText("Buy in: " + p.numberBuy + " units");
+//                viewHolder.txtText3.setText("Buy in: " + p.numberBuy + " units");
                 viewHolder.imgBuy.setVisibility(View.VISIBLE);
                 viewHolder.imgBuy.setImageResource(R.drawable.buy);
-                viewHolder.txtText1.setText("Price buy ");
-                viewHolder.txtText2.setVisibility(View.GONE);
-                viewHolder.txtPriceBan.setVisibility(View.GONE);
-                viewHolder.txtTimeBan.setVisibility(View.GONE);
-            } else {
-                viewHolder.imgBuy.setVisibility(View.GONE);
-                viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Will report when there are signs " : "");
-            }
-            if (p.numberSell != "0") {
-                viewHolder.txtText3.setText("Sell out: " + p.numberSell + " units");
+//                viewHolder.txtText1.setText("Price buy ");
+//                viewHolder.txtText2.setVisibility(View.GONE);
+//                viewHolder.txtPriceBan.setVisibility(View.GONE);
+//                viewHolder.txtTimeBan.setVisibility(View.GONE);
+            } else if (p.numberSell != "0") {
+//                viewHolder.txtText3.setText("Sell out: " + p.numberSell + " units");
                 viewHolder.imgBuy.setVisibility(View.VISIBLE);
                 viewHolder.imgBuy.setImageResource(R.drawable.sell);
-                viewHolder.txtText1.setVisibility(View.GONE);
-                viewHolder.txtGiaMua.setVisibility(View.GONE);
-                viewHolder.txtTimeMua.setVisibility(View.GONE);
-                //viewHolder.txtText2.setVisibility(View.GONE);
-                viewHolder.txtPriceBan.setVisibility(View.VISIBLE);
-                viewHolder.txtTimeBan.setVisibility(View.VISIBLE);
-                viewHolder.txtPriceBan.setText("Price sell:  " + p.strGia);
-                viewHolder.txtTimeBan.setText("time sell " + p.strTimeBan);
-                //viewHolder.txtTimeBan.setVisibility(View.GONE);
+//                viewHolder.txtText1.setVisibility(View.GONE);
+//                viewHolder.txtGiaMua.setVisibility(View.GONE);
+//                viewHolder.txtTimeMua.setVisibility(View.GONE);
+//                viewHolder.txtPriceBan.setVisibility(View.VISIBLE);
+//                viewHolder.txtTimeBan.setVisibility(View.VISIBLE);
+//                viewHolder.txtPriceBan.setText("Price sell:  " + p.strGia);
+//                viewHolder.txtTimeBan.setText("time sell " + p.strTimeBan);
             } else {
                 viewHolder.imgBuy.setVisibility(View.GONE);
-                viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Will report when there are signs " : "");
             }
+            viewHolder.txtText3.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "===> Will report when there are signs " : "");
             viewHolder.txtProfit.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("===> then profit changes " + p.strProfit));
 //            String strLaiLo = "";
 //            String strTimeMua = "";
