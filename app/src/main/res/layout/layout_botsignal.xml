@@ -11,21 +11,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:layout_margin="5px"
         android:gravity="center"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imageBuy"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
-            android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/editText"
-            android:layout_marginEnd="0dp"
+            android:layout_marginRight="5dp"
             android:src="@drawable/buy"
-            android:visibility="gone"
-            />
+            android:visibility="visible" />
+
         <TextView
             android:id="@+id/txtText4"
             android:layout_width="wrap_content"

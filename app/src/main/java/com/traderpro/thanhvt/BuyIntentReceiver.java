@@ -155,14 +155,15 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                                         }
                                     }
                                 }
-                            } catch (Exception e) {
+                            } catch (final Exception e) {
                                 Log.e(TAG, e.getMessage());
                                 e.printStackTrace();
                                 // Toast thong bao de nghi kiem tra lai xem du BTC de giao dich khong, hoạc API da chinh xac chua
                                 Handler handler = new Handler(mContext.getMainLooper());
                                 handler.post(new Runnable() {
                                     public void run() {
-                                        Toast.makeText(mContext, "Amount of BTC not enough to trade or check your API!!!", Toast.LENGTH_LONG).show();
+//                                        Toast.makeText(mContext, "Amount of BTC not enough to trade or check your API!!!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(mContext, e.getMessage() + " !!!", Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }
@@ -201,9 +202,9 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                                         if (objs.length >= 8 && objs[7].equals(ID)) {
                                             if (itemBuy.contains("BUYY")) {
 
-                                                itemBuy.replace(objs[8], "SELL");
-                                                itemBuy.replace(objs[9], strTradeID);
-                                                itemBuy.replace(objs[10], newOrderResponse.getExecutedQty());
+                                                itemBuy = itemBuy.replace(objs[8], "SELL");
+                                                itemBuy = itemBuy.replace(objs[9], strTradeID);
+                                                itemBuy = itemBuy.replace(objs[10], newOrderResponse.getExecutedQty());
 
 //                                            itemBuy.replace(objs[3], strGiaSan);
 //                                            Double giaMua = Double.parseDouble(objs[11]);
@@ -211,7 +212,7 @@ public class BuyIntentReceiver extends BroadcastReceiver {
 //                                                Double PROFIT = ((dbGiaSan - giaMua) / giaMua) * 100;
 //                                                itemBuy.replace(objs[3], strGiaSan);
 //                                            }
-                                                itemBuy.replace(objs[11], strGiaSan);
+                                                itemBuy = itemBuy.replace(objs[11], strGiaSan);
                                                 lstObjectBuy.set(i, itemBuy);
                                             } else {
                                                 // Toast thong bao ban chua mua coin nay nen chua the bankey
@@ -225,14 +226,15 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                                         }
                                     }
                                 }
-                            } catch (Exception e) {
+                            } catch (final Exception e) {
                                 Log.e(TAG, e.getMessage());
                                 e.printStackTrace();
                                 // Toast thong bao de nghi kiem tra lai xem du BTC de giao dich khong, hoạc API da chinh xac chua
                                 Handler handler = new Handler(mContext.getMainLooper());
                                 handler.post(new Runnable() {
                                     public void run() {
-                                        Toast.makeText(mContext, "Amount of BTC not enough to trade or check your API!!!", Toast.LENGTH_LONG).show();
+//                                        Toast.makeText(mContext, "Amount of BTC not enough to trade or check your API!!!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(mContext, e.getMessage() + " !!!", Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }
@@ -261,9 +263,15 @@ public class BuyIntentReceiver extends BroadcastReceiver {
 
                     }
                 }
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 Log.e(TAG + " ExSellBuy", e.getMessage());
                 e.printStackTrace();
+                Handler handler = new Handler(mContext.getMainLooper());
+                handler.post(new Runnable() {
+                    public void run() {
+                        Toast.makeText(mContext, e.getMessage() + " !!!", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             return null;
