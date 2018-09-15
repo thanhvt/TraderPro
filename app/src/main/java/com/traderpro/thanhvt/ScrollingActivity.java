@@ -31,6 +31,8 @@ import android.widget.TextView;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.traderpro.GCM.Config;
 import com.traderpro.GCM.NotificationUtils;
+import com.traderpro.my_interface.GetUserDeviceDataService;
+import com.traderpro.network.RetrofitInstance;
 
 import org.json.JSONObject;
 
@@ -47,6 +49,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class ScrollingActivity extends AppCompatActivity {
 
@@ -56,7 +62,7 @@ public class ScrollingActivity extends AppCompatActivity {
     TextView tvBTC, tvPrice;
     String regId = "";
     String TAG = "ScrollingActivity";
-
+    boolean firstLogin = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +92,8 @@ public class ScrollingActivity extends AppCompatActivity {
 
         requestAppPermissions();
 
+        SaveDataBase();
+
 //        Intent myIntent = new Intent(getApplicationContext(), DetectSignalService.class);
 //        startService(myIntent);
 
@@ -97,6 +105,82 @@ public class ScrollingActivity extends AppCompatActivity {
 //        BuyIntentReceiver receiver = new BuyIntentReceiver();
 //        registerReceiver(receiver, filter);
 
+    }
+
+    private void SaveDataBase(){
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
+        firstLogin = pref.getBoolean("FIRSTLOGIN", true);
+        if(firstLogin == true){
+        // insert new data
+            UserDevice devices = new UserDevice();
+            // set Device
+            devices.NHASX = getManufacturer();
+            devices.TENTBI = getProductName();
+            devices.OS = getOSVersion();
+            devices.SERIAL = getSerialNumber();
+            devices.UUID = getUuid();
+            devices.VERSION = getOSVersion();
+            devices.DEVICE_TOKEN = regId;
+            insertData(devices);
+        //Save tt
+            //SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putBoolean("FIRSTLOGIN", false);
+            editor.commit();
+
+        }else{
+            //update old data
+            UserDevice devices = new UserDevice();
+            // set Device
+            devices.NHASX = getManufacturer();
+            upDateData(devices);
+        }
+    }
+
+    private void insertData(UserDevice devices){
+        try{
+        GetUserDeviceDataService service = RetrofitInstance.getRetrofitInstance().create(GetUserDeviceDataService.class);
+        Call<Boolean> call = service.Post(devices);
+        Log.wtf("URL Called", call.request().url() + "");
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                Boolean postCheck = response.body().booleanValue();
+                Log.e("CHECK PUT",postCheck+"");
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Log.e("USERDEVICE",t.getMessage()+"");
+            }
+
+        });
+        }catch (Exception e){
+
+        }
+    }
+
+    private void upDateData(UserDevice devices){
+        try{
+            GetUserDeviceDataService service = RetrofitInstance.getRetrofitInstance().create(GetUserDeviceDataService.class);
+            Call<Boolean> call = service.Put(devices);
+            Log.wtf("URL Called", call.request().url() + "");
+            call.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    Boolean putCheck = response.body().booleanValue();
+                    Log.e("CHECK PUT",putCheck+"");
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                    Log.e("USERDEVICE",t.getMessage()+"");
+                }
+
+            });
+        }catch (Exception e){
+
+        }
     }
 
     public void setUpGCM() {
