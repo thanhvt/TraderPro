@@ -606,7 +606,7 @@ public class NotificationUtils {
                     String[] temp = message.split("\\|");
                     UserDevice u = new UserDevice();
                     u.NHASX = temp[0].trim();
-                    u.TENTBI = temp[1].trim();
+                    u.TENTB = temp[1].trim();
                     u.OS = temp[2].trim();
                     u.SERIAL = temp[3].trim();
                     u.UUID = temp[4].trim();
@@ -631,7 +631,7 @@ public class NotificationUtils {
                     String[] temp = message.split("\\|");
                     UserDevice u = new UserDevice();
                     u.NHASX = temp[0].trim();
-                    u.TENTBI = temp[1].trim();
+                    u.TENTB = temp[1].trim();
                     u.OS = temp[2].trim();
                     u.SERIAL = temp[3].trim();
                     u.UUID = temp[4].trim();
@@ -1435,7 +1435,7 @@ public class NotificationUtils {
             c.setCellValue(u.NHASX);
 
             c = mRow.createCell(2);
-            c.setCellValue(u.TENTBI);
+            c.setCellValue(u.TENTB);
 
             c = mRow.createCell(3);
             c.setCellValue(u.OS);
@@ -1456,7 +1456,7 @@ public class NotificationUtils {
             c.setCellValue("0");
 
             c = mRow.createCell(9);
-//            c.setCellValue(u.TENTBI);
+//            c.setCellValue(u.TENTB);
 
             Calendar rightNow = Calendar.getInstance();
             int hour = rightNow.get(Calendar.HOUR_OF_DAY);
@@ -1558,7 +1558,7 @@ public class NotificationUtils {
                         userDevice.NHASX = myCell.toString();
                     }
                     if (myCell.getColumnIndex() == 2) {
-                        userDevice.TENTBI = myCell.toString();
+                        userDevice.TENTB = myCell.toString();
                     }
                     if (myCell.getColumnIndex() == 3) {
                         userDevice.OS = myCell.toString();
@@ -1586,7 +1586,7 @@ public class NotificationUtils {
                     }
                 }
 
-                Log.e(TAG, "Cell Value: " + userDevice.NHASX + " " + userDevice.TENTBI + " " + userDevice.OS
+                Log.e(TAG, "Cell Value: " + userDevice.NHASX + " " + userDevice.TENTB + " " + userDevice.OS
                         + " " + userDevice.SERIAL + " " + userDevice.UUID + " " + userDevice.DEVICE_TOKEN + " " + userDevice.CREATED_DATE);
                 lstUserDevice.add(userDevice);
             }

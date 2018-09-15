@@ -107,78 +107,72 @@ public class ScrollingActivity extends AppCompatActivity {
 
     }
 
-    private void SaveDataBase(){
+    private void SaveDataBase() {
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
         firstLogin = pref.getBoolean("FIRSTLOGIN", true);
-        if(firstLogin == true){
-        // insert new data
+        {
+            // insert new data
             UserDevice devices = new UserDevice();
             // set Device
             devices.NHASX = getManufacturer();
-            devices.TENTBI = getProductName();
+            devices.TENTB = getProductName();
             devices.OS = getOSVersion();
             devices.SERIAL = getSerialNumber();
             devices.UUID = getUuid();
             devices.VERSION = getOSVersion();
             devices.DEVICE_TOKEN = regId;
             insertData(devices);
-        //Save tt
+            //Save tt
             //SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
             SharedPreferences.Editor editor = pref.edit();
             editor.putBoolean("FIRSTLOGIN", false);
             editor.commit();
 
-        }else{
-            //update old data
-            UserDevice devices = new UserDevice();
-            // set Device
-            devices.NHASX = getManufacturer();
-            upDateData(devices);
         }
     }
 
-    private void insertData(UserDevice devices){
-        try{
-        GetUserDeviceDataService service = RetrofitInstance.getRetrofitInstance().create(GetUserDeviceDataService.class);
-        Call<Boolean> call = service.Post(devices);
-        Log.wtf("URL Called", call.request().url() + "");
-        call.enqueue(new Callback<Boolean>() {
-            @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                Boolean postCheck = response.body().booleanValue();
-                Log.e("CHECK PUT",postCheck+"");
-            }
-
-            @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
-                Log.e("USERDEVICE",t.getMessage()+"");
-            }
-
-        });
-        }catch (Exception e){
-
-        }
-    }
-
-    private void upDateData(UserDevice devices){
-        try{
+    private void insertData(UserDevice devices) {
+        try {
             GetUserDeviceDataService service = RetrofitInstance.getRetrofitInstance().create(GetUserDeviceDataService.class);
-            Call<Boolean> call = service.Put(devices);
+            Call<Boolean> call = service.Post(devices);
+            Log.wtf("URL Called", call.request().url() + "");
+            call.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    Boolean postCheck = response.body().booleanValue();
+                    Log.e("CHECK PUT", postCheck + "");
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                    Log.e("USERDEVICE", t.getMessage() + "");
+                }
+
+            });
+        } catch (Exception e) {
+
+        }
+    }
+
+    private void upDateData(UserDevice devices) {
+        try {
+            GetUserDeviceDataService service = RetrofitInstance.getRetrofitInstance().create(GetUserDeviceDataService.class);
+            Call<Boolean> call = service.Post(devices);
             Log.wtf("URL Called", call.request().url() + "");
             call.enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                     Boolean putCheck = response.body().booleanValue();
-                    Log.e("CHECK PUT",putCheck+"");
+                    Log.e("CHECK PUT", putCheck + "");
                 }
 
                 @Override
                 public void onFailure(Call<Boolean> call, Throwable t) {
-                    Log.e("USERDEVICE",t.getMessage()+"");
+                    Log.e("USERDEVICE", t.getMessage() + "");
                 }
 
             });
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -401,7 +395,7 @@ public class ScrollingActivity extends AppCompatActivity {
 //        protected String doInBackground(UserDevice... us) {
 //            try {
 //                URL url = new URL(ipServer + "/api/ecoin/update_device?userid=undefined" + "&nhasx=" + us[0].NHASX
-//                        + "&tentbi=" + us[0].TENTBI + "&os=" + "Android" + "&serial=" + us[0].SERIAL + "&uuid=" + us[0].UUID + "&version=" + us[0].VERSION
+//                        + "&tentbi=" + us[0].TENTB + "&os=" + "Android" + "&serial=" + us[0].SERIAL + "&uuid=" + us[0].UUID + "&version=" + us[0].VERSION
 //                        + "&devicetoken=" + us[0].DEVICE_TOKEN);
 //                connection = (HttpURLConnection) url.openConnection();
 //                connection.setRequestMethod("GET");

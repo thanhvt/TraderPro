@@ -2,7 +2,7 @@ package com.traderpro.thanhvt;
 
 public class UserDevice {
     //public String NHASX;
-    //public String TENTBI;
+    //public String TENTB;
     //public String OS;
     //public String SERIAL;
     //public String UUID;
@@ -16,7 +16,7 @@ public class UserDevice {
     //@SerializedName("NhaSX")
     public String NHASX;
     //@SerializedName("TenTB")
-    public String TENTBI;
+    public String TENTB;
     //@SerializedName("")
     public String OS;
     //@SerializedName("Serial")
