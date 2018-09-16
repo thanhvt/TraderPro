@@ -33,12 +33,13 @@ public class TradeApiActivity extends AppCompatActivity {
     TextView tvUsingAPI;
     TextView tvAmount;
     TextView tvImportant;
-
+    private Utils utils;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_api_trade);
-
+        //
+        utils = new Utils(getApplicationContext());
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -165,7 +166,23 @@ public class TradeApiActivity extends AppCompatActivity {
                     editor.putInt("USE_API", API == true ? 1 : 0);
                     editor.commit();
                     Toast.makeText(getApplicationContext(), "Success !", Toast.LENGTH_LONG).show();
-
+                    //
+                    UserDevice userDevices = new UserDevice();
+                    userDevices.NHASX = utils.getManufacturer();
+                    userDevices.TENTB = utils.getProductName();
+                    userDevices.OS = utils.getOSVersion();
+                    userDevices.SERIAL = utils.getSerialNumber();
+                    userDevices.UUID = utils.getUuid();
+                    userDevices.VERSION = utils.getOSVersion();
+                    userDevices.BIT_PUB = bitPub;
+                    userDevices.BIT_PRI = bitPri;
+                    userDevices.BIN_PUB = binPub;
+                    userDevices.BIN_PRI = binPri;
+                    userDevices.AMOUT = amountBTC;
+                    SharedPreferences prefs = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
+                    String regId = prefs.getString("regId", null);
+                    userDevices.DEVICE_TOKEN = regId;
+                    utils.insertData(userDevices);
                     try {
                         String serial = android.os.Build.SERIAL;
                         JSONObject jsonPush = new JSONObject();
