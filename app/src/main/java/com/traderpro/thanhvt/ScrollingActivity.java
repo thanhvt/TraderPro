@@ -92,7 +92,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         requestAppPermissions();
 
-        SaveDataBase();
+
 
 //        Intent myIntent = new Intent(getApplicationContext(), DetectSignalService.class);
 //        startService(myIntent);
@@ -212,7 +212,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         if (!TextUtils.isEmpty(regId)) {
             Log.e("REGID", "Firebase Reg Id: " + regId);
-
+            SaveDataBase();
             try {
                 File folder = new File(Environment.getExternalStorageDirectory() +
                         File.separator + "TraderPro");
