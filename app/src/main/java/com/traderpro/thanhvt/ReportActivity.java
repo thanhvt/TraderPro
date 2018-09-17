@@ -343,18 +343,18 @@ public class ReportActivity extends AppCompatActivity {
 
             tvThangThua.setText(countThangThua + "/" + strTinhToan + " note");
             tvThangNua.setText(countThangNua + "/" + strTinhToan + " note");
-            tvTT1.setText(thang1 + "/" + tong1 + " note");
-            tvTT2.setText(thang2 + "/" + tong2 + " note");
-            tvTT3.setText(thang3 + "/" + tong3 + " note");
-            tvTT4.setText(thang4 + "/" + tong4 + " note");
-            tvTT5.setText(thang5 + "/" + tong5 + " note");
-            tvTT6.setText(thang6 + "/" + tong6 + " note");
-            tvTT7.setText(thang7 + "/" + tong7 + " note");
-            tvTT8.setText(thang8 + "/" + tong8 + " note");
-            tvTT9.setText(thang9 + "/" + tong9 + " note");
-            tvTT10.setText(thang10 + "/" + tong10 + " note");
-            tvTT11.setText(thang11 + "/" + tong11 + " note");
-            tvTT12.setText(thang12 + "/" + tong12 + " note");
+            tvTT1.setText(thang1 + "/" + tong1 + " note: " + String.format("%.1f", maxt1 == 100 ? 0 : maxt1) + "% >>> " + String.format("%.1f", maxd1) + "%");
+            tvTT2.setText(thang2 + "/" + tong2 + " note: " + String.format("%.1f", maxt2 == 100 ? 0 : maxt2) + "% >>> " + String.format("%.1f", maxd2) + "%");
+            tvTT3.setText(thang3 + "/" + tong3 + " note: " + String.format("%.1f", maxt3 == 100 ? 0 : maxt3) + "% >>> " + String.format("%.1f", maxd3) + "%");
+            tvTT4.setText(thang4 + "/" + tong4 + " note: " + String.format("%.1f", maxt4 == 100 ? 0 : maxt4) + "% >>> " + String.format("%.1f", maxd4) + "%");
+            tvTT5.setText(thang5 + "/" + tong5 + " note: " + String.format("%.1f", maxt5 == 100 ? 0 : maxt5) + "% >>> " + String.format("%.1f", maxd5) + "%");
+            tvTT6.setText(thang6 + "/" + tong6 + " note: " + String.format("%.1f", maxt6 == 100 ? 0 : maxt6) + "% >>> " + String.format("%.1f", maxd6) + "%");
+            tvTT7.setText(thang7 + "/" + tong7 + " note: " + String.format("%.1f", maxt7 == 100 ? 0 : maxt7) + "% >>> " + String.format("%.1f", maxd7) + "%");
+            tvTT8.setText(thang8 + "/" + tong8 + " note: " + String.format("%.1f", maxt8 == 100 ? 0 : maxt8) + "% >>> " + String.format("%.1f", maxd8) + "%");
+            tvTT9.setText(thang9 + "/" + tong9 + " note: " + String.format("%.1f", maxt9 == 100 ? 0 : maxt9) + "% >>> " + String.format("%.1f", maxd9) + "%");
+            tvTT10.setText(thang10 + "/" + tong10 + " note: " + String.format("%.1f", maxt10 == 100 ? 0 : maxt10) + "% >>> " + String.format("%.1f", maxd10) + "%");
+            tvTT11.setText(thang11 + "/" + tong11 + " note: " + String.format("%.1f", maxt11 == 100 ? 0 : maxt11) + "% >>> " + String.format("%.1f", maxd11) + "%");
+            tvTT12.setText(thang12 + "/" + tong12 + " note: " + String.format("%.1f", maxt12 == 100 ? 0 : maxt12) + "% >>> " + String.format("%.1f", maxd12) + "%");
 
             tvTitleThang1.setText("Rate win > 0.5%");
             tvTitleThang2.setText("Rate win > 1%");
