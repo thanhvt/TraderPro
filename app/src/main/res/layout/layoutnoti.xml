@@ -103,6 +103,10 @@
             <!--android:textColor="#00ff00"-->
             <!--android:scrollbars="vertical"-->
             <!--android:textSize="12dp" />-->
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeToRefresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <ListView
                 android:id="@+id/lvTradeHistory"
                 android:layout_width="match_parent"
@@ -112,6 +116,7 @@
                 android:smoothScrollbar="true">
 
             </ListView>
+            </android.support.v4.widget.SwipeRefreshLayout>
         </ScrollView>
 
     </LinearLayout>

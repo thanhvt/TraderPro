@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +21,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.binance.api.client.BinanceApiClientFactory;
+import com.binance.api.client.BinanceApiRestClient;
+import com.binance.api.client.domain.account.NewOrderResponse;
+import com.binance.api.client.domain.account.NewOrderResponseType;
 import com.traderpro.GCM.Config;
 
 import org.json.JSONException;
@@ -45,6 +51,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import static com.binance.api.client.domain.account.NewOrder.marketSell;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -58,6 +66,7 @@ public class VVipActivityFragment extends Fragment {
     // timer handling
     private Timer mTimer = null;
     ListView listView;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     CustomVVipAdapter customAdapter;
     ArrayList<NotificationEntity> lstNotiEntity;
     ArrayList<NotificationEntity> lstNotiBinance;
@@ -120,6 +129,16 @@ public class VVipActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_vvip, container, false);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeToRefresh);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        //listView = (ListView) rootView.findViewById(R.id.lvTradeHistory);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getFile(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
         listView = (ListView) rootView.findViewById(R.id.lvTradeHistory);
 
 //        cbBinance = (CheckBox) rootView.findViewById(R.id.cbBinance);

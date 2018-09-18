@@ -175,7 +175,15 @@
 
     </LinearLayout>
 
-
+    <Button
+        android:id="@+id/btnSellNow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/about_facebook_color"
+        android:text="SELL NOW"
+        android:visibility="gone"
+        />
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"

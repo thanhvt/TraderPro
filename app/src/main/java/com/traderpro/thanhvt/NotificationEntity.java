@@ -23,6 +23,7 @@ public class NotificationEntity implements Serializable {
     public String numberSell = "0";
 
     public Double strGiaHienTai;
+    public boolean isSellNow = false;
 
 //    public String strTradeID;
 //    public String KLMuaBan;

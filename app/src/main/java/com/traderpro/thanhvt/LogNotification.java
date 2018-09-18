@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,7 +41,9 @@ import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Random;
 import java.util.Timer;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
@@ -57,6 +60,7 @@ public class LogNotification extends Fragment {
     // timer handling
     private Timer mTimer = null;
     ListView listView;
+    SwipeRefreshLayout mSwipeRefreshLayout;
     CustomNotificationAdapter customAdapter;
     ArrayList<NotificationEntity> lstNotiEntity;
     ArrayList<NotificationEntity> lstNotiBinance;
@@ -67,6 +71,8 @@ public class LogNotification extends Fragment {
     Calendar c;
     SimpleDateFormat df;
     String formattedDate;
+    boolean isCheckBinance = true;
+    boolean isCheckBittrex = true;
     public BittrexData bittrexData = new BittrexData();
     ProgressDialog progDailog;
 
@@ -103,7 +109,16 @@ public class LogNotification extends Fragment {
         }
 
         View rootView = inflater.inflate(R.layout.layoutnoti, container, false);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeToRefresh);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
         listView = (ListView) rootView.findViewById(R.id.lvTradeHistory);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                shuffle();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         cbBinance = (CheckBox) rootView.findViewById(R.id.cbBinance);
         cbBittrex = (CheckBox) rootView.findViewById(R.id.cbBittrex);
@@ -182,13 +197,23 @@ public class LogNotification extends Fragment {
         cbBittrex.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Calendar rightNow = Calendar.getInstance();
+                int nam = rightNow.get(Calendar.YEAR);
+                int thang = rightNow.get(Calendar.MONTH) + 1;
+                int ngay = rightNow.get(Calendar.DAY_OF_MONTH);
                 if (isChecked) {
                     lstNotiEntity.addAll(lstNotiBittrex);
+                    isCheckBittrex = true;
+                    cbBittrex.setText("Bittrex (" + lstNotiEntity.size() + ")");
                 } else {
+                    isCheckBittrex = false;
                     lstNotiEntity.removeAll(lstNotiBittrex);
+                    cbBittrex.setText("Bittrex (" + 0 + ")");
                 }
                 if (customAdapter != null) {
+                    customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notificustom, lstNotiEntity, bittrexData, nam, thang, ngay);
                     customAdapter.notifyDataSetChanged();
+                    listView.setAdapter(customAdapter);
                 }
 
             }
@@ -197,14 +222,26 @@ public class LogNotification extends Fragment {
         cbBinance.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Calendar rightNow = Calendar.getInstance();
+                int nam = rightNow.get(Calendar.YEAR);
+                int thang = rightNow.get(Calendar.MONTH) + 1;
+                int ngay = rightNow.get(Calendar.DAY_OF_MONTH);
                 if (isChecked) {
+                    isCheckBinance = true;
                     lstNotiEntity.addAll(lstNotiBinance);
+                    cbBinance.setText("Binance (" + lstNotiEntity.size() + ")");
+
                 } else {
+                    isCheckBinance = false;
                     lstNotiEntity.removeAll(lstNotiBinance);
+                    cbBinance.setText("Binance (" + 0 + ")");
+
                 }
 
                 if (customAdapter != null) {
+                    customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notificustom, lstNotiEntity, bittrexData, nam, thang, ngay);
                     customAdapter.notifyDataSetChanged();
+                    listView.setAdapter(customAdapter);
                 }
             }
         });
@@ -246,6 +283,73 @@ public class LogNotification extends Fragment {
 //        getGiaMaxBinance("NEO", c.getTimeInMillis() + "");
         return rootView;
     }
+
+    public void shuffle(){
+        try {
+            Calendar rightNow = Calendar.getInstance();
+            int nam = rightNow.get(Calendar.YEAR);
+            int thang = rightNow.get(Calendar.MONTH) + 1;
+            int ngay = rightNow.get(Calendar.DAY_OF_MONTH);
+            int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+            int min = rightNow.get(Calendar.MINUTE);
+
+            File folder = new File(Environment.getExternalStorageDirectory() +
+                    File.separator + "TraderPro");
+            boolean success = true;
+            if (!folder.exists()) {
+                success = folder.mkdirs();
+            }
+
+            File myFile = new File(Environment.getExternalStorageDirectory() +
+                    File.separator + "TraderPro" + File.separator + nam + thang + ngay + "_notification.txt");
+            if (!myFile.exists()) {
+                myFile.createNewFile();
+            }
+            FileInputStream fIn = new FileInputStream(myFile);
+            BufferedReader myReader = new BufferedReader(
+                    new InputStreamReader(fIn));
+            String aDataRow = "";
+            lstNotiEntity.clear();
+            lstNotiBittrex.clear();
+            lstNotiBinance.clear();
+            while ((aDataRow = myReader.readLine()) != null) {
+                aDataRow = aDataRow.replace("| ", "");
+                NotificationEntity e = new NotificationEntity();
+                e = parseFile(aDataRow, nam, thang, ngay);
+                lstNotiEntity.add(e);
+
+                if (e.strExchange.equals("Bittrex")) lstNotiBittrex.add(e);
+                if (e.strExchange.equals("Binance")) lstNotiBinance.add(e);
+                cbBinance.setText("Binance (" + lstNotiBinance.size() + ")");
+                cbBittrex.setText("Bittrex (" + lstNotiBittrex.size() + ")");
+            }
+            if (isCheckBinance) {
+                //lstNotiEntity.addAll(lstNotiBinance);
+            } else {
+                //isCheckBinance = false;
+                lstNotiEntity.removeAll(lstNotiBinance);
+                cbBinance.setText("Binance (" +"0"+ ")");
+            }
+
+            if (isCheckBittrex) {
+                //lstNotiEntity.addAll(lstNotiBinance);
+            } else {
+                //isCheckBinance = false;
+                lstNotiEntity.removeAll(lstNotiBittrex);
+                cbBittrex.setText("Bittrex (" +"0"+ ")");
+            }
+            myReader.close();
+
+
+            customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notificustom, lstNotiEntity, bittrexData, nam, thang, ngay);
+            customAdapter.notifyDataSetChanged();
+            listView.setAdapter(customAdapter);
+        } catch (Exception e) {
+            Log.e("Ex", e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 
     public void getFile(int nam, int thang, int ngay) {
         try {
