@@ -1,20 +1,19 @@
 package com.traderpro.thanhvt;
 
-import android.content.SharedPreferences;
+import android.content.Context;
 import android.provider.Settings;
 import android.util.Log;
 
-import com.traderpro.GCM.Config;
 import com.traderpro.my_interface.GetUserDeviceDataService;
 import com.traderpro.network.RetrofitInstance;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import android.content.ContentResolver;
-import android.content.Context;
 
 public class Utils {
     private Context mContext;
+
     public Utils(Context mContext) {
         this.mContext = mContext;
     }

@@ -41,9 +41,7 @@ import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.Random;
 import java.util.Timer;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
@@ -284,7 +282,7 @@ public class LogNotification extends Fragment {
         return rootView;
     }
 
-    public void shuffle(){
+    public void shuffle() {
         try {
             Calendar rightNow = Calendar.getInstance();
             int nam = rightNow.get(Calendar.YEAR);
@@ -328,7 +326,7 @@ public class LogNotification extends Fragment {
             } else {
                 //isCheckBinance = false;
                 lstNotiEntity.removeAll(lstNotiBinance);
-                cbBinance.setText("Binance (" +"0"+ ")");
+                cbBinance.setText("Binance (" + "0" + ")");
             }
 
             if (isCheckBittrex) {
@@ -336,7 +334,7 @@ public class LogNotification extends Fragment {
             } else {
                 //isCheckBinance = false;
                 lstNotiEntity.removeAll(lstNotiBittrex);
-                cbBittrex.setText("Bittrex (" +"0"+ ")");
+                cbBittrex.setText("Bittrex (" + "0" + ")");
             }
             myReader.close();
 

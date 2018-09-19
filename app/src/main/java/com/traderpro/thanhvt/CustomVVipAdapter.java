@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,14 +30,14 @@ import java.util.List;
 
 import static com.binance.api.client.domain.account.NewOrder.marketSell;
 
-public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity>{
+public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
 
     Context mContext;
     List<NotificationEntity> lstOrder;
     BittrexData bittrexData;
     int mResource;
     String strNN;
-   public CustomVVipAdapter.NotiHolder viewHolder;
+    public CustomVVipAdapter.NotiHolder viewHolder;
     public NotificationEntity p;
 
     public CustomVVipAdapter(Context context, int resource, List<NotificationEntity> items) {
@@ -96,86 +95,86 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity>{
             viewHolder.btnSellNow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    try{
-                    String PUBLIC_KEY = "";
-                    String PRIVATE_KEY = "";
-                    SharedPreferences pref = getContext().getSharedPreferences(Config.BOT_API, 0);
-                    Calendar rightNow = Calendar.getInstance();
-                    int nam = rightNow.get(Calendar.YEAR);
-                    int thang = rightNow.get(Calendar.MONTH) + 1;
-                    int ngay = rightNow.get(Calendar.DAY_OF_MONTH);
-                    int hour = rightNow.get(Calendar.HOUR_OF_DAY);
-                    int min = rightNow.get(Calendar.MINUTE);
+                    try {
+                        String PUBLIC_KEY = "";
+                        String PRIVATE_KEY = "";
+                        SharedPreferences pref = getContext().getSharedPreferences(Config.BOT_API, 0);
+                        Calendar rightNow = Calendar.getInstance();
+                        int nam = rightNow.get(Calendar.YEAR);
+                        int thang = rightNow.get(Calendar.MONTH) + 1;
+                        int ngay = rightNow.get(Calendar.DAY_OF_MONTH);
+                        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+                        int min = rightNow.get(Calendar.MINUTE);
 
-                    File folder = new File(Environment.getExternalStorageDirectory() +
-                            File.separator + "TraderPro");
-                    boolean success = true;
-                    if (!folder.exists()) {
-                        success = folder.mkdirs();
-                    }
-                    List<String> lstObjectBuy = new ArrayList<>();
-                    File myFile = new File(Environment.getExternalStorageDirectory() +
-                            File.separator + "TraderPro" + File.separator + nam + thang + ngay + "_bot.txt");
-                    if (!myFile.exists()) {
-                        myFile.createNewFile();
-                    }
-                    FileInputStream fIn = new FileInputStream(myFile);
-                    BufferedReader myReader = new BufferedReader(
-                            new InputStreamReader(fIn));
-                    String aDataRow = "";
-                    while ((aDataRow = myReader.readLine()) != null) {
-                        lstObjectBuy.add(aDataRow);
-                    }
-                    myReader.close();
-                        boolean coMuaBan = false;
-                    if (pref != null) {
-                        int API = pref.getInt("USE_API", 0);
-                        if (API == 1) {
-
-                            PUBLIC_KEY = pref.getString("BIN_PUB", "");
-                            PRIVATE_KEY = pref.getString("BIN_PRI", "");
+                        File folder = new File(Environment.getExternalStorageDirectory() +
+                                File.separator + "TraderPro");
+                        boolean success = true;
+                        if (!folder.exists()) {
+                            success = folder.mkdirs();
                         }
-                    }
-                    if(PUBLIC_KEY!=""&&PRIVATE_KEY!="") {
-                        BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance(PUBLIC_KEY, PRIVATE_KEY);
-                        BinanceApiRestClient client = factory.newRestClient();
-                        try {
-                            int numberSell = 0;
-                            for (int i = 0; i < lstObjectBuy.size(); i++) {
-                                String itemBuy = lstObjectBuy.get(i);
-                                if (!itemBuy.equalsIgnoreCase("")) {
-                                    String objs[] = itemBuy.split("\\|");
-                                    if (objs.length >= 8 && objs[7].equals(p.strId)) {
-                                        if (objs[10].contains("."))
-                                            numberSell = Integer.parseInt(objs[10].substring(0, objs[10].indexOf(".")));
-                                        else numberSell = Integer.parseInt(objs[10]);
+                        List<String> lstObjectBuy = new ArrayList<>();
+                        File myFile = new File(Environment.getExternalStorageDirectory() +
+                                File.separator + "TraderPro" + File.separator + nam + thang + ngay + "_bot.txt");
+                        if (!myFile.exists()) {
+                            myFile.createNewFile();
+                        }
+                        FileInputStream fIn = new FileInputStream(myFile);
+                        BufferedReader myReader = new BufferedReader(
+                                new InputStreamReader(fIn));
+                        String aDataRow = "";
+                        while ((aDataRow = myReader.readLine()) != null) {
+                            lstObjectBuy.add(aDataRow);
+                        }
+                        myReader.close();
+                        boolean coMuaBan = false;
+                        if (pref != null) {
+                            int API = pref.getInt("USE_API", 0);
+                            if (API == 1) {
+
+                                PUBLIC_KEY = pref.getString("BIN_PUB", "");
+                                PRIVATE_KEY = pref.getString("BIN_PRI", "");
+                            }
+                        }
+                        if (PUBLIC_KEY != "" && PRIVATE_KEY != "") {
+                            BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance(PUBLIC_KEY, PRIVATE_KEY);
+                            BinanceApiRestClient client = factory.newRestClient();
+                            try {
+                                int numberSell = 0;
+                                for (int i = 0; i < lstObjectBuy.size(); i++) {
+                                    String itemBuy = lstObjectBuy.get(i);
+                                    if (!itemBuy.equalsIgnoreCase("")) {
+                                        String objs[] = itemBuy.split("\\|");
+                                        if (objs.length >= 8 && objs[7].equals(p.strId)) {
+                                            if (objs[10].contains("."))
+                                                numberSell = Integer.parseInt(objs[10].substring(0, objs[10].indexOf(".")));
+                                            else numberSell = Integer.parseInt(objs[10]);
+                                        }
                                     }
                                 }
-                            }
-                            final NewOrderResponse newOrderResponse = client.newOrder(marketSell(p.strCoin + "BTC", "" + p.strBuySell).newOrderRespType(NewOrderResponseType.FULL));
-                            coMuaBan = true;
-                            String strTradeID = newOrderResponse.getOrderId() + "";
-                            Double dCum = Double.parseDouble(newOrderResponse.getCummulativeQuoteQty());
-                            Double dSL = Double.parseDouble(newOrderResponse.getExecutedQty());
-                            Double dbGiaSan = dCum / dSL;
-                            String strGiaSan = String.format("%.8f", dbGiaSan);
-                            strGiaSan = strGiaSan.replace(",", ".");
-                            Handler handler = new Handler(mContext.getMainLooper());
-                            handler.post(new Runnable() {
-                                public void run() {
-                                    Toast.makeText(mContext, "Sell success " + newOrderResponse.getExecutedQty() + " " + p.strCoin + " !!!", Toast.LENGTH_LONG).show();
-                                }
-                            });
-                            for (int i = 0; i < lstObjectBuy.size(); i++) {
-                                String itemBuy = lstObjectBuy.get(i);
-                                if (!itemBuy.equalsIgnoreCase("")) {
-                                    String objs[] = itemBuy.split("\\|");
-                                    if (objs.length >= 8 && objs[7].equals(p.strId)) {
-                                        if (itemBuy.contains("BUYY")) {
+                                final NewOrderResponse newOrderResponse = client.newOrder(marketSell(p.strCoin + "BTC", "" + p.strBuySell).newOrderRespType(NewOrderResponseType.FULL));
+                                coMuaBan = true;
+                                String strTradeID = newOrderResponse.getOrderId() + "";
+                                Double dCum = Double.parseDouble(newOrderResponse.getCummulativeQuoteQty());
+                                Double dSL = Double.parseDouble(newOrderResponse.getExecutedQty());
+                                Double dbGiaSan = dCum / dSL;
+                                String strGiaSan = String.format("%.8f", dbGiaSan);
+                                strGiaSan = strGiaSan.replace(",", ".");
+                                Handler handler = new Handler(mContext.getMainLooper());
+                                handler.post(new Runnable() {
+                                    public void run() {
+                                        Toast.makeText(mContext, "Sell success " + newOrderResponse.getExecutedQty() + " " + p.strCoin + " !!!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                                for (int i = 0; i < lstObjectBuy.size(); i++) {
+                                    String itemBuy = lstObjectBuy.get(i);
+                                    if (!itemBuy.equalsIgnoreCase("")) {
+                                        String objs[] = itemBuy.split("\\|");
+                                        if (objs.length >= 8 && objs[7].equals(p.strId)) {
+                                            if (itemBuy.contains("BUYY")) {
 
-                                            itemBuy = itemBuy.replace(objs[8], "SELL");
-                                            itemBuy = itemBuy.replace(objs[9], strTradeID);
-                                            itemBuy = itemBuy.replace(objs[10], newOrderResponse.getExecutedQty());
+                                                itemBuy = itemBuy.replace(objs[8], "SELL");
+                                                itemBuy = itemBuy.replace(objs[9], strTradeID);
+                                                itemBuy = itemBuy.replace(objs[10], newOrderResponse.getExecutedQty());
 
 //                                            itemBuy.replace(objs[3], strGiaSan);
 //                                            Double giaMua = Double.parseDouble(objs[11]);
@@ -183,41 +182,41 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity>{
 //                                                Double PROFIT = ((dbGiaSan - giaMua) / giaMua) * 100;
 //                                                itemBuy.replace(objs[3], strGiaSan);
 //                                            }
-                                            itemBuy = itemBuy.replace(objs[11], strGiaSan);
-                                            lstObjectBuy.set(i, itemBuy);
-                                        } else {
-                                            // Toast thong bao ban chua mua coin nay nen chua the bankey
-                                            handler = new Handler(mContext.getMainLooper());
-                                            handler.post(new Runnable() {
-                                                public void run() {
-                                                    Toast.makeText(mContext, "Can not sell because you didn't buy it!!!", Toast.LENGTH_LONG).show();
-                                                }
-                                            });
+                                                itemBuy = itemBuy.replace(objs[11], strGiaSan);
+                                                lstObjectBuy.set(i, itemBuy);
+                                            } else {
+                                                // Toast thong bao ban chua mua coin nay nen chua the bankey
+                                                handler = new Handler(mContext.getMainLooper());
+                                                handler.post(new Runnable() {
+                                                    public void run() {
+                                                        Toast.makeText(mContext, "Can not sell because you didn't buy it!!!", Toast.LENGTH_LONG).show();
+                                                    }
+                                                });
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            p.isSellNow = false;
-                            viewHolder.btnSellNow.setVisibility(View.GONE);
-                            viewHolder.imgBuy.setImageResource(R.drawable.sell);
-                        } catch (final Exception e) {
-                            //Log.e(TAG, e.getMessage());
-                            e.printStackTrace();
-                            // Toast thong bao de nghi kiem tra lai xem du BTC de giao dich khong, hoạc API da chinh xac chua
-                            Handler handler = new Handler(getContext().getMainLooper());
-                            handler.post(new Runnable() {
-                                public void run() {
+                                p.isSellNow = false;
+                                viewHolder.btnSellNow.setVisibility(View.GONE);
+                                viewHolder.imgBuy.setImageResource(R.drawable.sell);
+                            } catch (final Exception e) {
+                                //Log.e(TAG, e.getMessage());
+                                e.printStackTrace();
+                                // Toast thong bao de nghi kiem tra lai xem du BTC de giao dich khong, hoạc API da chinh xac chua
+                                Handler handler = new Handler(getContext().getMainLooper());
+                                handler.post(new Runnable() {
+                                    public void run() {
 //                                        Toast.makeText(mContext, "Amount of BTC not enough to trade or check your API!!!", Toast.LENGTH_LONG).show();
-                                    Toast.makeText(getContext(), e.getMessage() + " !!!", Toast.LENGTH_LONG).show();
-                                }
-                            });
+                                        Toast.makeText(getContext(), e.getMessage() + " !!!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
+
+                        } else {
+                            Toast.makeText(getContext(), "Enter public key and private key !!!", Toast.LENGTH_LONG).show();
                         }
 
-                    }else{
-                        Toast.makeText(getContext(), "Enter public key and private key !!!", Toast.LENGTH_LONG).show();
-                    }
-
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                         Handler handler = new Handler(mContext.getMainLooper());
                         handler.post(new Runnable() {
@@ -261,8 +260,8 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity>{
             viewHolder.txtTimeBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("mà hệ thống báo bán lúc " + p.strTimeBan + ""));
             if (p.numberBuy != "0") {
 //                viewHolder.txtText3.setText("Mua vào: " + p.numberBuy + " đơn vị");
-                if(p.isSellNow == true){
-                viewHolder.imgBuy.setVisibility(View.VISIBLE);
+                if (p.isSellNow == true) {
+                    viewHolder.imgBuy.setVisibility(View.VISIBLE);
                 }
                 viewHolder.imgBuy.setImageResource(R.drawable.buy);
                 viewHolder.btnSellNow.setVisibility(View.VISIBLE);
@@ -309,8 +308,8 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity>{
 //                viewHolder.txtText3.setText("Buy in: " + p.numberBuy + " units");
                 viewHolder.imgBuy.setVisibility(View.VISIBLE);
                 viewHolder.imgBuy.setImageResource(R.drawable.buy);
-                if(p.isSellNow == true){
-                viewHolder.btnSellNow.setVisibility(View.VISIBLE);
+                if (p.isSellNow == true) {
+                    viewHolder.btnSellNow.setVisibility(View.VISIBLE);
                 }
 //                viewHolder.txtText1.setText("Price buy ");
 //                viewHolder.txtText2.setVisibility(View.GONE);

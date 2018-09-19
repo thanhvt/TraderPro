@@ -21,12 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.binance.api.client.BinanceApiClientFactory;
-import com.binance.api.client.BinanceApiRestClient;
-import com.binance.api.client.domain.account.NewOrderResponse;
-import com.binance.api.client.domain.account.NewOrderResponseType;
 import com.traderpro.GCM.Config;
 
 import org.json.JSONException;
@@ -50,8 +45,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import static com.binance.api.client.domain.account.NewOrder.marketSell;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -492,7 +485,7 @@ public class VVipActivityFragment extends Fragment {
 //            e.strVol = tmp[3].trim();
 //            e.strVolTB = tmp[4].trim();
             e.strTime = tmp[0].trim();
-            e.strId = tmp.length >= 8 ? tmp[7].trim():"";
+            e.strId = tmp.length >= 8 ? tmp[7].trim() : "";
             e.numberBuy = tmp.length > 8 && strIn.contains("BUYY") ? tmp[10].trim() : "0";
             e.numberSell = tmp.length > 8 && strIn.contains("SELL") ? tmp[10].trim() : "0";
             Log.e("NUMBER BUY ", e.numberBuy);

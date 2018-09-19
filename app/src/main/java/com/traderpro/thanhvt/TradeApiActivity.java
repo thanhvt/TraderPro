@@ -34,6 +34,7 @@ public class TradeApiActivity extends AppCompatActivity {
     TextView tvAmount;
     TextView tvImportant;
     private Utils utils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
