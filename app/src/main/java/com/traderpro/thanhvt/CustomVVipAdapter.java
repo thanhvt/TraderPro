@@ -37,9 +37,8 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
     BittrexData bittrexData;
     int mResource;
     String strNN;
-    public CustomVVipAdapter.NotiHolder viewHolder;
     public NotificationEntity p;
-
+    CustomVVipAdapter.NotiHolder viewHolder;
     public CustomVVipAdapter(Context context, int resource, List<NotificationEntity> items) {
         super(context, resource, items);
         this.mContext = context;
@@ -49,7 +48,6 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
         SharedPreferences pref = mContext.getSharedPreferences(Config.NGON_NGU, 0);
         strNN = pref.getString("NN", "VN");
 
-        //viewHolder.btnSellNow = (Button) mContext.findViewById(R.id.btnSellNow);
     }
 
     public static class NotiHolder {
@@ -62,7 +60,7 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
         TextView txtCoin;
         TextView txtText3;
         ImageView imgBuy;
-        public Button btnSellNow;
+        Button btnSellNow;
         TextView txtText1;
         TextView txtText2;
         Double pMax;
@@ -78,7 +76,7 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
 
             view = mInflater.inflate(mResource, parent, false);
 
-
+            viewHolder = new CustomVVipAdapter.NotiHolder();
             viewHolder.txtGiaMua = (TextView) view.findViewById(R.id.txtGiaMua);
             viewHolder.txtTimeMua = (TextView) view.findViewById(R.id.txtTimeMua);
             viewHolder.txtGiaHienTai = (TextView) view.findViewById(R.id.txtGiaHienTai);
