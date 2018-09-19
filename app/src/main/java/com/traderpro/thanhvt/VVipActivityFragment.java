@@ -492,6 +492,7 @@ public class VVipActivityFragment extends Fragment {
 //            e.strVol = tmp[3].trim();
 //            e.strVolTB = tmp[4].trim();
             e.strTime = tmp[0].trim();
+            e.strId = tmp.length >= 8 ? tmp[7].trim():"";
             e.numberBuy = tmp.length > 8 && strIn.contains("BUYY") ? tmp[10].trim() : "0";
             e.numberSell = tmp.length > 8 && strIn.contains("SELL") ? tmp[10].trim() : "0";
             Log.e("NUMBER BUY ", e.numberBuy);

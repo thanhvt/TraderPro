@@ -3,6 +3,7 @@ package com.traderpro.thanhvt;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,12 @@ import com.binance.api.client.domain.account.NewOrderResponse;
 import com.binance.api.client.domain.account.NewOrderResponseType;
 import com.traderpro.GCM.Config;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static com.binance.api.client.domain.account.NewOrder.marketSell;
@@ -89,10 +96,38 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity>{
             viewHolder.btnSellNow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    try{
                     String PUBLIC_KEY = "";
                     String PRIVATE_KEY = "";
                     SharedPreferences pref = getContext().getSharedPreferences(Config.BOT_API, 0);
+                    Calendar rightNow = Calendar.getInstance();
+                    int nam = rightNow.get(Calendar.YEAR);
+                    int thang = rightNow.get(Calendar.MONTH) + 1;
+                    int ngay = rightNow.get(Calendar.DAY_OF_MONTH);
+                    int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+                    int min = rightNow.get(Calendar.MINUTE);
 
+                    File folder = new File(Environment.getExternalStorageDirectory() +
+                            File.separator + "TraderPro");
+                    boolean success = true;
+                    if (!folder.exists()) {
+                        success = folder.mkdirs();
+                    }
+                    List<String> lstObjectBuy = new ArrayList<>();
+                    File myFile = new File(Environment.getExternalStorageDirectory() +
+                            File.separator + "TraderPro" + File.separator + nam + thang + ngay + "_bot.txt");
+                    if (!myFile.exists()) {
+                        myFile.createNewFile();
+                    }
+                    FileInputStream fIn = new FileInputStream(myFile);
+                    BufferedReader myReader = new BufferedReader(
+                            new InputStreamReader(fIn));
+                    String aDataRow = "";
+                    while ((aDataRow = myReader.readLine()) != null) {
+                        lstObjectBuy.add(aDataRow);
+                    }
+                    myReader.close();
+                        boolean coMuaBan = false;
                     if (pref != null) {
                         int API = pref.getInt("USE_API", 0);
                         if (API == 1) {
@@ -105,7 +140,66 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity>{
                         BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance(PUBLIC_KEY, PRIVATE_KEY);
                         BinanceApiRestClient client = factory.newRestClient();
                         try {
+                            int numberSell = 0;
+                            for (int i = 0; i < lstObjectBuy.size(); i++) {
+                                String itemBuy = lstObjectBuy.get(i);
+                                if (!itemBuy.equalsIgnoreCase("")) {
+                                    String objs[] = itemBuy.split("\\|");
+                                    if (objs.length >= 8 && objs[7].equals(p.strId)) {
+                                        if (objs[10].contains("."))
+                                            numberSell = Integer.parseInt(objs[10].substring(0, objs[10].indexOf(".")));
+                                        else numberSell = Integer.parseInt(objs[10]);
+                                    }
+                                }
+                            }
                             final NewOrderResponse newOrderResponse = client.newOrder(marketSell(p.strCoin + "BTC", "" + p.strBuySell).newOrderRespType(NewOrderResponseType.FULL));
+                            coMuaBan = true;
+                            String strTradeID = newOrderResponse.getOrderId() + "";
+                            Double dCum = Double.parseDouble(newOrderResponse.getCummulativeQuoteQty());
+                            Double dSL = Double.parseDouble(newOrderResponse.getExecutedQty());
+                            Double dbGiaSan = dCum / dSL;
+                            String strGiaSan = String.format("%.8f", dbGiaSan);
+                            strGiaSan = strGiaSan.replace(",", ".");
+                            Handler handler = new Handler(mContext.getMainLooper());
+                            handler.post(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(mContext, "Sell success " + newOrderResponse.getExecutedQty() + " " + p.strCoin + " !!!", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            for (int i = 0; i < lstObjectBuy.size(); i++) {
+                                String itemBuy = lstObjectBuy.get(i);
+                                if (!itemBuy.equalsIgnoreCase("")) {
+                                    String objs[] = itemBuy.split("\\|");
+                                    if (objs.length >= 8 && objs[7].equals(p.strId)) {
+                                        if (itemBuy.contains("BUYY")) {
+
+                                            itemBuy = itemBuy.replace(objs[8], "SELL");
+                                            itemBuy = itemBuy.replace(objs[9], strTradeID);
+                                            itemBuy = itemBuy.replace(objs[10], newOrderResponse.getExecutedQty());
+
+//                                            itemBuy.replace(objs[3], strGiaSan);
+//                                            Double giaMua = Double.parseDouble(objs[11]);
+//                                            if(dbGiaSan > giaMua){
+//                                                Double PROFIT = ((dbGiaSan - giaMua) / giaMua) * 100;
+//                                                itemBuy.replace(objs[3], strGiaSan);
+//                                            }
+                                            itemBuy = itemBuy.replace(objs[11], strGiaSan);
+                                            lstObjectBuy.set(i, itemBuy);
+                                        } else {
+                                            // Toast thong bao ban chua mua coin nay nen chua the bankey
+                                            handler = new Handler(mContext.getMainLooper());
+                                            handler.post(new Runnable() {
+                                                public void run() {
+                                                    Toast.makeText(mContext, "Can not sell because you didn't buy it!!!", Toast.LENGTH_LONG).show();
+                                                }
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                            p.isSellNow = false;
+                            viewHolder.btnSellNow.setVisibility(View.GONE);
+                            viewHolder.imgBuy.setImageResource(R.drawable.sell);
                         } catch (final Exception e) {
                             //Log.e(TAG, e.getMessage());
                             e.printStackTrace();
@@ -118,11 +212,20 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity>{
                                 }
                             });
                         }
+
                     }else{
                         Toast.makeText(getContext(), "Enter public key and private key !!!", Toast.LENGTH_LONG).show();
                     }
-                    p.isSellNow = false;
-                    viewHolder.btnSellNow.setVisibility(View.GONE);
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        Handler handler = new Handler(mContext.getMainLooper());
+                        handler.post(new Runnable() {
+                            public void run() {
+                                Toast.makeText(mContext, e.getMessage() + " !!!", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
                 }
             });
             view.setTag(viewHolder);
