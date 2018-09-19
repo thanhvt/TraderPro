@@ -89,7 +89,6 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             viewHolder.txtText3 = (TextView) view.findViewById(R.id.txtText3);
             viewHolder.imgBuy = (ImageView) view.findViewById(R.id.imageBuy);
             viewHolder.btnSellNow = (Button) view.findViewById(R.id.btnSellNow);
-            viewHolder = new CustomVVipAdapter.NotiHolder();
             viewHolder.btnSellNow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
