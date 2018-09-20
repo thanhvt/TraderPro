@@ -39,6 +39,7 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
     String strNN;
     public NotificationEntity p;
     CustomVVipAdapter.NotiHolder viewHolder;
+
     public CustomVVipAdapter(Context context, int resource, List<NotificationEntity> items) {
         super(context, resource, items);
         this.mContext = context;

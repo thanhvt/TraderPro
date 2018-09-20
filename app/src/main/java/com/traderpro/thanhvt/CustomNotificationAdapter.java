@@ -2,12 +2,12 @@ package com.traderpro.thanhvt;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.traderpro.GCM.Config;
@@ -117,24 +117,6 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
         strNN = pref.getString("NN", "VN");
     }
 
-    static class NotiHolder {
-        TextView txtExchange;
-        TextView txtTime;
-        TextView txtPriceDetected;
-        TextView txtPrEx;
-        TextView txtProfit;
-        TextView txtVolumeTang;
-        TextView txtVolumeGoc;
-        TextView txtU;
-        TextView txtVolDec;
-        TextView txtPriceMax;
-        TextView txtBS;
-        TextView txtTM;
-
-        Double pMax;
-        Double pProfit;
-    }
-
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         NotiHolder viewHolder;
@@ -145,11 +127,6 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             view = mInflater.inflate(mResource, parent, false);
 
             viewHolder = new NotiHolder();
-
-//            viewHolder.name = (TextView)view.findViewById(R.id.name);
-//            viewHolder.screen_name = (TextView)view.findViewById(R.id.screen_name);
-//            viewHolder.twitter = (TextView)view.findViewById(R.id.twitter);
-//            viewHolder.created_at = (TextView)view.findViewById(R.id.created_at);
 
             viewHolder.txtExchange = (TextView) view.findViewById(R.id.txtExchange);
             viewHolder.txtTime = (TextView) view.findViewById(R.id.txtTime);
@@ -162,12 +139,13 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtU = (TextView) view.findViewById(R.id.txtU);
             viewHolder.txtVolDec = (TextView) view.findViewById(R.id.txtVolumeDected);
             viewHolder.txtPriceMax = (TextView) view.findViewById(R.id.txtPriceMax);
+            viewHolder.txtCoin = (TextView) view.findViewById(R.id.txtCoin);
+            viewHolder.mImageView = (ImageView) view.findViewById(R.id.imgCoin);
 
-
-            if (mResource == R.layout.layout_notificustom) {
-                viewHolder.txtBS = (TextView) view.findViewById(R.id.txtBS);
-                viewHolder.txtTM = (TextView) view.findViewById(R.id.txtTM);
-            }
+//            if (mResource == R.layout.layout_notificustom) {
+//                viewHolder.txtBS = (TextView) view.findViewById(R.id.txtBS);
+//                viewHolder.txtTM = (TextView) view.findViewById(R.id.txtTM);
+//            }
 
             view.setTag(viewHolder);
         } else {
@@ -184,79 +162,103 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
 
 
         if (strNN.equalsIgnoreCase("VN")) {
-            viewHolder.txtExchange.setText(p.strCoin + " - " + "Sàn: " + p.strExchange + " |" + p.strCase + "|");
+            viewHolder.txtCoin.setText(p.strCoin);
+            viewHolder.txtExchange.setText("Sàn: " + p.strExchange + " |" + p.strCase + "|");
             viewHolder.txtTime.setText("Time " + p.strTime);
-            viewHolder.txtPriceDetected.setText(p.strGia);
-            viewHolder.txtPrEx.setText(String.format("%.8f", p.strGiaMax));
+            viewHolder.txtPriceDetected.setText("P: " + p.strGia);
+            viewHolder.txtPrEx.setText("M: " + String.format("%.8f", p.strGiaMax));
 
-            viewHolder.txtProfit.setText("Ước tính: " + String.format("%.1f", profit) + "%");
-            viewHolder.txtVolumeTang.setText(p.strVol);
-
+            viewHolder.txtProfit.setText("G: " + String.format("%.1f", profit) + "%");
             Double tangSoLan = (Double.parseDouble(p.strVol) / Double.parseDouble(p.strVolTB)) * 100;
-            viewHolder.txtVolumeGoc.setText("√ Tăng trưởng: " + String.format("%.1f", tangSoLan) + "% (" + p.strVolTB + ")");
+            viewHolder.txtVolumeTang.setText("▲ " + String.format("%.1f", tangSoLan) + "%");
 
-            if (mResource == R.layout.layout_notificustom) {
-                viewHolder.txtBS.setText("Người mua/người bán: " + p.strBuySell);
-                viewHolder.txtTM.setText("Lệnh khớp/lệnh đặt: " + p.strTakerMaker);
-            }
 
-            viewHolder.txtU.setText("Giá báo:");
-            viewHolder.txtPriceMax.setText("Kỳ vọng:");
-            viewHolder.txtVolDec.setText("Phân tích volume:");
+            viewHolder.txtVolumeGoc.setText("V: " + p.strVolTB);
+
+//            if (mResource == R.layout.layout_notificustom) {
+//                viewHolder.txtBS.setText("Người mua/người bán: " + p.strBuySell);
+//                viewHolder.txtTM.setText("Lệnh khớp/lệnh đặt: " + p.strTakerMaker);
+//            }
+
+//            viewHolder.txtU.⬆️("Giá báo:");
+//            viewHolder.txtPriceMax.setText("Kỳ vọng:");
+            viewHolder.txtVolDec.setText("V: " + p.strVol);
         } else {
-            viewHolder.txtExchange.setText(p.strCoin + " - " + "Exchange: " + p.strExchange + " |" + p.strCase + "|");
+            viewHolder.txtCoin.setText(p.strCoin);
+            viewHolder.txtExchange.setText("Exchange: " + p.strExchange + " |" + p.strCase + "|");
             viewHolder.txtTime.setText("Time " + p.strTime);
-            viewHolder.txtPriceDetected.setText(p.strGia);
-            viewHolder.txtPrEx.setText(String.format("%.8f", p.strGiaMax));
+            viewHolder.txtPriceDetected.setText("P: " + p.strGia);
+            viewHolder.txtPrEx.setText("M: " + String.format("%.8f", p.strGiaMax));
 
-            viewHolder.txtProfit.setText("Profit: " + String.format("%.1f", profit) + "%");
-            viewHolder.txtVolumeTang.setText(p.strVol);
-
+            viewHolder.txtProfit.setText("G: " + String.format("%.1f", profit) + "%");
             Double tangSoLan = (Double.parseDouble(p.strVol) / Double.parseDouble(p.strVolTB)) * 100;
-            viewHolder.txtVolumeGoc.setText("√ Growth rate: " + String.format("%.1f", tangSoLan) + "% (" + p.strVolTB + ")");
-
-            if (mResource == R.layout.layout_notificustom) {
-                viewHolder.txtBS.setText("Number of Buyer/Seller: " + p.strBuySell);
-                viewHolder.txtTM.setText("Number of Taker/Maker: " + p.strTakerMaker);
-            }
+            viewHolder.txtVolumeTang.setText("▲ " + String.format("%.1f", tangSoLan) + "%");
 
 
-            viewHolder.txtU.setText("Quotation:");
-            viewHolder.txtPriceMax.setText("Expected Price:");
-            viewHolder.txtVolDec.setText("Volume Detected:");
+            viewHolder.txtVolumeGoc.setText("V: " + p.strVolTB);
+
+//            if (mResource == R.layout.layout_notificustom) {
+//                viewHolder.txtBS.setText("Number of Buyer/Seller: " + p.strBuySell);
+//                viewHolder.txtTM.setText("Number of Taker/Maker: " + p.strTakerMaker);
+//            }
+
+
+//            viewHolder.txtU.setText("Quotation:");
+//            viewHolder.txtPriceMax.setText("Expected Price:");
+            viewHolder.txtVolDec.setText("V: " + p.strVol);
         }
 
+//        Picasso.with(mContext).load(img_url).into(viewHolder.mImageView);
 
         this.notifyDataSetChanged();
-        if (p.strExchange.trim().contains("Bittrex")) {
-            viewHolder.txtExchange.setTextColor(Color.parseColor("#00FFFF"));
-            viewHolder.txtTime.setTextColor(Color.parseColor("#00FFFF"));
-            viewHolder.txtU.setTextColor(Color.parseColor("#00FFFF"));
-            viewHolder.txtVolDec.setTextColor(Color.parseColor("#00FFFF"));
-            viewHolder.txtVolumeTang.setTextColor(Color.parseColor("#00FFFF"));
-            viewHolder.txtPriceMax.setTextColor(Color.parseColor("#00FFFF"));
-
-            if (mResource == R.layout.layout_notificustom) {
-                viewHolder.txtBS.setTextColor(Color.parseColor("#00FFFF"));
-                viewHolder.txtTM.setTextColor(Color.parseColor("#00FFFF"));
-            }
-        } else {
-            viewHolder.txtExchange.setTextColor(Color.parseColor("#FFC125"));
-            viewHolder.txtTime.setTextColor(Color.parseColor("#FFC125"));
-            viewHolder.txtU.setTextColor(Color.parseColor("#FFC125"));
-            viewHolder.txtVolDec.setTextColor(Color.parseColor("#FFC125"));
-            viewHolder.txtVolumeTang.setTextColor(Color.parseColor("#FFC125"));
-            viewHolder.txtPriceMax.setTextColor(Color.parseColor("#FFC125"));
-
-            if (mResource == R.layout.layout_notificustom) {
-                viewHolder.txtBS.setTextColor(Color.parseColor("#FFC125"));
-                viewHolder.txtTM.setTextColor(Color.parseColor("#FFC125"));
-            }
-        }
+//        if (p.strExchange.trim().contains("Bittrex")) {
+//            viewHolder.txtExchange.setTextColor(Color.parseColor("#00FFFF"));
+//            viewHolder.txtTime.setTextColor(Color.parseColor("#00FFFF"));
+//            viewHolder.txtU.setTextColor(Color.parseColor("#00FFFF"));
+//            viewHolder.txtVolDec.setTextColor(Color.parseColor("#00FFFF"));
+//            viewHolder.txtVolumeTang.setTextColor(Color.parseColor("#00FFFF"));
+//            viewHolder.txtPriceMax.setTextColor(Color.parseColor("#00FFFF"));
+//
+//            if (mResource == R.layout.layout_notificustom) {
+//                viewHolder.txtBS.setTextColor(Color.parseColor("#00FFFF"));
+//                viewHolder.txtTM.setTextColor(Color.parseColor("#00FFFF"));
+//            }
+//        } else {
+//            viewHolder.txtExchange.setTextColor(Color.parseColor("#FFC125"));
+//            viewHolder.txtTime.setTextColor(Color.parseColor("#FFC125"));
+//            viewHolder.txtU.setTextColor(Color.parseColor("#FFC125"));
+//            viewHolder.txtVolDec.setTextColor(Color.parseColor("#FFC125"));
+//            viewHolder.txtVolumeTang.setTextColor(Color.parseColor("#FFC125"));
+//            viewHolder.txtPriceMax.setTextColor(Color.parseColor("#FFC125"));
+//
+//            if (mResource == R.layout.layout_notificustom) {
+//                viewHolder.txtBS.setTextColor(Color.parseColor("#FFC125"));
+//                viewHolder.txtTM.setTextColor(Color.parseColor("#FFC125"));
+//            }
+//        }
 //        new DownloadAsyncTask(p).execute(viewHolder);
 
 
         return view;
+    }
+
+    static class NotiHolder {
+        TextView txtExchange;
+        TextView txtTime;
+        TextView txtPriceDetected;
+        TextView txtPrEx;
+        TextView txtProfit;
+        TextView txtVolumeTang;
+        TextView txtVolumeGoc;
+        TextView txtU;
+        TextView txtVolDec;
+        TextView txtPriceMax;
+        TextView txtBS;
+        TextView txtTM;
+        TextView txtCoin;
+        Double pMax;
+        Double pProfit;
+        ImageView mImageView;
     }
 
     public Double subGetGiaMax(JSONArray arr) {

@@ -184,7 +184,7 @@ public class LogNotification extends Fragment {
             myReader.close();
 
 
-            customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notificustom, lstNotiEntity, bittrexData, nam, thang, ngay);
+            customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notification_n, lstNotiEntity, bittrexData, nam, thang, ngay);
             customAdapter.notifyDataSetChanged();
             listView.setAdapter(customAdapter);
         } catch (Exception e) {
@@ -209,7 +209,7 @@ public class LogNotification extends Fragment {
                     cbBittrex.setText("Bittrex (" + 0 + ")");
                 }
                 if (customAdapter != null) {
-                    customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notificustom, lstNotiEntity, bittrexData, nam, thang, ngay);
+                    customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notification_n, lstNotiEntity, bittrexData, nam, thang, ngay);
                     customAdapter.notifyDataSetChanged();
                     listView.setAdapter(customAdapter);
                 }
@@ -237,7 +237,7 @@ public class LogNotification extends Fragment {
                 }
 
                 if (customAdapter != null) {
-                    customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notificustom, lstNotiEntity, bittrexData, nam, thang, ngay);
+                    customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notification_n, lstNotiEntity, bittrexData, nam, thang, ngay);
                     customAdapter.notifyDataSetChanged();
                     listView.setAdapter(customAdapter);
                 }
@@ -339,7 +339,7 @@ public class LogNotification extends Fragment {
             myReader.close();
 
 
-            customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notificustom, lstNotiEntity, bittrexData, nam, thang, ngay);
+            customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notification_n, lstNotiEntity, bittrexData, nam, thang, ngay);
             customAdapter.notifyDataSetChanged();
             listView.setAdapter(customAdapter);
         } catch (Exception e) {
@@ -384,7 +384,7 @@ public class LogNotification extends Fragment {
                 cbBittrex.setText("Bittrex (" + lstNotiBittrex.size() + ")");
             }
             myReader.close();
-            customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notificustom, lstNotiEntity, bittrexData, nam, thang, ngay);
+            customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notification_n, lstNotiEntity, bittrexData, nam, thang, ngay);
             customAdapter.notifyDataSetChanged();
             listView.setAdapter(customAdapter);
         } catch (Exception e) {

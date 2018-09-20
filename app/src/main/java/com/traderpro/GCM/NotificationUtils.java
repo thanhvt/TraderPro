@@ -163,17 +163,16 @@ public class NotificationUtils {
                 // Parse message
                 String strCoin = "";
                 int levelRing = 0;
+
+                String strExchange = "";
+                String strGia = "";
+                String strTime = "";
+                String strVolHT = "";
+                String strVolTB = "";
+                String strCase = "";
+                String strBuySell = "";
+                String strTM = "";
                 try {
-
-                    String strExchange = "";
-                    String strGia = "";
-                    String strTime = "";
-                    String strVolHT = "";
-                    String strVolTB = "";
-                    String strCase = "";
-                    String strBuySell = "";
-                    String strTM = "";
-
 
                     if (title.contains("***")) {
                         strCoin = title.substring(title.lastIndexOf("|") + 2, title.indexOf("***") - 1);
@@ -489,40 +488,36 @@ public class NotificationUtils {
                     }
                 }
 
+                Intent intent = new Intent();
+                intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                intent.setAction("com.action.buy");
+                intent.putExtra("BUYSELL", "SIMPLE");
+                intent.putExtra("COIN", strCoin);
+                intent.putExtra("Exchange", "Binance");
+                intent.putExtra("PRICE", strGia);
+                intent.putExtra("INTENT", title);
+                intent.putExtra("MESSAGE", message);
+                intent.putExtra("ID", System.currentTimeMillis());
 
+                PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 // End parse
                 inboxStyle = new NotificationCompat.InboxStyle();
-
                 inboxStyle.addLine(message);
-                if (strSound.equals("ON")) {
-                    notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                            .setAutoCancel(true)
-                            .setContentTitle("Boss $$$ " + strCoin)
-                            .setContentText(title)
-                            .setContentIntent(resultPendingIntent)
-                            .setSound(alarmSound)
-                            .setStyle(new NotificationCompat.BigTextStyle()
-                                    .bigText(fromHtml(message)))
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setDefaults(VibrateIndex)
-                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                            .build();
+                notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                        .addAction(R.drawable.moneybag, "BUY", pIntent)
+                        .setAutoCancel(true)
+                        .setContentTitle("Boss $$$ " + strCoin)
+                        .setContentText(title)
+                        .setContentIntent(resultPendingIntent)
+                        .setSound(alarmSound)
+                        .setSound(strSound.equals("ON") ? alarmSound : null)
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText(fromHtml(message)))
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setDefaults(VibrateIndex)
+                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.moneybag))
+                        .build();
 
-                } else {
-                    notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                            .setAutoCancel(true)
-                            .setContentTitle("Boss $$$ " + strCoin)
-                            .setContentText(title)
-                            .setContentIntent(resultPendingIntent)
-                            .setSound(null)
-                            .setStyle(new NotificationCompat.BigTextStyle()
-                                    .bigText(fromHtml(message)))
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setDefaults(VibrateIndex)
-                            .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-                            .build();
-
-                }
 
                 id = (int) System.currentTimeMillis();
                 notificationManager.notify(id, notification);
@@ -668,13 +663,6 @@ public class NotificationUtils {
                 String content = strTime + "|" + strCoin + "|" + strGiaMua + "|" + strGiaBan
                         + "|" + strTimeBan + "|" + strProfit + "|" + "Binance" + "|" + strID;
                 ghiFileBot(content);
-
-                //Intent intent = new Intent(mContext, BidAskActivity.class);
-                //intent.putExtra("NotiClick",true);
-                //intent.putExtra("buy",true);
-                //intent.putExtra("coin",strCoin);
-                //intent.putExtra("number",1f);
-                //intent.putExtra("price",strGiaMua);
                 Intent intent = new Intent();
                 intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                 intent.setAction("com.action.buy");
@@ -686,10 +674,7 @@ public class NotificationUtils {
                 intent.putExtra("MESSAGE", message);
                 intent.putExtra("ID", strID);
 
-                ///mContext.sendBroadcast(intent);
                 PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//                if (strSound.equals("ON"))
-//                {
                 NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
                 notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -715,7 +700,6 @@ public class NotificationUtils {
                             .setAutoCancel(true)
                             .setContentTitle(title)
                             .setContentText(title)
-//                            .setContentIntent(resultPendingIntent)
                             .setSound(strSound.equals("ON") ? alarmSound : null)
                             .setStyle(new NotificationCompat.BigTextStyle()
                                     .bigText(fromHtml(message)))
@@ -725,11 +709,9 @@ public class NotificationUtils {
                             .build();
                 } else {
                     notification = mBuilder.setSmallIcon(icon).setTicker(title)
-                            //.addAction(R.mipmap.ic_launcher, "BUY",pIntent ) // #0
                             .setAutoCancel(true)
                             .setContentTitle(title)
                             .setContentText(title)
-//                            .setContentIntent(resultPendingIntent)
                             .setSound(strSound.equals("ON") ? alarmSound : null)
                             .setStyle(new NotificationCompat.BigTextStyle()
                                     .bigText(fromHtml(message)))
@@ -742,60 +724,6 @@ public class NotificationUtils {
 
                 int id = (int) System.currentTimeMillis();
                 notificationManager.notify(id, notification);
-//                }
-//                else {
-//                    NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-//                    notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-//
-//                    MediaPlayer mp;
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                        int importance = NotificationManager.IMPORTANCE_HIGH;
-//                        NotificationChannel mChannel = notificationManager.getNotificationChannel(chanelID);
-//                        if (mChannel == null) {
-//                            mChannel = new NotificationChannel(chanelID, title, importance);
-//                            mChannel.enableVibration(true);
-//                            mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
-//                            notificationManager.createNotificationChannel(mChannel);
-//                        }
-//                        mBuilder = new NotificationCompat.Builder(mContext, chanelID);
-//                    }
-//                    NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-//                    inboxStyle.addLine(message);
-//                    Notification notification;
-//                    if (strExchange.equals("Binance")) {
-//                        notification = mBuilder.setSmallIcon(icon).setTicker(title)
-//                                .addAction(R.mipmap.ic_launcher, "BUY", pIntent) // #0
-//                                .setAutoCancel(true)
-//                                .setContentTitle(title)
-//                                .setContentText(title)
-//                                .setContentIntent(resultPendingIntent)
-//                                .setSound(null)
-//                                .setStyle(new NotificationCompat.BigTextStyle()
-//                                        .bigText(fromHtml(message)))
-//                                .setSmallIcon(R.mipmap.ic_launcher)
-//                                .setDefaults(VibrateIndex)
-//                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-//                                .build();
-//                    } else {
-//                        notification = mBuilder.setSmallIcon(icon).setTicker(title)
-//                                //.addAction(R.mipmap.ic_launcher, "BUY",pIntent ) // #0
-//                                .setAutoCancel(true)
-//                                .setContentTitle(title)
-//                                .setContentText(title)
-//                                .setContentIntent(resultPendingIntent)
-//                                .setSound(null)
-//                                .setStyle(new NotificationCompat.BigTextStyle()
-//                                        .bigText(fromHtml(message)))
-//                                .setSmallIcon(R.mipmap.ic_launcher)
-//                                .setDefaults(VibrateIndex)
-//                                .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
-//                                .build();
-//                    }
-//
-//
-//                    int id = (int) System.currentTimeMillis();
-//                    notificationManager.notify(id, notification);
-//                }
 
             } else if (title.contains("StopLoss") || title.contains("TakeProfit")) {
                 NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);

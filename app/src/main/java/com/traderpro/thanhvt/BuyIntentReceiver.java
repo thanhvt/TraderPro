@@ -238,6 +238,33 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                                     }
                                 });
                             }
+                        } else if (BUYSELL.equals("SIMPLE")) {
+                            try {
+                                final NewOrderResponse newOrderResponse = client.newOrder(marketBuy(strCoin + "BTC", "" + number).newOrderRespType(NewOrderResponseType.FULL));
+                                String strTradeID = newOrderResponse.getOrderId() + "";
+                                Double dCum = Double.parseDouble(newOrderResponse.getCummulativeQuoteQty());
+                                Double dSL = Double.parseDouble(newOrderResponse.getExecutedQty());
+                                Double dbGiaSan = dCum / dSL;
+                                String strGiaSan = String.format("%.8f", dbGiaSan);
+                                strGiaSan = strGiaSan.replace(",", ".");
+                                coMuaBan = true;
+                                Handler handler = new Handler(mContext.getMainLooper());
+                                handler.post(new Runnable() {
+                                    public void run() {
+                                        Toast.makeText(mContext, "Buy success " + newOrderResponse.getExecutedQty() + " " + strCoin + " !!!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                            } catch (final Exception e) {
+                                Log.e(TAG, e.getMessage());
+                                e.printStackTrace();
+                                Handler handler = new Handler(mContext.getMainLooper());
+                                handler.post(new Runnable() {
+                                    public void run() {
+                                        Toast.makeText(mContext, e.getMessage() + " !!!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
                         }
                         if (coMuaBan == true) {
                             FileOutputStream fOut = new FileOutputStream(myFile, false);
