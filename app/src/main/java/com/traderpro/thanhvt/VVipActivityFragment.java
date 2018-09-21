@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.telephony.TelephonyManager;
@@ -16,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -76,7 +74,7 @@ public class VVipActivityFragment extends Fragment {
     int lanLai = 0, lanCho = 0, lanLo = 0;
     Double dLai = 0D, dLo = 0D, dTong = 0D;
 
-    FloatingActionButton fab;
+    //    FloatingActionButton fab;
     private static final int PERMISSIONS_REQUEST_READ_PHONE_STATE = 999;
 
     private TelephonyManager mTelephonyManager;
@@ -109,13 +107,13 @@ public class VVipActivityFragment extends Fragment {
         int ngay = rightNow.get(Calendar.DAY_OF_MONTH);
         int hour = rightNow.get(Calendar.HOUR_OF_DAY);
         int min = rightNow.get(Calendar.MINUTE);
-        fab = (FloatingActionButton) view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getFile(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
-            }
-        });
+//        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                getFile(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
+//            }
+//        });
     }
 
     @Override
@@ -274,35 +272,27 @@ public class VVipActivityFragment extends Fragment {
             }
         });
 
-        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            private int mLastFirstVisibleItem;
-
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                int btn_initPosY = fab.getScrollY();
-                if (scrollState == SCROLL_STATE_TOUCH_SCROLL) {
-                    fab.animate().cancel();
-                    fab.animate().translationYBy(150);
-                } else {
-                    fab.animate().cancel();
-                    fab.animate().translationY(btn_initPosY);
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem,
-                                 int visibleItemCount, int totalItemCount) {
-
-//                if (mLastFirstVisibleItem < firstVisibleItem) {
-//                    Log.i("SCROLLING DOWN", "TRUE");
+//        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+//            private int mLastFirstVisibleItem;
+//
+//            @Override
+//            public void onScrollStateChanged(AbsListView view, int scrollState) {
+//                int btn_initPosY = fab.getScrollY();
+//                if (scrollState == SCROLL_STATE_TOUCH_SCROLL) {
+//                    fab.animate().cancel();
+//                    fab.animate().translationYBy(150);
+//                } else {
+//                    fab.animate().cancel();
+//                    fab.animate().translationY(btn_initPosY);
 //                }
-//                if (mLastFirstVisibleItem > firstVisibleItem) {
-//                    Log.i("SCROLLING UP", "TRUE");
-//                }
-//                mLastFirstVisibleItem = firstVisibleItem;
-
-            }
-        });
+//            }
+//
+//            @Override
+//            public void onScroll(AbsListView view, int firstVisibleItem,
+//                                 int visibleItemCount, int totalItemCount) {
+//
+//            }
+//        });
 
         txtLoiLo.setOnClickListener(new View.OnClickListener() {
             @Override

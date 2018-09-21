@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#000000">
+    android:background="#303138">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +19,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:text="@string/txtTrc"
-            android:textColor="@android:color/holo_green_light"
+            android:textColor="#ffffff"
             android:textSize="25dp"
             android:textStyle="bold" />
 
@@ -34,7 +33,7 @@
             android:enabled="false"
             android:gravity="center"
             android:inputType="date"
-            android:textColor="#FFF900" />
+            android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/btnSau"
@@ -43,7 +42,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:text="@string/txtSau"
-            android:textColor="@android:color/holo_green_light"
+            android:textColor="#ffffff"
             android:textSize="25dp"
             android:textStyle="bold" />
 
@@ -116,14 +115,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/refresh"
-            app:backgroundTint="#FFF900" />
+        <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--android:src="@drawable/refresh"-->
+        <!--app:backgroundTint="#FFF900" />-->
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeToRefresh"
