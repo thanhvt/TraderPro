@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.traderpro.GCM.Config;
 
 import org.json.JSONArray;
@@ -208,8 +209,15 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtVolDec.setText("V: " + p.strVol);
         }
 
-//        Picasso.with(mContext).load(img_url).into(viewHolder.mImageView);
-
+        TraderUtils utils = new TraderUtils();
+        Picasso.with(mContext).load(utils.IMAGE_URL + p.strImageURL + ".png").into(viewHolder.mImageView);
+//        Picasso.Builder builder = new Picasso.Builder(mContext);
+//        builder.downloader(new OkHttp3Downloader(mContext));
+//        Log.e("Adapter", utils.IMAGE_URL + p.strImageURL + ".png");
+//        builder.build().load(utils.IMAGE_URL + p.strImageURL + ".png")
+//                .placeholder((R.drawable.defaultcoin))
+//                .error(R.drawable.defaultcoin)
+//                .into(viewHolder.mImageView);
         this.notifyDataSetChanged();
 //        if (p.strExchange.trim().contains("Bittrex")) {
 //            viewHolder.txtExchange.setTextColor(Color.parseColor("#00FFFF"));

@@ -40,6 +40,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -172,6 +173,10 @@ public class NotificationUtils {
                 String strCase = "";
                 String strBuySell = "";
                 String strTM = "";
+                String strVol1H = "";
+                String strGia1H = "";
+                String strGiaOP = "";
+                String strGia30P = "";
                 try {
 
                     if (title.contains("***")) {
@@ -192,8 +197,27 @@ public class NotificationUtils {
                     if (message.contains("Taker/Maker")) {
                         strTM = message.substring(message.indexOf("Taker/Maker") + 17, message.lastIndexOf("<br/>") - 6);
                     }
+                    try {
+                        strVol1H = message.contains("VOL 1H: ") ? message.substring(message.indexOf("VOL 1H: ") + 12, message.indexOf("VOL 1H: ") + 17) : "";
+                        strGia1H = message.contains("PRI 1H: ") ? message.substring(message.indexOf("PRI 1H: ") + 12, message.indexOf("PRI 1H: ") + 22) : "";
+                        strGiaOP = message.contains("PRI OP: ") ? message.substring(message.indexOf("PRI OP: ") + 12, message.indexOf("PRI OP: ") + 22) : "";
+                        strGia30P = message.contains("PRI 30P: ") ? message.substring(message.indexOf("PRI 30P: ") + 13, message.indexOf("PRI 30P: ") + 23) : "";
+                    } catch (Exception e) {
 
-                    String strSave = strExchange + " " + strCoin + " " + strGia.trim() + " " + strVolHT.trim() + " " + strVolTB.trim() + " " + strTime.trim() + " " + strCase + " " + strBuySell + " " + strTM;
+                    }
+
+                    int idCoin = 1;
+                    JSONArray arr = new JSONArray(readJSONFromAsset());
+                    for (int i = 0; i < arr.length(); i++) {
+                        JSONObject obj = arr.getJSONObject(i);
+                        String strSymbol = obj.getString("symbol");
+                        if (strSymbol.equalsIgnoreCase(strCoin)) idCoin = obj.getInt("id");
+                    }
+
+                    String strSave = strExchange + " " + strCoin + " " + strGia.trim() + " " + strVolHT.trim() + " " + strVolTB.trim()
+                            + " " + strTime.trim() + " " + strCase + " " + strBuySell + " " + strTM
+                            + " " + strVol1H.trim() + " " + strGia1H + " " + strGiaOP + " " + strGia30P
+                            + " " + idCoin;
                     strSave = strSave.replace("<br>", "");
                     strSave = strSave.replace("<br/>", "");
                     strSave = strSave.replace("<br", "");
@@ -1678,6 +1702,22 @@ public class NotificationUtils {
                 e.printStackTrace();
             }
         }
+    }
+
+    public String readJSONFromAsset() {
+        String json = null;
+        try {
+            InputStream is = mContext.getAssets().open("coindata.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
 
     @SuppressWarnings("deprecation")

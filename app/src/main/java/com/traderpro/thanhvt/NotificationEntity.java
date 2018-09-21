@@ -26,6 +26,8 @@ public class NotificationEntity implements Serializable {
     public Double strGiaHienTai;
     public boolean isSellNow = false;
 
+    public String strImageURL;
+
 //    public String strTradeID;
 //    public String KLMuaBan;
 

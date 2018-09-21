@@ -407,6 +407,7 @@ public class LogNotification extends Fragment {
             e.strBuySell = tmp.length > 7 ? tmp[7].trim() : "";
             e.strTakerMaker = tmp.length > 8 ? tmp[8].trim() : "";
             e.strGiaMax = 0D;
+            e.strImageURL = tmp.length > 10 ? tmp[13].trim() : "1";
 //            Log.e("start Get max price", "1");
             String[] mTime = e.strTime.split(":");
             Calendar c = Calendar.getInstance();
@@ -414,6 +415,20 @@ public class LogNotification extends Fragment {
 //            new ExchangeGetPrice(e).execute(e.strCoin, c.getTimeInMillis() + "");
 //            new ExchangeGetPrice(e).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, e.strCoin, c.getTimeInMillis() + "");
             new ExchangeGetPrice(e).executeOnExecutor(threadPoolExecutor, e.strCoin, c.getTimeInMillis() + "");
+
+//            GetUserDeviceDataService service = RetrofitInstance.getImageInstance().create(GetUserDeviceDataService.class);
+//            Call<List<ImageEntity>> call = service.getAllPhotos();
+//            call.enqueue(new Callback<List<ImageEntity>>() {
+//                @Override
+//                public void onResponse(Call<List<ImageEntity>> call, Response<List<ImageEntity>> response) {
+//                    List<ImageEntity> strX = response.body();
+//                    Log.d(TAG + " 436", strX.get(0).getId());
+//                }
+//
+//                @Override
+//                public void onFailure(Call<List<ImageEntity>> call, Throwable t) {
+//                }
+//            });
             return e;
         } catch (Exception e) {
             e.printStackTrace();

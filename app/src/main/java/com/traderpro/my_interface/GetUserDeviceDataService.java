@@ -3,6 +3,7 @@ package com.traderpro.my_interface;
 //import com.mobotechnology.bipinpandey.retrofit_handdirty.model.UserDevice;
 //import com.mobotechnology.bipinpandey.retrofit_handdirty.model.UserDeviceList;
 
+import com.traderpro.model.common.ImageEntity;
 import com.traderpro.thanhvt.UserDevice;
 
 import java.util.List;
@@ -26,6 +27,8 @@ public interface GetUserDeviceDataService {
     @GET("UserDevices/")
     Call<List<UserDevice>> Get();
 
+    @GET("/generated/search/quick_search.json")
+    Call<List<ImageEntity>> getAllPhotos();
 
     /**
      * URL MANIPULATION
