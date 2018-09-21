@@ -2,6 +2,7 @@ package com.traderpro.thanhvt;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -142,7 +143,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtPriceMax = (TextView) view.findViewById(R.id.txtPriceMax);
             viewHolder.txtCoin = (TextView) view.findViewById(R.id.txtCoin);
             viewHolder.mImageView = (ImageView) view.findViewById(R.id.imgCoin);
-
+            viewHolder.txtGiaHT = (TextView) view.findViewById(R.id.txtGiaHT);
 //            if (mResource == R.layout.layout_notificustom) {
 //                viewHolder.txtBS = (TextView) view.findViewById(R.id.txtBS);
 //                viewHolder.txtTM = (TextView) view.findViewById(R.id.txtTM);
@@ -172,7 +173,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtProfit.setText("Lãi: " + String.format("%.1f", profit) + "%");
             Double tangSoLan = (Double.parseDouble(p.strVol) / Double.parseDouble(p.strVolTB)) * 100;
             viewHolder.txtVolumeTang.setText("▲ " + String.format("%.1f", tangSoLan) + "%");
-
+            viewHolder.txtGiaHT.setText(p.strGiaHienTai == null ? "" : String.format("%.8f", p.strGiaHienTai));
 
             viewHolder.txtVolumeGoc.setText("AvgV: " + p.strVolTB);
 
@@ -194,7 +195,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtProfit.setText("Gain: " + String.format("%.1f", profit) + "%");
             Double tangSoLan = (Double.parseDouble(p.strVol) / Double.parseDouble(p.strVolTB)) * 100;
             viewHolder.txtVolumeTang.setText("▲ " + String.format("%.1f", tangSoLan) + "%");
-
+            viewHolder.txtGiaHT.setText(p.strGiaHienTai == null ? "" : String.format("%.8f", p.strGiaHienTai));
 
             viewHolder.txtVolumeGoc.setText("AvgV: " + p.strVolTB);
 
@@ -208,6 +209,12 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
 //            viewHolder.txtPriceMax.setText("Expected Price:");
             viewHolder.txtVolDec.setText("Volume: " + p.strVol);
         }
+        if (p.strGiaHienTai != null && p.strGiaHienTai >= dGia) {
+            viewHolder.txtGiaHT.setTextColor(Color.parseColor("#27f546"));
+        } else {
+            viewHolder.txtGiaHT.setTextColor(Color.parseColor("#ff0000"));
+        }
+
 
         TraderUtils utils = new TraderUtils();
         Picasso.with(mContext).load(utils.IMAGE_URL + p.strImageURL + ".png").into(viewHolder.mImageView);
@@ -267,6 +274,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
         Double pMax;
         Double pProfit;
         ImageView mImageView;
+        TextView txtGiaHT;
     }
 
     public Double subGetGiaMax(JSONArray arr) {

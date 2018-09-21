@@ -32,6 +32,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -478,52 +479,17 @@ public class LogNotification extends Fragment {
 
     }
 
-    class ExchangeGetPrice extends AsyncTask<String, String, String> {
+    public Double getGiaHienTai(String strCoin) {
+        Double giaHT = 0D;
+        try {
+            String res = readJsonFromUrl("https://api.binance.com/api/v1/ticker/price?symbol=" + strCoin + "BTC");
+            JSONObject jsonObj = new JSONObject(res);
+            giaHT = Double.parseDouble(jsonObj.getString("price"));
+            Log.e(TAG, giaHT + "");
+        } catch (Exception e) {
 
-        NotificationEntity mEn;
-
-        public ExchangeGetPrice(NotificationEntity mEn) {
-            this.mEn = mEn;
         }
-
-        @Override
-        protected String doInBackground(String... params) {
-            if (mEn.strExchange.equals("Binance")) {
-                mEn.strGiaMax = getGiaMaxBinance(params[0], params[1]);
-                mEn.strGiaMin = getGiaMinBinance(params[0], params[1]);
-            } else if (mEn.strExchange.equals("Bittrex")) {
-//                mEn.strGiaMax = getGiaMaxBittrex(params[0], params[1]);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            //progDailog = new ProgressDialog(getActivity());
-            //progDailog.setMessage("Loading...");
-            //progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            //progDailog.setCancelable(true);
-            //progDailog.show();
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            //progDailog.dismiss();
-            if (getActivity() != null)
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-//                        customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notification, lstNotiEntity, bittrexData);
-                        if (customAdapter != null) {
-                            customAdapter.notifyDataSetChanged();
-                        }
-//                        listView.setAdapter(customAdapter);
-
-                    }
-                });
-        }
+        return giaHT;
     }
 
     public Double subGetGiaMax(JSONArray arr) {
@@ -722,6 +688,56 @@ public class LogNotification extends Fragment {
         }
 //        Log.e("Gia MAX Binance", strCoin + ": " + String.format("%.8f", giaMax));
         return giaMax;
+    }
+
+    class ExchangeGetPrice extends AsyncTask<String, String, String> {
+
+        NotificationEntity mEn;
+
+        public ExchangeGetPrice(NotificationEntity mEn) {
+            this.mEn = mEn;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            if (mEn.strExchange.equals("Binance")) {
+                mEn.strGiaMax = getGiaMaxBinance(params[0], params[1]);
+//                mEn.strGiaMin = getGiaMinBinance(params[0], params[1]);
+                mEn.strGiaHienTai = getGiaHienTai(params[0]);
+            } else if (mEn.strExchange.equals("Bittrex")) {
+//                mEn.strGiaMax = getGiaMaxBittrex(params[0], params[1]);
+                mEn.strGiaHienTai = 0D;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //progDailog = new ProgressDialog(getActivity());
+            //progDailog.setMessage("Loading...");
+            //progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            //progDailog.setCancelable(true);
+            //progDailog.show();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            //progDailog.dismiss();
+            if (getActivity() != null)
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+//                        customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notification, lstNotiEntity, bittrexData);
+                        if (customAdapter != null) {
+                            customAdapter.notifyDataSetChanged();
+                        }
+//                        listView.setAdapter(customAdapter);
+
+                    }
+                });
+        }
     }
 
     public Double getGiaMinBinance(String strCoin, String strTime) {

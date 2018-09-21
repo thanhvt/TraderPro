@@ -18,7 +18,7 @@ public class ReportActivity extends AppCompatActivity {
     TextView tvTyLe1, tvTyLe2, tvTyLe3, tvTyLe4, tvTyLe5, tvTyLe6;
     TextView tvThangNua;
 
-    TextView tvThua1, tvThua2, tvThua3;
+//    TextView tvThua1, tvThua2, tvThua3;
 
     TextView tvTitle1, tvTitle2, tvTitle3, tvTitle4, tvTitle5, tvTitle6, tvTitle7, tvTitle8, tvTitle9, tvTitle10, tvTitle11, tvTitle12;
     TextView tvTitleThang1, tvTitleThang2;
@@ -57,29 +57,29 @@ public class ReportActivity extends AppCompatActivity {
         int case5_vol1 = 0, case5_vol2 = 0, case5_vol3 = 0, case5_vol4 = 0, case5_vol5 = 0, case5_vol6 = 0;
         int case6_vol1 = 0, case6_vol2 = 0, case6_vol3 = 0, case6_vol4 = 0, case6_vol5 = 0, case6_vol6 = 0;
 
-        int countThua1 = 0, countThua2 = 0, countThua3 = 0;
+//        int countThua1 = 0, countThua2 = 0, countThua3 = 0;
         double maxt1 = 100, maxd1 = 0, maxt2 = 100, maxd2 = 0, maxt3 = 100, maxd3 = 0, maxt4 = 100, maxd4 = 0, maxt5 = 100, maxd5 = 0, maxt6 = 100, maxd6 = 0,
                 maxt7 = 100, maxd7 = 0, maxt8 = 100, maxd8 = 0, maxt9 = 100, maxd9 = 0, maxt10 = 100, maxd10 = 0, maxt11 = 100, maxd11 = 0, maxt12 = 100, maxd12 = 0;
 
         for (NotificationEntity en : lstEntity) {
             Double giaBao = Double.parseDouble(en.strGia);
             Double giaMax = en.strGiaMax;
-            Double giaMin = en.strGiaMin;
+//            Double giaMin = en.strGiaMin;
             Double volHT = Double.parseDouble(en.strVol);
             Double volTB = Double.parseDouble(en.strVolTB);
             Double dProfit = ((en.strGiaMax - giaBao) / giaBao) * 100;
             //
-            if (giaMin != null) {
-                if (giaMin < giaBao * 0.995) {
-                    countThua1++;
-                }
-                if (giaMin < giaBao * 0.99) {
-                    countThua2++;
-                }
-                if (giaMin < giaBao * 0.97) {
-                    countThua3++;
-                }
-            }
+//            if (giaMin != null) {
+//                if (giaMin < giaBao * 0.995) {
+//                    countThua1++;
+//                }
+//                if (giaMin < giaBao * 0.99) {
+//                    countThua2++;
+//                }
+//                if (giaMin < giaBao * 0.97) {
+//                    countThua3++;
+//                }
+//            }
 
             //
             if (giaMax > giaBao * 1.005) {
@@ -287,13 +287,13 @@ public class ReportActivity extends AppCompatActivity {
         SharedPreferences pref = getApplication().getSharedPreferences(Config.NGON_NGU, 0);
         String strNN = pref.getString("NN", "VN");
 
-        countThua1 = countThua1 / 4;
-        countThua2 = countThua2 / 4;
-        countThua3 = countThua3 / 4;
+//        countThua1 = countThua1 / 4;
+//        countThua2 = countThua2 / 4;
+//        countThua3 = countThua3 / 4;
         if (strNN.equalsIgnoreCase("VN")) {
-            tvThua1.setText(countThua1 + " lần");
-            tvThua2.setText(countThua2 + " lần");
-            tvThua3.setText(countThua3 + " lần");
+//            tvThua1.setText(countThua1 + " lần");
+//            tvThua2.setText(countThua2 + " lần");
+//            tvThua3.setText(countThua3 + " lần");
 
             tvThangThua.setText(countThangThua + "/" + strTinhToan + " lần");
             tvThangNua.setText(countThangNua + "/" + strTinhToan + " lần");
@@ -337,9 +337,9 @@ public class ReportActivity extends AppCompatActivity {
             tvTitleThua3.setText("Tỷ lệ thua > 3%");
             tvTitleThua4.setText("Tỷ lệ thua > 5%");
         } else {
-            tvThua1.setText(countThua1 + " times");
-            tvThua2.setText(countThua2 + " times");
-            tvThua3.setText(countThua3 + " times");
+//            tvThua1.setText(countThua1 + " times");
+//            tvThua2.setText(countThua2 + " times");
+//            tvThua3.setText(countThua3 + " times");
 
             tvThangThua.setText(countThangThua + "/" + strTinhToan + " note");
             tvThangNua.setText(countThangNua + "/" + strTinhToan + " note");
@@ -451,9 +451,9 @@ public class ReportActivity extends AppCompatActivity {
         tvTT12 = (TextView) findViewById(R.id.textView38);
         tvTT11 = (TextView) findViewById(R.id.textView36);
 
-        tvThua1 = (TextView) findViewById(R.id.textView42);
-        tvThua2 = (TextView) findViewById(R.id.textView44);
-        tvThua3 = (TextView) findViewById(R.id.textView46);
+//        tvThua1 = (TextView) findViewById(R.id.textView42);
+//        tvThua2 = (TextView) findViewById(R.id.textView44);
+//        tvThua3 = (TextView) findViewById(R.id.textView46);
 
         tvTitle1 = (TextView) findViewById(R.id.textView3);
         tvTitle2 = (TextView) findViewById(R.id.textView5);
