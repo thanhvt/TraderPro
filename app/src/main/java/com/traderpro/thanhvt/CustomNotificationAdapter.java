@@ -166,15 +166,15 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtCoin.setText(p.strCoin);
             viewHolder.txtExchange.setText("Sàn: " + p.strExchange + " |" + p.strCase + "|");
             viewHolder.txtTime.setText("Time " + p.strTime);
-            viewHolder.txtPriceDetected.setText("P: " + p.strGia);
-            viewHolder.txtPrEx.setText("M: " + String.format("%.8f", p.strGiaMax));
+            viewHolder.txtPriceDetected.setText("Mua: " + p.strGia);
+            viewHolder.txtPrEx.setText("Max: " + String.format("%.8f", p.strGiaMax));
 
-            viewHolder.txtProfit.setText("G: " + String.format("%.1f", profit) + "%");
+            viewHolder.txtProfit.setText("Lãi: " + String.format("%.1f", profit) + "%");
             Double tangSoLan = (Double.parseDouble(p.strVol) / Double.parseDouble(p.strVolTB)) * 100;
             viewHolder.txtVolumeTang.setText("▲ " + String.format("%.1f", tangSoLan) + "%");
 
 
-            viewHolder.txtVolumeGoc.setText("V: " + p.strVolTB);
+            viewHolder.txtVolumeGoc.setText("AvgV: " + p.strVolTB);
 
 //            if (mResource == R.layout.layout_notificustom) {
 //                viewHolder.txtBS.setText("Người mua/người bán: " + p.strBuySell);
@@ -183,20 +183,20 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
 
 //            viewHolder.txtU.⬆️("Giá báo:");
 //            viewHolder.txtPriceMax.setText("Kỳ vọng:");
-            viewHolder.txtVolDec.setText("V: " + p.strVol);
+            viewHolder.txtVolDec.setText("Vol " + p.strVol);
         } else {
             viewHolder.txtCoin.setText(p.strCoin);
             viewHolder.txtExchange.setText("Exchange: " + p.strExchange + " |" + p.strCase + "|");
             viewHolder.txtTime.setText("Time " + p.strTime);
-            viewHolder.txtPriceDetected.setText("P: " + p.strGia);
-            viewHolder.txtPrEx.setText("M: " + String.format("%.8f", p.strGiaMax));
+            viewHolder.txtPriceDetected.setText("Buy: " + p.strGia);
+            viewHolder.txtPrEx.setText("Max: " + String.format("%.8f", p.strGiaMax));
 
-            viewHolder.txtProfit.setText("G: " + String.format("%.1f", profit) + "%");
+            viewHolder.txtProfit.setText("Gain: " + String.format("%.1f", profit) + "%");
             Double tangSoLan = (Double.parseDouble(p.strVol) / Double.parseDouble(p.strVolTB)) * 100;
             viewHolder.txtVolumeTang.setText("▲ " + String.format("%.1f", tangSoLan) + "%");
 
 
-            viewHolder.txtVolumeGoc.setText("V: " + p.strVolTB);
+            viewHolder.txtVolumeGoc.setText("AvgV: " + p.strVolTB);
 
 //            if (mResource == R.layout.layout_notificustom) {
 //                viewHolder.txtBS.setText("Number of Buyer/Seller: " + p.strBuySell);
@@ -206,7 +206,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
 
 //            viewHolder.txtU.setText("Quotation:");
 //            viewHolder.txtPriceMax.setText("Expected Price:");
-            viewHolder.txtVolDec.setText("V: " + p.strVol);
+            viewHolder.txtVolDec.setText("Volume: " + p.strVol);
         }
 
         TraderUtils utils = new TraderUtils();

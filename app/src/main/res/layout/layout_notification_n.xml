@@ -49,6 +49,7 @@
             android:id="@+id/imgCoin"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_margin="10px"
             android:layout_marginRight="10px"
             app:srcCompat="@drawable/defaultcoin" />
 
@@ -69,7 +70,7 @@
                     android:layout_weight="1"
                     android:text="TextView"
                     android:textColor="#ffffff"
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -79,7 +80,7 @@
                     android:layout_weight="1"
                     android:text="TextView"
                     android:textColor="#ffffff"
-                    android:textSize="10dp"
+                    android:textSize="11dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -88,8 +89,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView"
-                    android:textColor="#ffffff"
-                    android:textSize="10dp"
+                    android:textColor="#34ef17"
+                    android:textSize="11dp"
                     android:textStyle="bold" />
             </TableRow>
 
@@ -104,8 +105,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Volume Detected:"
-                    android:textColor="#f22fff"
-                    android:textSize="10dp" />
+                    android:textColor="#ffffff"
+                    android:textSize="11dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtVolumeGoc"
@@ -114,7 +116,8 @@
                     android:layout_weight="1"
                     android:text="TextView"
                     android:textColor="#ffffff"
-                    android:textSize="10dp" />
+                    android:textSize="11dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtVolumeTang"
@@ -122,8 +125,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView"
-                    android:textColor="#ffffff"
-                    android:textSize="10dp"
+                    android:textColor="#34ef17"
+                    android:textSize="11dp"
                     android:textStyle="bold" />
             </TableRow>
 
@@ -162,10 +165,9 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginBottom="5dp"
+        android:layout_margin="5dp"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
-        android:layout_marginTop="5dp"
         android:layout_weight="1"
         android:background="#FFF900" />
 

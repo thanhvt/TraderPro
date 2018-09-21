@@ -13,6 +13,10 @@ import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.telephony.TelephonyManager;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.method.LinkMovementMethod;
+import android.text.style.URLSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +29,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 
@@ -66,6 +71,7 @@ public class LogNotification extends Fragment {
     CheckBox cbBinance, cbBittrex;
     Button btnTrc, btnSau;
     EditText edTime;
+    TextView txtJoin;
     Calendar c;
     SimpleDateFormat df;
     String formattedDate;
@@ -92,6 +98,18 @@ public class LogNotification extends Fragment {
         setHasOptionsMenu(true);
 
 
+    }
+
+    public static Spannable removeUnderlines(Spannable p_Text) {
+        URLSpan[] spans = p_Text.getSpans(0, p_Text.length(), URLSpan.class);
+        for (URLSpan span : spans) {
+            int start = p_Text.getSpanStart(span);
+            int end = p_Text.getSpanEnd(span);
+            p_Text.removeSpan(span);
+            span = new URLSpanNoUnderline(span.getURL());
+            p_Text.setSpan(span, start, end, 0);
+        }
+        return p_Text;
     }
 
     @Override
@@ -125,6 +143,7 @@ public class LogNotification extends Fragment {
         btnSau = (Button) rootView.findViewById(R.id.btnSau);
         edTime = (EditText) rootView.findViewById(R.id.edTime);
 
+        txtJoin = (TextView) rootView.findViewById(R.id.txtJoin);
         c = Calendar.getInstance();
 
         System.out.println("Current time => " + c.getTime());
@@ -279,6 +298,27 @@ public class LogNotification extends Fragment {
 //        Calendar c = Calendar.getInstance();
 //        c.set(2018, 6, 10, 10, 25, 25);
 //        getGiaMaxBinance("NEO", c.getTimeInMillis() + "");
+
+        String content = "Join <a href=\"https://t.me/joinchat/HX6H_k2HnC6LHLCEU0hptw\"><b>PIS TRADER</b></a> on Telegram";
+//        Spannable s = (Spannable) Html.fromHtml(content);
+//        for (URLSpan u: s.getSpans(0, s.length(), URLSpan.class)) {
+//            s.setSpan(new UnderlineSpan() {
+//                public void updateDrawState(TextPaint tp) {
+//                    tp.setUnderlineText(false);
+//                }
+//            }, s.getSpanStart(u), s.getSpanEnd(u), 0);
+//        }
+//        txtJoin.setText(s);
+//        txtJoin.setMovementMethod(LinkMovementMethod.getInstance());
+//        Utils.removeUnderlines((Spannable)txtJoin.getText());
+        Spannable spannedText = Spannable.Factory.getInstance().newSpannable(
+                Html.fromHtml(content));
+        spannedText = (Spannable)
+                Html.fromHtml(content);
+        txtJoin.setMovementMethod(LinkMovementMethod.getInstance());
+        Spannable processedText = removeUnderlines(spannedText);
+        txtJoin.setText(processedText);
+
         return rootView;
     }
 
