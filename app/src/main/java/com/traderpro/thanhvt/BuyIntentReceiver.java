@@ -305,7 +305,7 @@ public class BuyIntentReceiver extends BroadcastReceiver {
         }
     }
 
-    public void ghiFileBot(String strNoiDung) {
+    public void ghiFileLog(NewOrderResponse newOrderResponse, String ID) {
         // write on SD card file data in the text box
         try {
             Calendar rightNow = Calendar.getInstance();
@@ -323,15 +323,48 @@ public class BuyIntentReceiver extends BroadcastReceiver {
             }
 
             File myFile = new File(Environment.getExternalStorageDirectory() +
-                    File.separator + "TraderPro" + File.separator + nam + thang + ngay + "_bot.txt");
+                    File.separator + "TraderPro" + File.separator + nam + thang + ngay + "_notification.txt");
             if (!myFile.exists()) {
                 myFile.createNewFile();
             }
 
-            FileOutputStream fOut = new FileOutputStream(myFile, true);
+            List<String> lstObjectBuy = new ArrayList<>();
+            // Doc trc
+            FileInputStream fIn = new FileInputStream(myFile);
+            BufferedReader myReader = new BufferedReader(
+                    new InputStreamReader(fIn));
+            String aDataRow = "";
+            while ((aDataRow = myReader.readLine()) != null) {
+                lstObjectBuy.add(aDataRow);
+            }
+            myReader.close();
+
+            Double dCum = Double.parseDouble(newOrderResponse.getCummulativeQuoteQty());
+            Double dSL = Double.parseDouble(newOrderResponse.getExecutedQty());
+            Double dbGiaSan = dCum / dSL;
+            String strGiaSan = String.format("%.8f", dbGiaSan);
+            strGiaSan = strGiaSan.replace(",", ".");
+            for (int i = 0; i < lstObjectBuy.size(); i++) {
+                String itemBuy = lstObjectBuy.get(i);
+                if (!itemBuy.equalsIgnoreCase("")) {
+                    String objs[] = itemBuy.split(" ");
+                    if (objs.length >= 15 && objs[14].equals(ID)) {
+                        itemBuy += " " + "BUYY" + " " + newOrderResponse.getOrderId() + " " + newOrderResponse.getExecutedQty() + " " + strGiaSan;
+                        lstObjectBuy.set(i, itemBuy);
+                    }
+                }
+            }
+
+            // Ghi sau
+            FileOutputStream fOut = new FileOutputStream(myFile, false);
             OutputStreamWriter myOutWriter =
                     new OutputStreamWriter(fOut);
-            myOutWriter.append("\n" + strNoiDung);
+            for (int i = 0; i < lstObjectBuy.size(); i++) {
+                String itemBuy = lstObjectBuy.get(i);
+                if (!itemBuy.equals("")) {
+                    myOutWriter.append("\n" + itemBuy);
+                }
+            }
             myOutWriter.close();
             fOut.close();
         } catch (Exception e) {

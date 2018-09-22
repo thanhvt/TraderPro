@@ -42,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="3px"
         android:gravity="center"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
 
@@ -49,14 +50,15 @@
             android:id="@+id/imgCoin"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_margin="10px"
+            android:layout_margin="5px"
             android:layout_marginRight="10px"
             app:srcCompat="@drawable/defaultcoin" />
 
         <TableLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:layout_weight="4"
             android:gravity="center">
 
             <TableRow
@@ -97,6 +99,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="5px"
                 android:layout_weight="1">
 
                 <TextView
@@ -131,6 +134,15 @@
             </TableRow>
 
         </TableLayout>
+
+        <ImageView
+            android:id="@+id/imgTrade"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="-8px"
+            android:layout_weight="1"
+            android:visibility="gone"
+            app:srcCompat="@drawable/moneybag" />
 
     </LinearLayout>
 

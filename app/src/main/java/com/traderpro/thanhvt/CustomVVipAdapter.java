@@ -302,7 +302,7 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             }
             viewHolder.txtPriceBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "(The system is scanning the best selling price)" : (p.strGiaBan + ""));
             viewHolder.txtTimeBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("system sells at " + p.strTimeBan + ""));
-            if (p.numberBuy != "0") {
+            if (!p.numberBuy.equals("0")) {
 //                viewHolder.txtText3.setText("Buy in: " + p.numberBuy + " units");
                 viewHolder.imgBuy.setVisibility(View.VISIBLE);
                 viewHolder.imgBuy.setImageResource(R.drawable.buy);
@@ -313,7 +313,7 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
 //                viewHolder.txtText2.setVisibility(View.GONE);
 //                viewHolder.txtPriceBan.setVisibility(View.GONE);
 //                viewHolder.txtTimeBan.setVisibility(View.GONE);
-            } else if (p.numberSell != "0") {
+            } else if (!p.numberSell.equals("0")) {
 //                viewHolder.txtText3.setText("Sell out: " + p.numberSell + " units");
                 viewHolder.imgBuy.setVisibility(View.VISIBLE);
                 viewHolder.imgBuy.setImageResource(R.drawable.sell);

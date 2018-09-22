@@ -177,6 +177,7 @@ public class NotificationUtils {
                 String strGia1H = "";
                 String strGiaOP = "";
                 String strGia30P = "";
+                String strID = System.currentTimeMillis() + "";
                 try {
 
                     if (title.contains("***")) {
@@ -217,7 +218,7 @@ public class NotificationUtils {
                     String strSave = strExchange + " " + strCoin + " " + strGia.trim() + " " + strVolHT.trim() + " " + strVolTB.trim()
                             + " " + strTime.trim() + " " + strCase + " " + strBuySell + " " + strTM
                             + " " + strVol1H.trim() + " " + strGia1H + " " + strGiaOP + " " + strGia30P
-                            + " " + idCoin;
+                            + " " + idCoin + " " + strID;
                     strSave = strSave.replace("<br>", "");
                     strSave = strSave.replace("<br/>", "");
                     strSave = strSave.replace("<br", "");
@@ -521,7 +522,7 @@ public class NotificationUtils {
                 intent.putExtra("PRICE", strGia);
                 intent.putExtra("INTENT", title);
                 intent.putExtra("MESSAGE", message);
-                intent.putExtra("ID", System.currentTimeMillis());
+                intent.putExtra("ID", strID);
 
                 PendingIntent pIntent = PendingIntent.getBroadcast(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 // End parse

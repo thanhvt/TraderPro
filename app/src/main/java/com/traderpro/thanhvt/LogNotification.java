@@ -449,7 +449,14 @@ public class LogNotification extends Fragment {
             e.strTakerMaker = tmp.length > 8 ? tmp[8].trim() : "";
             e.strGiaMax = 0D;
             e.strImageURL = tmp.length > 10 ? tmp[13].trim() : "1";
-//            Log.e("start Get max price", "1");
+            e.strId = tmp.length > 14 ? tmp[14].trim() : "1";
+            e.strBuySell = tmp.length > 15 ? tmp[15].trim() : "1";
+            e.numberBuy = tmp.length > 17 && strIn.contains("BUYY") ? tmp[17].trim() : "0";
+            e.numberSell = tmp.length > 17 && strIn.contains("SELL") ? tmp[17].trim() : "0";
+//            e.strBuySell = tmp.length > 16 ? tmp[16].trim() : "";
+//            e.strBuySell = tmp.length > 17 ? tmp[17].trim() : "";
+            e.strGiaTrade = tmp.length > 18 ? tmp[18].trim() : "";
+            // itemBuy += "|" + "BUYY" + "|" + newOrderResponse.getOrderId() + "|" + newOrderResponse.getExecutedQty() + "|" + strGiaSan;
             String[] mTime = e.strTime.split(":");
             Calendar c = Calendar.getInstance();
             c.set(nam, thang - 1, ngay, Integer.parseInt(mTime[0]), Integer.parseInt(mTime[1]));

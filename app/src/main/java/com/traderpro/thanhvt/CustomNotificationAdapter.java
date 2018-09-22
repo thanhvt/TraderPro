@@ -144,6 +144,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtCoin = (TextView) view.findViewById(R.id.txtCoin);
             viewHolder.mImageView = (ImageView) view.findViewById(R.id.imgCoin);
             viewHolder.txtGiaHT = (TextView) view.findViewById(R.id.txtGiaHT);
+            viewHolder.mImageTrade = (ImageView) view.findViewById(R.id.imgTrade);
 //            if (mResource == R.layout.layout_notificustom) {
 //                viewHolder.txtBS = (TextView) view.findViewById(R.id.txtBS);
 //                viewHolder.txtTM = (TextView) view.findViewById(R.id.txtTM);
@@ -214,7 +215,15 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
         } else {
             viewHolder.txtGiaHT.setTextColor(Color.parseColor("#ff0000"));
         }
-
+        if (p.strBuySell.contains("BUYY")) {
+            viewHolder.mImageTrade.setVisibility(View.VISIBLE);
+            viewHolder.mImageTrade.setImageResource(R.drawable.moneybag);
+        } else if (p.strBuySell.contains("SELL")) {
+            viewHolder.mImageTrade.setVisibility(View.VISIBLE);
+            viewHolder.mImageTrade.setImageResource(R.drawable.sell);
+        } else {
+            viewHolder.mImageTrade.setVisibility(View.GONE);
+        }
 
         TraderUtils utils = new TraderUtils();
         Picasso.with(mContext).load(utils.IMAGE_URL + p.strImageURL + ".png").into(viewHolder.mImageView);
@@ -274,6 +283,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
         Double pMax;
         Double pProfit;
         ImageView mImageView;
+        ImageView mImageTrade;
         TextView txtGiaHT;
     }
 
