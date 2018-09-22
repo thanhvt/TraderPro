@@ -23,7 +23,9 @@ import com.traderpro.GCM.Config;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -149,7 +151,7 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
                                         }
                                     }
                                 }
-                                final NewOrderResponse newOrderResponse = client.newOrder(marketSell(p.strCoin + "BTC", "" + p.strBuySell).newOrderRespType(NewOrderResponseType.FULL));
+                                final NewOrderResponse newOrderResponse = client.newOrder(marketSell(p.strCoin + "BTC", numberSell + "").newOrderRespType(NewOrderResponseType.FULL));
                                 coMuaBan = true;
                                 String strTradeID = newOrderResponse.getOrderId() + "";
                                 Double dCum = Double.parseDouble(newOrderResponse.getCummulativeQuoteQty());
@@ -173,13 +175,6 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
                                                 itemBuy = itemBuy.replace(objs[8], "SELL");
                                                 itemBuy = itemBuy.replace(objs[9], strTradeID);
                                                 itemBuy = itemBuy.replace(objs[10], newOrderResponse.getExecutedQty());
-
-//                                            itemBuy.replace(objs[3], strGiaSan);
-//                                            Double giaMua = Double.parseDouble(objs[11]);
-//                                            if(dbGiaSan > giaMua){
-//                                                Double PROFIT = ((dbGiaSan - giaMua) / giaMua) * 100;
-//                                                itemBuy.replace(objs[3], strGiaSan);
-//                                            }
                                                 itemBuy = itemBuy.replace(objs[11], strGiaSan);
                                                 lstObjectBuy.set(i, itemBuy);
                                             } else {
@@ -193,6 +188,19 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
                                             }
                                         }
                                     }
+                                }
+                                if (coMuaBan == true) {
+                                    FileOutputStream fOut = new FileOutputStream(myFile, false);
+                                    OutputStreamWriter myOutWriter =
+                                            new OutputStreamWriter(fOut);
+                                    for (int i = 0; i < lstObjectBuy.size(); i++) {
+                                        String itemBuy = lstObjectBuy.get(i);
+                                        if (!itemBuy.equals("")) {
+                                            myOutWriter.append("\n" + itemBuy);
+                                        }
+                                    }
+                                    myOutWriter.close();
+                                    fOut.close();
                                 }
                                 p.isSellNow = false;
                                 viewHolder.btnSellNow.setVisibility(View.GONE);

@@ -254,7 +254,7 @@ public class BuyIntentReceiver extends BroadcastReceiver {
                                         Toast.makeText(mContext, "Buy success " + newOrderResponse.getExecutedQty() + " " + strCoin + " !!!", Toast.LENGTH_LONG).show();
                                     }
                                 });
-
+                                ghiFileLog(newOrderResponse, ID);
                             } catch (final Exception e) {
                                 Log.e(TAG, e.getMessage());
                                 e.printStackTrace();

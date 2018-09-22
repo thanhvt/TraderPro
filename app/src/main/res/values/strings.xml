@@ -141,8 +141,8 @@
     <string name="title_using_API">Using API to trade (version normal)</string>
     <string name="des_amount_Vn">Amount of BTC per transactions(using small amount for test)</string>
     <string name="des_amount">Amount of BTC per transactions(using small amount for test)</string>
-    <string name="important_Vn">Important: Create new API key and dont use it outside of Tradeing Analytics app</string>
-    <string name="important">Important: Create new API key and dont use it outside of Tradeing Analytics app</string>
+    <string name="important_Vn">Important: Create new API key and dont use it outside of Trading Analytics app</string>
+    <string name="important">Important: Create new API key and dont use it outside of Trading Analytics app</string>
     <string name="des_App_Vn">Trading Analytics is a Crypto Signal app for Bitcoin and Altcoin. It gives you access to cryptocurrency rates, coin market cap, detailed cryptocurrency trade, crypto news. Moreover it allows you to easily see blockchain cryptocurrency prices and price changes, coin market cap and 24h volume charts, coin details and advanced infomation.</string>
     <string name="des_App">Trading Analytics is a Crypto Signal app for Bitcoin and Altcoin. It gives you access to cryptocurrency rates, coin market cap, detailed cryptocurrency trade, crypto news. Moreover it allows you to easily see blockchain cryptocurrency prices and price changes, coin market cap and 24h volume charts, coin details and advanced infomation.</string>
     <string name="version_Vn">Version</string>
