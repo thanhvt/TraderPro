@@ -116,7 +116,7 @@ public class NotificationUtils {
                 mContext);
 
         final Uri alarmSound = Uri.parse("android.resource://"
-                + mContext.getPackageName() + "/" + R.raw.coco_cola);
+                + mContext.getPackageName() + "/" + R.raw.dia1);
         Log.e("URI", "android.resource://"
                 + mContext.getPackageName() + "/" + R.raw.coco_cola);
         if (!TextUtils.isEmpty(imageUrl)) {
@@ -317,7 +317,7 @@ public class NotificationUtils {
                             break;
                         case 5:
                             r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.wakewin));
+                                    + mContext.getPackageName() + "/" + R.raw.opinion));
                             r.play();
                             mSound = Uri.parse("android.resource://"
                                     + mContext.getPackageName() + "/" + R.raw.mewin);
@@ -418,12 +418,12 @@ public class NotificationUtils {
                                     am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
                                     0);
                             r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.sao1));
+                                    + mContext.getPackageName() + "/" + R.raw.bass_message));
                             mSound = Uri.parse("android.resource://"
                                     + mContext.getPackageName() + "/" + R.raw.mewin);
 
                             mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.sao1));
+                                    + mContext.getPackageName() + "/" + R.raw.gowin));
                             count = 1;
                             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                 @Override
@@ -474,15 +474,15 @@ public class NotificationUtils {
                             r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
                                     + mContext.getPackageName() + "/" + R.raw.wakewin));
                             mSound = Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.mewin);
+                                    + mContext.getPackageName() + "/" + R.raw.gowin);
 
                             mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.wakewin));
+                                    + mContext.getPackageName() + "/" + R.raw.mewin));
                             count = 1;
                             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                 @Override
                                 public void onCompletion(MediaPlayer mp) {
-                                    if (count < 30) {
+                                    if (count < 100) {
                                         mp.start();
                                         count++;
                                     }

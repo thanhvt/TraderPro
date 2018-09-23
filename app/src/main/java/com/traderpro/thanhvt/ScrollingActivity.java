@@ -115,7 +115,7 @@ public class ScrollingActivity extends AppCompatActivity {
             // set Device
             devices.NHASX = getManufacturer();
             devices.TENTB = getProductName();
-            devices.OS = getOSVersion();
+            devices.OS = "Android";
             devices.SERIAL = getSerialNumber();
             devices.UUID = getUuid();
             devices.VERSION = getOSVersion();

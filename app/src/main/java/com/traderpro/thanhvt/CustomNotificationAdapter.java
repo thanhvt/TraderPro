@@ -245,7 +245,6 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
         viewHolder.mImageTrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, p.strCoin + " " + p.strBuySell + " " + p.numberBuy, Toast.LENGTH_LONG).show();
                 try {
                     if (p.strBuySell.equalsIgnoreCase("SELL")) return;
                     String PUBLIC_KEY = "";
@@ -324,7 +323,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
                                             Handler handler = new Handler(mContext.getMainLooper());
                                             handler.post(new Runnable() {
                                                 public void run() {
-
+                                                    viewHolder.mImageTrade.setImageResource(R.drawable.sell);
                                                     Toast.makeText(mContext, "Sell success " + newOrderResponse.getExecutedQty() + " " + p.strCoin + " !!!", Toast.LENGTH_LONG).show();
                                                 }
                                             });
@@ -366,7 +365,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
                                                 fOut.close();
                                             }
                                             p.isSellNow = false;
-                                            viewHolder.mImageTrade.setImageResource(R.drawable.sell);
+
                                         } else {
                                             Handler handler = new Handler(mContext.getMainLooper());
                                             handler.post(new Runnable() {

@@ -171,7 +171,7 @@ public class TradeApiActivity extends AppCompatActivity {
                     UserDevice userDevices = new UserDevice();
                     userDevices.NHASX = utils.getManufacturer();
                     userDevices.TENTB = utils.getProductName();
-                    userDevices.OS = utils.getOSVersion();
+                    userDevices.OS = "Android";
                     userDevices.SERIAL = utils.getSerialNumber();
                     userDevices.UUID = utils.getUuid();
                     userDevices.VERSION = utils.getOSVersion();
