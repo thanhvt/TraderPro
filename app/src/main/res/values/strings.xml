@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Trading Analytics</string>
-    <string name="app_name_Vn">Trading Analytics</string>
+    <string name="app_name">Pis Trader</string>
+    <string name="app_name_Vn">Pis Trader</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_bid_ask">BidAskActivity</string>
     <string name="tab_text_1">Mua</string>
@@ -104,7 +104,7 @@
     <string name="txtSau"><![CDATA[>>>]]></string>
     <string name="active_traderpro">Active TraderPro</string>
     <string name="active_traderpro_Vn">Active TraderPro</string>
-    <string name="cryptoanalyst">Trading Analytics</string>
+    <string name="cryptoanalyst">Pis Trader</string>
     <string name="report_statistics"><![CDATA[Report & Statistics]]></string>
     <string name="report_statistics_Vn"><![CDATA[Báo cáo & Thống kê]]></string>
     <string name="about">About us</string>
@@ -141,10 +141,10 @@
     <string name="title_using_API">Using API to trade (version normal)</string>
     <string name="des_amount_Vn">Amount of BTC per transactions(using small amount for test)</string>
     <string name="des_amount">Amount of BTC per transactions(using small amount for test)</string>
-    <string name="important_Vn">Important: Create new API key and dont use it outside of Trading Analytics app</string>
-    <string name="important">Important: Create new API key and dont use it outside of Trading Analytics app</string>
-    <string name="des_App_Vn">Trading Analytics is a Crypto Signal app for Bitcoin and Altcoin. It gives you access to cryptocurrency rates, coin market cap, detailed cryptocurrency trade, crypto news. Moreover it allows you to easily see blockchain cryptocurrency prices and price changes, coin market cap and 24h volume charts, coin details and advanced infomation.</string>
-    <string name="des_App">Trading Analytics is a Crypto Signal app for Bitcoin and Altcoin. It gives you access to cryptocurrency rates, coin market cap, detailed cryptocurrency trade, crypto news. Moreover it allows you to easily see blockchain cryptocurrency prices and price changes, coin market cap and 24h volume charts, coin details and advanced infomation.</string>
+    <string name="important_Vn">Important: Create new API key and dont use it outside of Pis Trader app</string>
+    <string name="important">Important: Create new API key and dont use it outside of Pis Trader app</string>
+    <string name="des_App_Vn">Pis Trader is a Crypto Signal app for Bitcoin and Altcoin. It gives you access to cryptocurrency rates, coin market cap, detailed cryptocurrency trade, crypto news. Moreover it allows you to easily see blockchain cryptocurrency prices and price changes, coin market cap and 24h volume charts, coin details and advanced infomation.</string>
+    <string name="des_App">Pis Trader is a Crypto Signal app for Bitcoin and Altcoin. It gives you access to cryptocurrency rates, coin market cap, detailed cryptocurrency trade, crypto news. Moreover it allows you to easily see blockchain cryptocurrency prices and price changes, coin market cap and 24h volume charts, coin details and advanced infomation.</string>
     <string name="version_Vn">Version</string>
     <string name="version">Version</string>
     <string name="connect_Vn">Connect with us</string>
@@ -164,6 +164,10 @@
     <string name="copyright_Vn">Copyright 2018 by TDev</string>
     <string name="copyright">Copyright 2018 by TDev</string>
     <string name="tele">Join us on Telegram: <a href="https://t.me/joinchat/HX6H_k2HnC6LHLCEU0hptw"><b>PIS TRADER</b></a></string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
 
 
 </resources>

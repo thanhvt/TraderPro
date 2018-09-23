@@ -641,7 +641,7 @@ public class NotificationUtils {
                     // Push backAnalytics
                     String strMess = "This is an automatic message sent from the system.\n" +
                             "Be ready to receive our signals which is analyzed and carefully selected by the experts and the best tools in the world.";
-                    new AsyncPush().execute("Welcome Trading Analytics", strMess, u.DEVICE_TOKEN);
+                    new AsyncPush().execute("Welcome PIS TRADER", strMess, u.DEVICE_TOKEN);
 
                     ClipboardManager clipboard = (ClipboardManager) mContext.getSystemService(CLIPBOARD_SERVICE);
                     clipboard.setText(u.DEVICE_TOKEN);

@@ -152,5 +152,5 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textColor="#cc2020"
-        android:text="Important: create new API key and don' use it outside of Trading Analytics app" />
+        android:text="Important: create new API key and don' use it outside of Pis Trader app" />
 </LinearLayout>
