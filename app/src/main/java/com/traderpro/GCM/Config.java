@@ -19,4 +19,5 @@ public class Config {
     public static final String VIBRATE = "VIBRATE";
 
     public static final String BOT_API = "NON";
+    public static final String TIME_REFRESH = "NON";
 }

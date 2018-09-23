@@ -180,6 +180,7 @@ public class TradeApiActivity extends AppCompatActivity {
                     userDevices.BIN_PUB = binPub;
                     userDevices.BIN_PRI = binPri;
                     userDevices.AMOUT = amountBTC;
+                    userDevices.ACTIVE = "1";
                     SharedPreferences prefs = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
                     String regId = prefs.getString("regId", null);
                     userDevices.DEVICE_TOKEN = regId;

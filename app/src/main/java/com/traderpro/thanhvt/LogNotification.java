@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,6 +31,9 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.traderpro.GCM.Config;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -97,7 +101,10 @@ public class LogNotification extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
+        SharedPreferences pref = getActivity().getSharedPreferences(Config.TIME_REFRESH, 0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putLong("TIME_REFRESH", System.currentTimeMillis());
+        editor.commit();
 
     }
 
@@ -132,7 +139,19 @@ public class LogNotification extends Fragment {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                shuffle();
+                SharedPreferences pref = getActivity().getSharedPreferences(Config.TIME_REFRESH, 0);
+                if (pref != null) {
+                    long TIME_REFRESH = pref.getLong("TIME_REFRESH", 0);
+                    if (System.currentTimeMillis() - TIME_REFRESH < 30 * 1000) {
+                        Toast.makeText(getContext(), "Waiting 30 seconds to refresh !", Toast.LENGTH_LONG).show();
+
+                    } else {
+                        shuffle();
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putLong("TIME_REFRESH", System.currentTimeMillis());
+                        editor.commit();
+                    }
+                }
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });

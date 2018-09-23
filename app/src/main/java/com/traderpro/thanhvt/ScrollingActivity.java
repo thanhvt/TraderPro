@@ -119,6 +119,7 @@ public class ScrollingActivity extends AppCompatActivity {
             devices.SERIAL = getSerialNumber();
             devices.UUID = getUuid();
             devices.VERSION = getOSVersion();
+            devices.ACTIVE = "1";
             devices.DEVICE_TOKEN = regId;
             insertData(devices);
             //Save tt
