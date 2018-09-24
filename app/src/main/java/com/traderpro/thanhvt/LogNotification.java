@@ -374,12 +374,14 @@ public class LogNotification extends Fragment {
             lstNotiBinance.clear();
             while ((aDataRow = myReader.readLine()) != null) {
                 aDataRow = aDataRow.replace("| ", "");
-                NotificationEntity e = new NotificationEntity();
-                e = parseFile(aDataRow, nam, thang, ngay);
-                lstNotiEntity.add(e);
+                if (!aDataRow.trim().isEmpty()) {
+                    NotificationEntity e = new NotificationEntity();
+                    e = parseFile(aDataRow, nam, thang, ngay);
+                    lstNotiEntity.add(e);
 
-                if (e.strExchange.equals("Bittrex")) lstNotiBittrex.add(e);
-                if (e.strExchange.equals("Binance")) lstNotiBinance.add(e);
+                    if (e.strExchange.equals("Bittrex")) lstNotiBittrex.add(e);
+                    if (e.strExchange.equals("Binance")) lstNotiBinance.add(e);
+                }
                 cbBinance.setText("Binance (" + lstNotiBinance.size() + ")");
                 cbBittrex.setText("Bittrex (" + lstNotiBittrex.size() + ")");
             }

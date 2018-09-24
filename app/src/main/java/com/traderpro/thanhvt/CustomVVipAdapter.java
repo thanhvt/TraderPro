@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,13 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
     String strNN;
     public NotificationEntity p;
     CustomVVipAdapter.NotiHolder viewHolder;
+
+    boolean coMuaBan = false;
+    String strTradeID = "";
+    String strGiaSan = "";
+    NewOrderResponse newOrderResponse;
+    int numberSell = 0;
+    String strErr = "";
 
     public CustomVVipAdapter(Context context, int resource, List<NotificationEntity> items) {
         super(context, resource, items);
@@ -126,7 +134,7 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
                             lstObjectBuy.add(aDataRow);
                         }
                         myReader.close();
-                        boolean coMuaBan = false;
+                        coMuaBan = false;
                         if (pref != null) {
                             int API = pref.getInt("USE_API", 0);
                             if (API == 1) {
@@ -139,7 +147,7 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
                             BinanceApiClientFactory factory = BinanceApiClientFactory.newInstance(PUBLIC_KEY, PRIVATE_KEY);
                             BinanceApiRestClient client = factory.newRestClient();
                             try {
-                                int numberSell = 0;
+                                numberSell = 0;
                                 for (int i = 0; i < lstObjectBuy.size(); i++) {
                                     String itemBuy = lstObjectBuy.get(i);
                                     if (!itemBuy.equalsIgnoreCase("")) {
@@ -151,60 +159,96 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
                                         }
                                     }
                                 }
-                                final NewOrderResponse newOrderResponse = client.newOrder(marketSell(p.strCoin + "BTC", numberSell + "").newOrderRespType(NewOrderResponseType.FULL));
-                                coMuaBan = true;
-                                String strTradeID = newOrderResponse.getOrderId() + "";
-                                Double dCum = Double.parseDouble(newOrderResponse.getCummulativeQuoteQty());
-                                Double dSL = Double.parseDouble(newOrderResponse.getExecutedQty());
-                                Double dbGiaSan = dCum / dSL;
-                                String strGiaSan = String.format("%.8f", dbGiaSan);
-                                strGiaSan = strGiaSan.replace(",", ".");
-                                Handler handler = new Handler(mContext.getMainLooper());
-                                handler.post(new Runnable() {
-                                    public void run() {
-                                        Toast.makeText(mContext, "Sell success " + newOrderResponse.getExecutedQty() + " " + p.strCoin + " !!!", Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                                for (int i = 0; i < lstObjectBuy.size(); i++) {
-                                    String itemBuy = lstObjectBuy.get(i);
-                                    if (!itemBuy.equalsIgnoreCase("")) {
-                                        String objs[] = itemBuy.split("\\|");
-                                        if (objs.length >= 8 && objs[7].equals(p.strId)) {
-                                            if (itemBuy.contains("BUYY")) {
 
-                                                itemBuy = itemBuy.replace(objs[8], "SELL");
-                                                itemBuy = itemBuy.replace(objs[9], strTradeID);
-                                                itemBuy = itemBuy.replace(objs[10], newOrderResponse.getExecutedQty());
-                                                itemBuy = itemBuy.replace(objs[11], strGiaSan);
-                                                lstObjectBuy.set(i, itemBuy);
-                                            } else {
-                                                // Toast thong bao ban chua mua coin nay nen chua the bankey
-                                                handler = new Handler(mContext.getMainLooper());
+                                newOrderResponse = new NewOrderResponse();
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // Do network action in this function
+                                        try {
+                                            Log.d("Handler sell ", numberSell + "");
+                                            newOrderResponse = client.newOrder(marketSell(p.strCoin + "BTC", "" + numberSell).newOrderRespType(NewOrderResponseType.FULL));
+                                            coMuaBan = true;
+                                            strTradeID = newOrderResponse.getOrderId() + "";
+                                            Double dCum = Double.parseDouble(newOrderResponse.getCummulativeQuoteQty());
+                                            Double dSL = Double.parseDouble(newOrderResponse.getExecutedQty());
+                                            Double dbGiaSan = dCum / dSL;
+                                            strGiaSan = String.format("%.8f", dbGiaSan);
+                                            strGiaSan = strGiaSan.replace(",", ".");
+                                            strErr = "OK";
+                                            if (strErr.equalsIgnoreCase("OK")) {
+                                                Handler handler = new Handler(mContext.getMainLooper());
                                                 handler.post(new Runnable() {
                                                     public void run() {
-                                                        Toast.makeText(mContext, "Can not sell because you didn't buy it!!!", Toast.LENGTH_LONG).show();
+                                                        p.isSellNow = false;
+                                                        viewHolder.btnSellNow.setVisibility(View.GONE);
+                                                        viewHolder.imgBuy.setImageResource(R.drawable.sell);
+                                                        Toast.makeText(mContext, "Sell success " + newOrderResponse.getExecutedQty() + " " + p.strCoin + " !!!", Toast.LENGTH_LONG).show();
+                                                    }
+                                                });
+
+                                                for (int i = 0; i < lstObjectBuy.size(); i++) {
+                                                    String itemBuy = lstObjectBuy.get(i);
+                                                    if (!itemBuy.equalsIgnoreCase("")) {
+                                                        String objs[] = itemBuy.split("\\|");
+                                                        if (objs.length >= 8 && objs[7].equals(p.strId)) {
+                                                            if (itemBuy.contains("BUYY")) {
+
+                                                                itemBuy = itemBuy.replace(objs[8], "SELL");
+                                                                itemBuy = itemBuy.replace(objs[9], strTradeID);
+                                                                itemBuy = itemBuy.replace(objs[10], newOrderResponse.getExecutedQty());
+                                                                itemBuy = itemBuy.replace(objs[11], strGiaSan);
+                                                                lstObjectBuy.set(i, itemBuy);
+                                                            } else {
+                                                                // Toast thong bao ban chua mua coin nay nen chua the bankey
+                                                                handler = new Handler(mContext.getMainLooper());
+                                                                handler.post(new Runnable() {
+                                                                    public void run() {
+                                                                        Toast.makeText(mContext, "Can not sell because you didn't buy it!!!", Toast.LENGTH_LONG).show();
+                                                                    }
+                                                                });
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                if (coMuaBan == true) {
+                                                    FileOutputStream fOut = new FileOutputStream(myFile, false);
+                                                    OutputStreamWriter myOutWriter =
+                                                            new OutputStreamWriter(fOut);
+                                                    for (int i = 0; i < lstObjectBuy.size(); i++) {
+                                                        String itemBuy = lstObjectBuy.get(i);
+                                                        if (!itemBuy.equals("")) {
+                                                            myOutWriter.append("\n" + itemBuy);
+                                                        }
+                                                    }
+                                                    myOutWriter.close();
+                                                    fOut.close();
+                                                }
+                                            } else {
+                                                Handler handler = new Handler(mContext.getMainLooper());
+                                                handler.post(new Runnable() {
+                                                    public void run() {
+
+                                                        Toast.makeText(mContext, "Sell error " + strErr, Toast.LENGTH_LONG).show();
                                                     }
                                                 });
                                             }
+                                        } catch (Exception e) {
+                                            strErr = e.getMessage();
+                                            Handler handler = new Handler(mContext.getMainLooper());
+                                            handler.post(new Runnable() {
+                                                public void run() {
+
+                                                    Toast.makeText(mContext, "Sell error " + strErr, Toast.LENGTH_LONG).show();
+                                                }
+                                            });
+                                            e.printStackTrace();
                                         }
+
                                     }
-                                }
-                                if (coMuaBan == true) {
-                                    FileOutputStream fOut = new FileOutputStream(myFile, false);
-                                    OutputStreamWriter myOutWriter =
-                                            new OutputStreamWriter(fOut);
-                                    for (int i = 0; i < lstObjectBuy.size(); i++) {
-                                        String itemBuy = lstObjectBuy.get(i);
-                                        if (!itemBuy.equals("")) {
-                                            myOutWriter.append("\n" + itemBuy);
-                                        }
-                                    }
-                                    myOutWriter.close();
-                                    fOut.close();
-                                }
-                                p.isSellNow = false;
-                                viewHolder.btnSellNow.setVisibility(View.GONE);
-                                viewHolder.imgBuy.setImageResource(R.drawable.sell);
+                                }).start();
+
+
                             } catch (final Exception e) {
                                 //Log.e(TAG, e.getMessage());
                                 e.printStackTrace();

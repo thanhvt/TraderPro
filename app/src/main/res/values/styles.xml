@@ -19,5 +19,6 @@
 
     <style name="NavigationView">
         <item name="android:textColorSecondary">#ffffff</item>
+        <item name="android:listDivider">@color/colorAccent</item>
     </style>
 </resources>
