@@ -7,7 +7,7 @@
         <item
             android:id="@+id/premium"
             android:icon="@drawable/premium"
-            android:title="Premium Signals" />
+            android:title="Upgrade to Premium" />
         <item
             android:id="@+id/api"
             android:icon="@drawable/api2"

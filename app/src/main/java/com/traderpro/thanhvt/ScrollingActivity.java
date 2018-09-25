@@ -531,10 +531,10 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 //        adapter.addFrag(new TabMua(), "BUY");
-        adapter.addFrag(new LogNotification(), "RingRing");
+        adapter.addFrag(new LogNotification(), "Crypto Analytics");
 //        adapter.addFrag(new LogActivity(), "History");
 //        adapter.addFrag(new TabBan(), "SELL");
-        adapter.addFrag(new VVipActivityFragment(), "VVip");
+        adapter.addFrag(new VVipActivityFragment(), "Premium Signals");
         viewPager.setAdapter(adapter);
     }
 
