@@ -33,8 +33,8 @@
         <activity
             android:name=".ScrollingActivity"
             android:label="@string/cryptoanalyst"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,10 +53,10 @@
             </intent-filter>
         </service>
         <!-- ./Firebase Notifications -->
-        <service
-            android:name=".DetectSignalService"
-            android:enabled="true"
-            android:exported="true" />
+        <!-- <service -->
+        <!-- android:name=".DetectSignalService" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true" /> -->
 
         <receiver
             android:name=".BuyIntentReceiver"
@@ -96,7 +96,12 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".DetectSignalService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

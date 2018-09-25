@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.WakefulBroadcastReceiver;
+import android.util.Log;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -47,16 +48,16 @@ public class NotiEventReceiver extends WakefulBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
         Intent serviceIntent = null;
-//        if (ACTION_START_NOTIFICATION_SERVICE.equals(action)) {
-//            Log.i(getClass().getSimpleName(), "onReceive from alarm, starting notification service");
-//            serviceIntent = NotificationIntentService.createIntentStartNotificationService(context);
-//        } else if (ACTION_DELETE_NOTIFICATION.equals(action)) {
-//            Log.i(getClass().getSimpleName(), "onReceive delete notification action, starting notification service to handle delete");
-//            serviceIntent = NotificationIntentService.createIntentDeleteNotification(context);
-//        }
-//
-//        if (serviceIntent != null) {
-//            startWakefulService(context, serviceIntent);
-//        }
+        if (ACTION_START_NOTIFICATION_SERVICE.equals(action)) {
+            Log.i(getClass().getSimpleName(), "onReceive from alarm, starting notification service");
+            serviceIntent = NotificationIntentService.createIntentStartNotificationService(context);
+        } else if (ACTION_DELETE_NOTIFICATION.equals(action)) {
+            Log.i(getClass().getSimpleName(), "onReceive delete notification action, starting notification service to handle delete");
+            serviceIntent = NotificationIntentService.createIntentDeleteNotification(context);
+        }
+
+        if (serviceIntent != null) {
+            startWakefulService(context, serviceIntent);
+        }
     }
 }
