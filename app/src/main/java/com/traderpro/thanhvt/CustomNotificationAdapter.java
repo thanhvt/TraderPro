@@ -194,7 +194,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtVolumeTang.setText("▲ " + String.format("%.1f", tangSoLan) + "%");
             viewHolder.txtGiaHT.setText(p.strGiaHienTai == null ? "" : String.format("%.8f", p.strGiaHienTai));
 
-            viewHolder.txtVolumeGoc.setText("AvgV: " + p.strVolTB);
+            viewHolder.txtVolumeGoc.setText("Avg: " + p.strVolTB);
 
 //            if (mResource == R.layout.layout_notificustom) {
 //                viewHolder.txtBS.setText("Người mua/người bán: " + p.strBuySell);
@@ -216,7 +216,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtVolumeTang.setText("▲ " + String.format("%.1f", tangSoLan) + "%");
             viewHolder.txtGiaHT.setText(p.strGiaHienTai == null ? "" : String.format("%.8f", p.strGiaHienTai));
 
-            viewHolder.txtVolumeGoc.setText("AvgV: " + p.strVolTB);
+            viewHolder.txtVolumeGoc.setText("Avg: " + p.strVolTB);
 
 //            if (mResource == R.layout.layout_notificustom) {
 //                viewHolder.txtBS.setText("Number of Buyer/Seller: " + p.strBuySell);
