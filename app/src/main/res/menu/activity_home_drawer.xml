@@ -37,6 +37,10 @@
                     android:id="@+id/nav_manage"
                     android:icon="@drawable/survey2"
                     android:title="Send feedback" />
+                <item
+                    android:id="@+id/nav_donate"
+                    android:icon="@drawable/donation"
+                    android:title="Donate" />
             </menu>
         </item>
 
@@ -56,10 +60,10 @@
                 android:id="@+id/nav_rat"
                 android:icon="@drawable/rating"
                 android:title="Rate us" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+            <!--<item-->
+            <!--android:id="@+id/nav_send"-->
+            <!--android:icon="@drawable/ic_menu_send"-->
+            <!--android:title="Send" />-->
         </menu>
     </item>
     <item
