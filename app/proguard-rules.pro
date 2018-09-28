@@ -47,10 +47,10 @@
 #-dontwarn javax.annotation.ParametersAreNonnullByDefault
 #-dontwarn com.squareup.okhttp.**
 ##-renamesourcefileattribute SourceFile
-#-ignorewarnings
-#-keep class * {
-#    public private *;
-#}
+-ignorewarnings
+-keep class * {
+    public private *;
+}
 #-keepparameternames
 #-keepattributes *Annotation*
 #-keepattributes Exceptions,InnerClasses,Signature,Deprecated,SourceFile,LineNumber

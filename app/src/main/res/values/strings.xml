@@ -168,6 +168,7 @@
     <string name="nav_header_title">Pis Trader</string>
     <string name="nav_header_subtitle">anonymous@pistrader.com</string>
     <string name="nav_header_desc">Navigation header</string>
+    <string name="title_dynamic_pisfeature">PIS Trader</string>
 
 
 </resources>
