@@ -301,6 +301,8 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             }
             viewHolder.txtGiaMua.setText(p.strGia);
             viewHolder.txtTimeMua.setText("được báo mua lúc " + strTimeMua);
+            viewHolder.txtText1.setText("Nếu vào ở điểm");
+            viewHolder.txtText2.setText("và chốt ra");
             viewHolder.txtCoin.setText(p.strCoin);
             if (p.strGiaHienTai != null) {
                 viewHolder.txtGiaHienTai.setText("Giá hiện tại: " + String.format("%.8f", p.strGiaHienTai)
@@ -309,22 +311,22 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             viewHolder.txtPriceBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "(hệ thống đang quét giá bán tốt nhất)" : (p.strGiaBan + ""));
             viewHolder.txtTimeBan.setText(p.strGiaBan.equalsIgnoreCase("GIA_BAN") == true ? "" : ("mà hệ thống báo bán lúc " + p.strTimeBan + ""));
             if (p.numberBuy != "0") {
-//                viewHolder.txtText3.setText("Mua vào: " + p.numberBuy + " đơn vị");
+
                 if (p.isSellNow == true) {
                     viewHolder.imgBuy.setVisibility(View.VISIBLE);
                 }
                 viewHolder.imgBuy.setImageResource(R.drawable.buy);
                 viewHolder.btnSellNow.setVisibility(View.VISIBLE);
-//                viewHolder.txtText1.setText("Mua vào giá ");
-//                viewHolder.txtText2.setVisibility(View.GONE);
+//                viewHolder.txtText1.setText("");
 //                viewHolder.txtPriceBan.setVisibility(View.GONE);
 //                viewHolder.txtTimeBan.setVisibility(View.GONE);
             } else if (p.numberSell != "0") {
                 viewHolder.btnSellNow.setVisibility(View.GONE);
-//                viewHolder.txtText3.setText("Bán ra: " + p.numberSell + " đơn vị");
+
                 viewHolder.imgBuy.setVisibility(View.VISIBLE);
                 viewHolder.imgBuy.setImageResource(R.drawable.sell);
 //                viewHolder.txtText1.setVisibility(View.GONE);
+//                viewHolder.txtText3.setText("Bán ra: " + p.numberSell + " đơn vị");
 //                viewHolder.txtGiaMua.setVisibility(View.GONE);
 //                viewHolder.txtTimeMua.setVisibility(View.GONE);
 //                viewHolder.txtPriceBan.setVisibility(View.VISIBLE);
@@ -347,6 +349,8 @@ public class CustomVVipAdapter extends ArrayAdapter<NotificationEntity> {
             }
             viewHolder.txtGiaMua.setText(p.strGia);
             viewHolder.txtTimeMua.setText("time buy " + strTimeMua);
+            viewHolder.txtText1.setText("If bought for");
+            viewHolder.txtText2.setText("and sell at");
             viewHolder.txtCoin.setText(p.strCoin);
             if (p.strGiaHienTai != null) {
                 viewHolder.txtGiaHienTai.setText("Current price: " + String.format("%.8f", p.strGiaHienTai)
