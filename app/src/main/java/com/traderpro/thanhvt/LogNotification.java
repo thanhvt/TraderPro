@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.SearchView;
 import android.telephony.TelephonyManager;
 import android.text.Html;
 import android.text.Spannable;
@@ -919,12 +920,49 @@ public class LogNotification extends Fragment {
 //        return true;
 //    }
 
+    private SearchView searchView;
+    private MenuItem searchMenuItem;
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Add your menu entries here
         //inflater.inflate(R.menu.menu_log, menu);
         //super.onCreateOptionsMenu(menu, inflater);
+
+        searchMenuItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setQueryHint("Coin ?");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                customAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    searchMenuItem.collapseActionView();
+                    searchView.setQuery("", false);
+                    searchView.setIconified(true);
+                }
+            }
+        });
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        if (!searchView.isIconified()) {
+//
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

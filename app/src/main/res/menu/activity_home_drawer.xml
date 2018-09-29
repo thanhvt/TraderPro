@@ -26,15 +26,15 @@
                     android:icon="@drawable/ic_adblock"
                     android:title="Remove Ads" />
                 <item
-                    android:id="@+id/nav_gallery"
+                    android:id="@+id/nav_changelog"
                     android:icon="@drawable/log"
                     android:title="@string/Changelog" />
                 <item
-                    android:id="@+id/nav_slideshow"
+                    android:id="@+id/nav_about"
                     android:icon="@drawable/about"
                     android:title="About" />
                 <item
-                    android:id="@+id/nav_manage"
+                    android:id="@+id/nav_feed"
                     android:icon="@drawable/survey2"
                     android:title="Send feedback" />
                 <item

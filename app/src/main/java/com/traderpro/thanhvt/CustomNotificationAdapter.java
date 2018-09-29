@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,10 +44,10 @@ import java.util.List;
 
 import static com.binance.api.client.domain.account.NewOrder.marketSell;
 
-public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> {
+public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> implements Filterable {
 
     Context mContext;
-    List<NotificationEntity> lstOrder;
+    List<NotificationEntity> lstOrder, filterList;
     BittrexData bittrexData;
     int nam;
     int thang;
@@ -58,6 +60,7 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
     int mResource;
     String strNN;
     String strErr = "";
+    private ContactFilter filter;
 //    private class DownloadAsyncTask extends AsyncTask<NotiHolder, Void, NotiHolder> {
 //
 //        NotificationEntity p;
@@ -135,6 +138,9 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
 
         SharedPreferences pref = mContext.getSharedPreferences(Config.NGON_NGU, 0);
         strNN = pref.getString("NN", "VN");
+
+        filterList = new ArrayList<>();
+        this.filterList.addAll(lstOrder);
     }
 
     @Override
@@ -648,6 +654,61 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             is.close();
         }
         return "";
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (filter == null)
+            filter = new ContactFilter();
+        return filter;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
+
+    private class ContactFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            String data = constraint.toString().toLowerCase();
+            FilterResults results = new FilterResults();
+            if (data.length() > 0) {
+                List<NotificationEntity> filteredList = new ArrayList<>(filterList);
+                List<NotificationEntity> nList = new ArrayList<>();
+                int count = filteredList.size();
+                for (int i = 0; i < count; i++) {
+                    NotificationEntity item = filteredList.get(i);
+                    String name = item.strCoin.toLowerCase();
+                    String strCase = item.strCase;
+                    if (data.startsWith(".")) {
+                        String mCase = data.substring(1);
+                        if (mCase.equals(strCase)) nList.add(item);
+
+                    } else if (name.equalsIgnoreCase(data) || name.startsWith(data))
+                        nList.add(item);
+                }
+                results.count = nList.size();
+                results.values = nList;
+            } else {
+                List<NotificationEntity> list = new ArrayList<>(filterList);
+                results.count = list.size();
+                results.values = list;
+            }
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            lstOrder = (ArrayList<NotificationEntity>) results.values;
+            clear();
+            for (int i = 0; i < lstOrder.size(); i++) {
+                NotificationEntity item = (NotificationEntity) lstOrder.get(i);
+                add(item);
+                notifyDataSetChanged();
+            }
+        }
     }
 
 }

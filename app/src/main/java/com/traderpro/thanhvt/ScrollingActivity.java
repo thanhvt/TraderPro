@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -584,6 +585,7 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
         item3.setTitle(strNN.equals("VN") ? R.string.report_statistics_Vn : R.string.report_statistics);
         MenuItem item4 = menu.getItem(4);
         item4.setTitle(strNN.equals("VN") ? R.string.about_Vn : R.string.about);
+
         return true;
     }
 
@@ -637,16 +639,50 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_changelog) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.api) {
+            Intent intent = new Intent(ScrollingActivity.this, TradeApiActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.set) {
+            Intent intent = new Intent(ScrollingActivity.this, SettingsPrefActivity.class);
+            intent.putExtra("KEY", regId);
+            startActivity(intent);
+        } else if (id == R.id.nav_about) {
 
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_feed) {
+            Intent Email = new Intent(Intent.ACTION_SEND);
+            Email.setType("text/email");
+            Email.putExtra(Intent.EXTRA_EMAIL, new String[]{"itradinganalytics@gmail.com"});
+            Email.putExtra(Intent.EXTRA_SUBJECT, "Feedback");
+            Email.putExtra(Intent.EXTRA_TEXT, "Dear ...," + "");
+            startActivity(Intent.createChooser(Email, "Send Feedback"));
         } else if (id == R.id.nav_share) {
-
+            final String appPackageName = this.getPackageName();
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+//            sendIntent.putExtra(Intent.EXTRA_SUBJECT, "PIS Trader - A professional crypto trading platform");
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out the App at: https://play.google.com/store/apps/details?id=" + appPackageName);
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent, "Share using"));
         } else if (id == R.id.nav_donate) {
 
+        } else if (id == R.id.nav_rat) {
+            final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+            } catch (android.content.ActivityNotFoundException anfe) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+            }
+        } else if (id == R.id.nav_sup) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("https://t.me/joinchat/HX6H_k2HnC6LHLCEU0hptw"));
+
+            // Always use string resources for UI text. This says something like "Share this photo with"
+            String title = "PIS Trader - A professional crypto trading platform";
+            // Create and start the chooser
+            Intent chooser = Intent.createChooser(intent, title);
+            startActivity(chooser);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
