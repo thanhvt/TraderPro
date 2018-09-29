@@ -2,6 +2,7 @@ package com.traderpro.thanhvt;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -32,14 +33,17 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.traderpro.GCM.Config;
 import com.traderpro.GCM.NotificationUtils;
 import com.traderpro.my_interface.GetUserDeviceDataService;
 import com.traderpro.network.RetrofitInstance;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import org.json.JSONObject;
 
@@ -575,15 +579,15 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
         getMenuInflater().inflate(R.menu.menu_scrolling, menu);
         SharedPreferences pref = getSharedPreferences(Config.NGON_NGU, 0);
         String strNN = pref.getString("NN", "VN");
-        MenuItem item0 = menu.getItem(0);
+        MenuItem item0 = menu.getItem(1);
         item0.setTitle(strNN.equals("VN") ? R.string.trade_api_Vn : R.string.trade_api);
-        MenuItem item1 = menu.getItem(1);
+        MenuItem item1 = menu.getItem(2);
         item1.setTitle(strNN.equals("VN") ? R.string.setting_Vn : R.string.setting);
-        MenuItem item2 = menu.getItem(2);
+        MenuItem item2 = menu.getItem(3);
         item2.setTitle(strNN.equals("VN") ? R.string.active_traderpro_Vn : R.string.active_traderpro_Vn);
-        MenuItem item3 = menu.getItem(3);
+        MenuItem item3 = menu.getItem(4);
         item3.setTitle(strNN.equals("VN") ? R.string.report_statistics_Vn : R.string.report_statistics);
-        MenuItem item4 = menu.getItem(4);
+        MenuItem item4 = menu.getItem(5);
         item4.setTitle(strNN.equals("VN") ? R.string.about_Vn : R.string.about);
 
         return true;
@@ -666,7 +670,29 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
             sendIntent.setType("text/plain");
             startActivity(Intent.createChooser(sendIntent, "Share using"));
         } else if (id == R.id.nav_donate) {
-
+            new LovelyStandardDialog(this, LovelyStandardDialog.ButtonLayout.HORIZONTAL)
+                    .setTopColorRes(R.color.about_description_text_color)
+                    .setButtonsColorRes(R.color.colorPrimaryDark)
+                    .setIcon(R.drawable.donationme)
+                    .setTitle("Donate")
+                    .setMessage(getResources().getString(R.string.description_donate))
+                    .setPositiveButton("Donate BTC", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                            clipboard.setText("1c2J3WR3SWwKiv7C8ApHvRq9ApJyGsNwr");
+                            Toast.makeText(getApplicationContext(), "Copied BTC address: 1c2J3WR3SWwKiv7C8ApHvRq9ApJyGsNwr", Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .setNegativeButton("Donate ETH", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                            clipboard.setText("0x7e7207b528d9de0eb9c5fc02f8dea05091bf5a6d");
+                            Toast.makeText(getApplicationContext(), "Copied ETH address: 0x7e7207b528d9de0eb9c5fc02f8dea05091bf5a6d", Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .show();
         } else if (id == R.id.nav_rat) {
             final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
             try {

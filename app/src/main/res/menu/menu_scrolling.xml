@@ -10,27 +10,27 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_key"
-        android:orderInCategory="100"
+        android:orderInCategory="1"
         android:title="@string/trade_api"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="2"
         android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_active"
-        android:orderInCategory="100"
+        android:orderInCategory="3"
         android:title="@string/active_traderpro"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_report"
-        android:orderInCategory="100"
+        android:orderInCategory="4"
         android:title="@string/report_statistics"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_about"
-        android:orderInCategory="100"
+        android:orderInCategory="5"
         android:title="@string/about"
         app:showAsAction="never" />
 

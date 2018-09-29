@@ -2,20 +2,20 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        config {
-            keyAlias 'TraderPro'
-            keyPassword 'thanhtienVu@1991'
-            storeFile file('/Users/thanhvt/Desktop/traderpro')
-            storePassword 'thanhtienVu@1991'
-        }
-        release {
-            // You need to specify either an absolute path or include the
-            // keystore file in the same directory as the build.gradle file.
-            storeFile file("/Users/thanhvt/Desktop/traderpro")
-            storePassword "thanhtienVu@1991"
-            keyAlias "TraderPro"
-            keyPassword "thanhtienVu@1991"
-        }
+//        config {
+//            keyAlias 'TraderPro'
+//            keyPassword 'thanhtienVu@1991'
+//            storeFile file('/Users/thanhvt/Desktop/traderpro')
+//            storePassword 'thanhtienVu@1991'
+//        }
+//        release {
+//            // You need to specify either an absolute path or include the
+//            // keystore file in the same directory as the build.gradle file.
+//            storeFile file("/Users/thanhvt/Desktop/traderpro")
+//            storePassword "thanhtienVu@1991"
+//            keyAlias "TraderPro"
+//            keyPassword "thanhtienVu@1991"
+//        }
     }
     compileSdkVersion 27
     defaultConfig {
@@ -28,7 +28,7 @@ android {
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
 //            minifyEnabled true
 //            shrinkResources true
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -39,9 +39,9 @@ android {
 //            shrinkResources true
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 //        }
-        debug {
-            signingConfig signingConfigs.config
-        }
+//        debug {
+//            signingConfig signingConfigs.config
+//        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -64,7 +64,7 @@ android {
             enableSplit = true
         }
     }
-    dynamicFeatures = [":dynamic_pisfeature"]
+//    dynamicFeatures = [":dynamic_pisfeature"]
 }
 
 dependencies {
@@ -84,5 +84,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.yarolegovich:lovely-dialog:1.1.0'
 }
 apply plugin: 'com.google.gms.google-services'
