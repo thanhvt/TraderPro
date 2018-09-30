@@ -2,12 +2,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.traderpro.thanhvt.ScrollingActivity">
+    <!--<item-->
+    <!--android:id="@+id/action_sort"-->
+    <!--app:actionViewClass="android.widget.Spinner"-->
+    <!--app:showAsAction="ifRoom"-->
+    <!--android:checkable="true"-->
+    <!--android:checked="true"-->
+    <!--android:icon="@drawable/icsort"-->
+    <!--android:title="" />-->
     <item
         android:id="@+id/action_search"
         android:icon="@android:drawable/ic_menu_search"
         android:title="Search Coin"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/action_key"
         android:orderInCategory="1"
@@ -18,11 +27,11 @@
         android:orderInCategory="2"
         android:title="@string/action_settings"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_active"
-        android:orderInCategory="3"
-        android:title="@string/active_traderpro"
-        app:showAsAction="never" />
+    <!--<item-->
+    <!--android:id="@+id/action_active"-->
+    <!--android:orderInCategory="3"-->
+    <!--android:title="@string/active_traderpro"-->
+    <!--app:showAsAction="never" />-->
     <item
         android:id="@+id/action_report"
         android:orderInCategory="4"
@@ -33,5 +42,30 @@
         android:orderInCategory="5"
         android:title="@string/about"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_search_option"
+        android:icon="@drawable/icsort"
+        android:title=""
+        app:showAsAction="ifRoom|withText">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/sortTime"
+                    android:title="Time" />
+                <item
+                    android:id="@+id/sortCoin"
+                    android:title="Coin" />
+                <item
+                    android:id="@+id/sortGain"
+                    android:title="Gain" />
+                <item
+                    android:id="@+id/sortDefault"
+                    android:title="Default" />
+                <item
+                    android:id="@+id/sortOther"
+                    android:title="Other" />
+            </group>
+        </menu>
+    </item>
 
 </menu>

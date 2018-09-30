@@ -31,6 +31,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Timer;
 import java.util.concurrent.BlockingQueue;
@@ -98,6 +100,8 @@ public class LogNotification extends Fragment {
     private static final BlockingQueue<Runnable> sPoolWorkQueue =
             new LinkedBlockingQueue<Runnable>(128);
 
+    private Spinner spinner_nav;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +111,28 @@ public class LogNotification extends Fragment {
         editor.putLong("TIME_REFRESH", System.currentTimeMillis());
         editor.commit();
 
+//        spinner_nav = (Spinner) getActivity().findViewById(R.id.spinner_toolBar);
+//        ArrayList<String> list = new ArrayList<String>();
+//        list.add("Top News");
+//        list.add("Politics");
+//        list.add("Business");
+//        list.add("Sports");
+//        list.add("Movies");
+
+//        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(), R.array.drawer_drop_down,
+//                    android.R.layout.simple_spinner_item);
+//        spinner_nav.setPrompt("");
+//        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, list){
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//                // this part is needed for hiding the original view
+//                View view = super.getView(position, convertView, parent);
+//                view.setVisibility(View.GONE);
+//
+//                return view;
+//            }
+//        };
+//        spinner_nav.setAdapter(spinnerAdapter);
     }
 
     public static Spannable removeUnderlines(Spannable p_Text) {
@@ -487,7 +513,8 @@ public class LogNotification extends Fragment {
 //            new ExchangeGetPrice(e).execute(e.strCoin, c.getTimeInMillis() + "");
 //            new ExchangeGetPrice(e).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, e.strCoin, c.getTimeInMillis() + "");
             new ExchangeGetPrice(e).executeOnExecutor(threadPoolExecutor, e.strCoin, c.getTimeInMillis() + "");
-
+            Double tangSoLan = (Double.parseDouble(e.strVol) / Double.parseDouble(e.strVolTB)) * 100;
+            e.tangSoLan = tangSoLan;
 //            GetUserDeviceDataService service = RetrofitInstance.getImageInstance().create(GetUserDeviceDataService.class);
 //            Call<List<ImageEntity>> call = service.getAllPhotos();
 //            call.enqueue(new Callback<List<ImageEntity>>() {
@@ -721,53 +748,87 @@ public class LogNotification extends Fragment {
         return giaMax;
     }
 
-    class ExchangeGetPrice extends AsyncTask<String, String, String> {
-
-        NotificationEntity mEn;
-
-        public ExchangeGetPrice(NotificationEntity mEn) {
-            this.mEn = mEn;
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            if (mEn.strExchange.equals("Binance")) {
-                mEn.strGiaMax = getGiaMaxBinance(params[0], params[1]);
-//                mEn.strGiaMin = getGiaMinBinance(params[0], params[1]);
-                mEn.strGiaHienTai = getGiaHienTai(params[0]);
-            } else if (mEn.strExchange.equals("Bittrex")) {
-//                mEn.strGiaMax = getGiaMaxBittrex(params[0], params[1]);
-                mEn.strGiaHienTai = 0D;
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // TODO Add your menu entries here
+        //inflater.inflate(R.menu.menu_log, menu);
+        //super.onCreateOptionsMenu(menu, inflater);
+//        getActivity().getMenuInflater().inflate(R.menu.menu_scrolling, menu);
+        searchMenuItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setQueryHint("Coin ?");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
             }
-            return null;
-        }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            //progDailog = new ProgressDialog(getActivity());
-            //progDailog.setMessage("Loading...");
-            //progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            //progDailog.setCancelable(true);
-            //progDailog.show();
-        }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                customAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    searchMenuItem.collapseActionView();
+                    searchView.setQuery("", false);
+                    searchView.setIconified(true);
+                }
+            }
+        });
 
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            //progDailog.dismiss();
-            if (getActivity() != null)
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-//                        customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notification, lstNotiEntity, bittrexData);
-                        if (customAdapter != null) {
-                            customAdapter.notifyDataSetChanged();
-                        }
-//                        listView.setAdapter(customAdapter);
+        try {
 
-                    }
-                });
+//            MenuItem spinnerMenuItem = menu.findItem(R.id.action_sort);
+//            final Spinner spinner = (Spinner) spinnerMenuItem.getActionView();
+//            final ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(getContext(), R.array.drawer_drop_down,
+//                    android.R.layout.simple_spinner_item);
+//            ArrayAdapter<CharSequence> spinnerAdapter = new ArrayAdapter<CharSequence>
+//                    (getContext(), android.R.layout.simple_spinner_item, R.array.drawer_drop_down) {
+//                @Override
+//                public View getView(int position, View convertView,
+//                                    ViewGroup parent) {
+//                    // this part is needed for hiding the original view
+//                    View view = super.getView(position, convertView, parent);
+//                    view.setVisibility(View.GONE);
+//                    return view;
+//                }
+//            };
+//            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, R.array.drawer_drop_down){
+//                @Override
+//                public View getView(int position, View convertView, ViewGroup parent) {
+//                    // this part is needed for hiding the original view
+//                    View view = super.getView(position, convertView, parent);
+////                    view.setVisibility(View.GONE);
+//
+//                    return view;
+//                }
+//            };
+//            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//            spinner.setAdapter(spinnerAdapter);
+//            spinner.setPrompt("");
+//            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//                public void onItemSelected(AdapterView<?> arg0, View arg1,
+//                                           int arg2, long arg3) {
+//                    ((TextView) arg1).setText(null);
+//                    if (arg2 == 0) {
+//                    } else if (arg2 == 1) {
+//                    } else if (arg2 == 2) {
+//
+//                    }
+//
+//                }
+//
+//                public void onNothingSelected(AdapterView<?> arg0) {
+//
+//                }
+//            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -922,47 +983,6 @@ public class LogNotification extends Fragment {
 
     private SearchView searchView;
     private MenuItem searchMenuItem;
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // TODO Add your menu entries here
-        //inflater.inflate(R.menu.menu_log, menu);
-        //super.onCreateOptionsMenu(menu, inflater);
-
-        searchMenuItem = menu.findItem(R.id.action_search);
-        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setQueryHint("Coin ?");
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                customAdapter.getFilter().filter(s);
-                return false;
-            }
-        });
-        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    searchMenuItem.collapseActionView();
-                    searchView.setQuery("", false);
-                    searchView.setIconified(true);
-                }
-            }
-        });
-    }
-
-//    @Override
-//    public void onBackPressed() {
-//        if (!searchView.isIconified()) {
-//
-//        } else {
-//            super.onBackPressed();
-//        }
-//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -985,12 +1005,7 @@ public class LogNotification extends Fragment {
                     tinhToan++;
                 }
             }
-
-//            if (maxGia <= 0) {
-//                Toast.makeText(getContext(), "Please wait while the data is calculated till the last item", Toast.LENGTH_LONG).show();
-//            } else
             {
-
                 Log.e(TAG, "action Report");
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("DATA", this.lstNotiEntity);
@@ -1000,9 +1015,113 @@ public class LogNotification extends Fragment {
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
+        } else if (id == R.id.sortTime) {
+            customAdapter.sort(new Comparator<NotificationEntity>() {
+                @Override
+                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
+                    return -arg0.strId.compareTo(arg1.strId);
+                }
+            });
+        } else if (id == R.id.sortCoin) {
+            customAdapter.sort(new Comparator<NotificationEntity>() {
+                @Override
+                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
+                    return arg0.strCoin.compareTo(arg1.strCoin);
+                }
+            });
+        } else if (id == R.id.sortGain) {
+            customAdapter.sort(new Comparator<NotificationEntity>() {
+                @Override
+                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
+                    Double case1 = Double.parseDouble(arg0.strProfit == null ? "0" : arg0.strProfit);
+                    Double case2 = Double.parseDouble(arg1.strProfit == null ? "0" : arg1.strProfit);
+                    return (int) (case1 - case2);
+                }
+            });
+        } else if (id == R.id.sortDefault) {
+            customAdapter.sort(new Comparator<NotificationEntity>() {
+                @Override
+                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
+                    int case1 = Integer.parseInt(arg0.strCase);
+                    int case2 = Integer.parseInt(arg1.strCase);
+                    return -(case1 - case2);
+                }
+            });
+        } else if (id == R.id.sortOther) {
+            customAdapter.sort(new Comparator<NotificationEntity>() {
+                @Override
+                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
+                    return (int) (arg1.tangSoLan - arg0.tangSoLan);
+                }
+            });
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+//    @Override
+//    public void onBackPressed() {
+//        if (!searchView.isIconified()) {
+//
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
+
+    class ExchangeGetPrice extends AsyncTask<String, String, String> {
+
+        NotificationEntity mEn;
+
+        public ExchangeGetPrice(NotificationEntity mEn) {
+            this.mEn = mEn;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            if (mEn.strExchange.equals("Binance")) {
+                mEn.strGiaMax = getGiaMaxBinance(params[0], params[1]);
+//                mEn.strGiaMin = getGiaMinBinance(params[0], params[1]);
+                mEn.strGiaHienTai = getGiaHienTai(params[0]);
+                Double profit = 0D;
+                Double dGia = mEn.strGia.length() > 0 ? Double.parseDouble(mEn.strGia) : 0D;
+                if (mEn.strGiaMax != 0 && mEn.strGiaMax > dGia) {
+                    profit = ((mEn.strGiaMax - dGia) / dGia) * 100;
+                }
+                mEn.strProfit = profit + "";
+            } else if (mEn.strExchange.equals("Bittrex")) {
+//                mEn.strGiaMax = getGiaMaxBittrex(params[0], params[1]);
+                mEn.strGiaHienTai = 0D;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //progDailog = new ProgressDialog(getActivity());
+            //progDailog.setMessage("Loading...");
+            //progDailog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            //progDailog.setCancelable(true);
+            //progDailog.show();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            //progDailog.dismiss();
+            if (getActivity() != null)
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+//                        customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notification, lstNotiEntity, bittrexData);
+                        if (customAdapter != null) {
+                            customAdapter.notifyDataSetChanged();
+                        }
+//                        listView.setAdapter(customAdapter);
+
+                    }
+                });
+        }
     }
 
     @Override

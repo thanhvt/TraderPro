@@ -579,16 +579,14 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
         getMenuInflater().inflate(R.menu.menu_scrolling, menu);
         SharedPreferences pref = getSharedPreferences(Config.NGON_NGU, 0);
         String strNN = pref.getString("NN", "VN");
-        MenuItem item0 = menu.getItem(1);
+        MenuItem item0 = menu.getItem(2);
         item0.setTitle(strNN.equals("VN") ? R.string.trade_api_Vn : R.string.trade_api);
-        MenuItem item1 = menu.getItem(2);
+        MenuItem item1 = menu.getItem(3);
         item1.setTitle(strNN.equals("VN") ? R.string.setting_Vn : R.string.setting);
-        MenuItem item2 = menu.getItem(3);
-        item2.setTitle(strNN.equals("VN") ? R.string.active_traderpro_Vn : R.string.active_traderpro_Vn);
-        MenuItem item3 = menu.getItem(4);
-        item3.setTitle(strNN.equals("VN") ? R.string.report_statistics_Vn : R.string.report_statistics);
-        MenuItem item4 = menu.getItem(5);
-        item4.setTitle(strNN.equals("VN") ? R.string.about_Vn : R.string.about);
+        MenuItem item2 = menu.getItem(4);
+        item2.setTitle(strNN.equals("VN") ? R.string.report_statistics_Vn : R.string.report_statistics);
+        MenuItem item3 = menu.getItem(5);
+        item3.setTitle(strNN.equals("VN") ? R.string.about_Vn : R.string.about);
 
         return true;
     }
@@ -611,11 +609,6 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
             Intent m = new Intent(ScrollingActivity.this, TradeApiActivity.class);
             startActivity(m);
             return true;
-        }
-        if (id == R.id.action_active) {
-//            Intent m = new Intent(ScrollingActivity.this, BidAskActivity.class);
-//            startActivity(m);
-//            return true;
         }
         if (id == R.id.action_about) {
             Intent m = new Intent(ScrollingActivity.this, AboutActivity.class);

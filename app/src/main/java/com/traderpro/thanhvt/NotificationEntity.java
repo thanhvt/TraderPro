@@ -29,6 +29,8 @@ public class NotificationEntity implements Serializable {
     public String strImageURL;
 
     public String strGiaTrade;
+    public Double tangSoLan;
+
 //    public String strTradeID;
 //    public String KLMuaBan;
 

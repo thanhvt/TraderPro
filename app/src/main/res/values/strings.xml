@@ -102,8 +102,8 @@
     <string name="title_activity_history">HistoryActivity</string>
     <string name="txtTrc"><![CDATA[<<<]]></string>
     <string name="txtSau"><![CDATA[>>>]]></string>
-    <string name="active_traderpro">Active TraderPro</string>
-    <string name="active_traderpro_Vn">Active TraderPro</string>
+    <string name="active_traderpro">Active Pis Trader</string>
+    <string name="active_traderpro_Vn">Active Pis Trader</string>
     <string name="cryptoanalyst">Pis Trader</string>
     <string name="report_statistics"><![CDATA[Report & Statistics]]></string>
     <string name="report_statistics_Vn"><![CDATA[Báo cáo & Thống kê]]></string>
@@ -169,6 +169,12 @@
     <string name="nav_header_subtitle">anonymous@pistrader.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="title_dynamic_pisfeature">PIS Trader</string>
-
+    <string-array name="drawer_drop_down">
+        <item>Time</item>
+        <item>Coin</item>
+        <item>Gain</item>
+        <item>Default</item>
+        <item>Other</item>
+    </string-array>
 
 </resources>
