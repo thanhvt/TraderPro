@@ -1035,7 +1035,7 @@ public class LogNotification extends Fragment {
                 public int compare(NotificationEntity arg0, NotificationEntity arg1) {
                     Double case1 = Double.parseDouble(arg0.strProfit == null ? "0" : arg0.strProfit);
                     Double case2 = Double.parseDouble(arg1.strProfit == null ? "0" : arg1.strProfit);
-                    return (int) (case1 - case2);
+                    return -(int) (case1 - case2);
                 }
             });
         } else if (id == R.id.sortDefault) {
