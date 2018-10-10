@@ -169,8 +169,8 @@ public class LogNotification extends Fragment {
                 SharedPreferences pref = getActivity().getSharedPreferences(Config.TIME_REFRESH, 0);
                 if (pref != null) {
                     long TIME_REFRESH = pref.getLong("TIME_REFRESH", 0);
-                    if (System.currentTimeMillis() - TIME_REFRESH < 30 * 1000) {
-                        Toast.makeText(getContext(), "Waiting 30 seconds to refresh !", Toast.LENGTH_LONG).show();
+                    if (System.currentTimeMillis() - TIME_REFRESH < 15 * 1000) {
+                        Toast.makeText(getContext(), "Waiting 15 seconds to refresh !", Toast.LENGTH_LONG).show();
 
                     } else {
                         shuffle();
@@ -316,15 +316,27 @@ public class LogNotification extends Fragment {
 
             @Override
             public void onClick(View v) {
-                cbBinance.setText("Binance (" + 0 + ")");
-                cbBittrex.setText("Bittrex (" + 0 + ")");
-                c.add(Calendar.DATE, -1);
-                formattedDate = df.format(c.getTime());
+                SharedPreferences pref = getActivity().getSharedPreferences(Config.TIME_REFRESH, 0);
+                if (pref != null) {
+                    long TIME_REFRESH = pref.getLong("TIME_REFRESH", 0);
+                    if (System.currentTimeMillis() - TIME_REFRESH < 15 * 1000) {
+                        Toast.makeText(getContext(), "Waiting 15 seconds to action !", Toast.LENGTH_LONG).show();
 
-                Log.v("PREVIOUS DATE : ", formattedDate);
-                edTime.setText(formattedDate);
+                    } else {
+                        cbBinance.setText("Binance (" + 0 + ")");
+                        cbBittrex.setText("Bittrex (" + 0 + ")");
+                        c.add(Calendar.DATE, -1);
+                        formattedDate = df.format(c.getTime());
 
-                getFile(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
+                        Log.v("PREVIOUS DATE : ", formattedDate);
+                        edTime.setText(formattedDate);
+
+                        getFile(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putLong("TIME_REFRESH", System.currentTimeMillis());
+                        editor.commit();
+                    }
+                }
             }
         });
 
@@ -332,15 +344,28 @@ public class LogNotification extends Fragment {
 
             @Override
             public void onClick(View v) {
-                cbBinance.setText("Binance (" + 0 + ")");
-                cbBittrex.setText("Bittrex (" + 0 + ")");
-                c.add(Calendar.DATE, 1);
-                formattedDate = df.format(c.getTime());
 
-                Log.v("NEXT DATE : ", formattedDate);
-                edTime.setText(formattedDate);
+                SharedPreferences pref = getActivity().getSharedPreferences(Config.TIME_REFRESH, 0);
+                if (pref != null) {
+                    long TIME_REFRESH = pref.getLong("TIME_REFRESH", 0);
+                    if (System.currentTimeMillis() - TIME_REFRESH < 15 * 1000) {
+                        Toast.makeText(getContext(), "Waiting 15 seconds to action !", Toast.LENGTH_LONG).show();
 
-                getFile(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
+                    } else {
+                        cbBinance.setText("Binance (" + 0 + ")");
+                        cbBittrex.setText("Bittrex (" + 0 + ")");
+                        c.add(Calendar.DATE, 1);
+                        formattedDate = df.format(c.getTime());
+
+                        Log.v("NEXT DATE : ", formattedDate);
+                        edTime.setText(formattedDate);
+
+                        getFile(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH));
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putLong("TIME_REFRESH", System.currentTimeMillis());
+                        editor.commit();
+                    }
+                }
             }
         });
 
@@ -373,12 +398,14 @@ public class LogNotification extends Fragment {
 
     public void shuffle() {
         try {
-            Calendar rightNow = Calendar.getInstance();
-            int nam = rightNow.get(Calendar.YEAR);
-            int thang = rightNow.get(Calendar.MONTH) + 1;
-            int ngay = rightNow.get(Calendar.DAY_OF_MONTH);
-            int hour = rightNow.get(Calendar.HOUR_OF_DAY);
-            int min = rightNow.get(Calendar.MINUTE);
+            int nam = c.get(Calendar.YEAR);
+            int thang = c.get(Calendar.MONTH) + 1;
+            int ngay = c.get(Calendar.DAY_OF_MONTH);
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int min = c.get(Calendar.MINUTE);
+
+            String strDate = edTime.getText().toString();
+            Log.e(TAG, strDate);
 
             File folder = new File(Environment.getExternalStorageDirectory() +
                     File.separator + "TraderPro");
@@ -1035,7 +1062,7 @@ public class LogNotification extends Fragment {
                 public int compare(NotificationEntity arg0, NotificationEntity arg1) {
                     Double case1 = Double.parseDouble(arg0.strProfit == null ? "0" : arg0.strProfit);
                     Double case2 = Double.parseDouble(arg1.strProfit == null ? "0" : arg1.strProfit);
-                    return -(int) (case1 - case2);
+                    return -Double.compare(case1, case2);
                 }
             });
         } else if (id == R.id.sortDefault) {
