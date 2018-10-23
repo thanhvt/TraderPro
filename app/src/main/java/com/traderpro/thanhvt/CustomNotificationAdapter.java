@@ -198,8 +198,14 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtProfit.setText("Lãi: " + String.format("%.1f", profit) + "%");
             Double tangSoLan = (Double.parseDouble(p.strVol) / Double.parseDouble(p.strVolTB)) * 100;
             viewHolder.txtVolumeTang.setText("▲ " + String.format("%.1f", tangSoLan) + "%");
-            viewHolder.txtGiaHT.setText(p.strGiaHienTai == null ? "" : String.format("%.8f", p.strGiaHienTai));
 
+            Double dLaiVsHT = 0D;
+            if (p.strGiaHienTai != null) {
+                dLaiVsHT = ((p.strGiaHienTai - dGia) / dGia) * 100;
+            }
+            if (p.strExchange.trim().contains("Binance")) {
+                viewHolder.txtGiaHT.setText(p.strGiaHienTai == null ? "" : (String.format("%.8f", p.strGiaHienTai) + " (" + String.format("%.1f", dLaiVsHT) + "%)"));
+            }
             viewHolder.txtVolumeGoc.setText("Avg: " + p.strVolTB);
 
 //            if (mResource == R.layout.layout_notificustom) {
@@ -220,8 +226,14 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtProfit.setText("Gain: " + String.format("%.1f", profit) + "%");
             Double tangSoLan = (Double.parseDouble(p.strVol) / Double.parseDouble(p.strVolTB)) * 100;
             viewHolder.txtVolumeTang.setText("▲ " + String.format("%.1f", tangSoLan) + "%");
-            viewHolder.txtGiaHT.setText(p.strGiaHienTai == null ? "" : String.format("%.8f", p.strGiaHienTai));
 
+            Double dLaiVsHT = 0D;
+            if (p.strGiaHienTai != null) {
+                dLaiVsHT = ((p.strGiaHienTai - dGia) / dGia) * 100;
+            }
+            if (p.strExchange.trim().contains("Binance")) {
+                viewHolder.txtGiaHT.setText(p.strGiaHienTai == null ? "" : (String.format("%.8f", p.strGiaHienTai) + " (" + String.format("%.1f", dLaiVsHT) + "%)"));
+            }
             viewHolder.txtVolumeGoc.setText("Avg: " + p.strVolTB);
 
 //            if (mResource == R.layout.layout_notificustom) {
