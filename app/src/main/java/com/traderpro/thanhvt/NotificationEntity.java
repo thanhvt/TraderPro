@@ -31,7 +31,37 @@ public class NotificationEntity implements Serializable {
     public String strGiaTrade;
     public Double tangSoLan;
 
+    public String strTimeFixProfit;
 //    public String strTradeID;
 //    public String KLMuaBan;
 
+    @Override
+    public String toString() {
+        return "NotificationEntity{" +
+                "strId='" + strId + '\'' +
+                ", strExchange='" + strExchange + '\'' +
+                ", strCoin='" + strCoin + '\'' +
+                ", strGia='" + strGia + '\'' +
+                ", strVol='" + strVol + '\'' +
+                ", strVolTB='" + strVolTB + '\'' +
+                ", strTime='" + strTime + '\'' +
+                ", strCase='" + strCase + '\'' +
+                ", strGiaMax=" + strGiaMax +
+                ", strTimeGiaMax='" + strTimeGiaMax + '\'' +
+                ", strBuySell='" + strBuySell + '\'' +
+                ", strTakerMaker='" + strTakerMaker + '\'' +
+                ", strGiaMin=" + strGiaMin +
+                ", strGiaBan='" + strGiaBan + '\'' +
+                ", strTimeBan='" + strTimeBan + '\'' +
+                ", strProfit='" + strProfit + '\'' +
+                ", numberBuy='" + numberBuy + '\'' +
+                ", numberSell='" + numberSell + '\'' +
+                ", strGiaHienTai=" + strGiaHienTai +
+                ", isSellNow=" + isSellNow +
+                ", strImageURL='" + strImageURL + '\'' +
+                ", strGiaTrade='" + strGiaTrade + '\'' +
+                ", tangSoLan=" + tangSoLan +
+                ", strTimeFixProfit='" + strTimeFixProfit + '\'' +
+                '}';
+    }
 }

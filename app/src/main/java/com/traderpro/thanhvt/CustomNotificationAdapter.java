@@ -144,6 +144,16 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
     }
 
     @Override
+    public int getViewTypeCount() {
+        return getCount();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
     public View getView(int position, View view, ViewGroup parent) {
         NotiHolder viewHolder;
         if (view == null) {
@@ -200,11 +210,12 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtVolumeTang.setText("▲ " + String.format("%.1f", tangSoLan) + "%");
 
             Double dLaiVsHT = 0D;
-            if (p.strGiaHienTai != null) {
+            if (p.strGiaHienTai != null && p.strGiaHienTai > 0) {
                 dLaiVsHT = ((p.strGiaHienTai - dGia) / dGia) * 100;
-            }
-            if (p.strExchange.trim().contains("Binance")) {
                 viewHolder.txtGiaHT.setText(p.strGiaHienTai == null ? "" : (String.format("%.8f", p.strGiaHienTai) + " (" + String.format("%.1f", dLaiVsHT) + "%)"));
+            }
+            if (dLaiVsHT != 0) {
+
             }
             viewHolder.txtVolumeGoc.setText("Avg: " + p.strVolTB);
 
@@ -228,11 +239,12 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
             viewHolder.txtVolumeTang.setText("▲ " + String.format("%.1f", tangSoLan) + "%");
 
             Double dLaiVsHT = 0D;
-            if (p.strGiaHienTai != null) {
+            if (p.strGiaHienTai != null && p.strGiaHienTai > 0) {
                 dLaiVsHT = ((p.strGiaHienTai - dGia) / dGia) * 100;
-            }
-            if (p.strExchange.trim().contains("Binance")) {
                 viewHolder.txtGiaHT.setText(p.strGiaHienTai == null ? "" : (String.format("%.8f", p.strGiaHienTai) + " (" + String.format("%.1f", dLaiVsHT) + "%)"));
+            }
+            if (dLaiVsHT != 0) {
+
             }
             viewHolder.txtVolumeGoc.setText("Avg: " + p.strVolTB);
 

@@ -369,10 +369,6 @@ public class LogNotification extends Fragment {
             }
         });
 
-//        Calendar c = Calendar.getInstance();
-//        c.set(2018, 6, 10, 10, 25, 25);
-//        getGiaMaxBinance("NEO", c.getTimeInMillis() + "");
-
         String content = "Join <a href=\"https://t.me/joinchat/HX6H_k2HnC6LHLCEU0hptw\"><b>PIS TRADER</b></a> on Telegram";
 //        Spannable s = (Spannable) Html.fromHtml(content);
 //        for (URLSpan u: s.getSpans(0, s.length(), URLSpan.class)) {
@@ -577,21 +573,30 @@ public class LogNotification extends Fragment {
         return giaHT;
     }
 
-    public Double subGetGiaMax(JSONArray arr) {
+    public JSONArray subGetGiaMax(JSONArray arr) {
+        JSONArray jsonMax = new JSONArray();
         try {
             Double giaMax = 0D;
             for (int i = 0; i < arr.length(); i++) {
                 JSONArray arrItem = arr.getJSONArray(i);
                 Double giaTime = Double.parseDouble(arrItem.getString(2));
-                if (giaTime > giaMax) {
+                if (giaTime >= giaMax) {
                     giaMax = giaTime;
+                    jsonMax = arrItem;
                 }
             }
-            return giaMax;
+//            return giaMax;
+            Log.e(TAG + " jsonMax", jsonMax.toString());
+            if (jsonMax.length() == 0) {
+                jsonMax.put(0);
+                jsonMax.put(0);
+                jsonMax.put(0);
+            }
+            return jsonMax;
         } catch (Exception e) {
 
         }
-        return 0D;
+        return jsonMax;
     }
 
     public Double subGetGiaMin(JSONArray arr) {
@@ -657,19 +662,33 @@ public class LogNotification extends Fragment {
         return giaMax;
     }
 
-    public Double getGiaMaxBinance(String strCoin, String strTime) {
+    public Double getGiaMaxBinance(String strCoin, String strTime, NotificationEntity ne, StringBuilder sbMaxTime) {
+        JSONArray jsonMax = new JSONArray();
         Double giaMax = 0D;
-        Double giaMin = 0D;
         try {
             long timeNow = System.currentTimeMillis();
+            ne.strTimeFixProfit = System.currentTimeMillis() + "";
             long startTime = Long.parseLong(strTime);
             // Neu gio hien tai moi hon gio bat dau mua chua toi 60', thi query theo 3' de lay ra gia tri max
             if (timeNow - startTime < 60 * 60 * 1000) {
                 String mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=3m&startTime=" + strTime;
                 String res = readJsonFromUrl(mUrl);
                 JSONArray jsonArr = new JSONArray(res);
-                giaMax = subGetGiaMax(jsonArr);
-                giaMin = subGetGiaMin(jsonArr);
+//                giaMax = subGetGiaMax(jsonArr);
+                jsonMax = subGetGiaMax(jsonArr);
+                giaMax = Double.parseDouble(jsonMax.getString(2));
+                sbMaxTime.append(jsonMax.getString(0));
+
+                Double dGia = Double.parseDouble(ne.strGia);
+                for (int x = 0; x < jsonArr.length(); x++) {
+                    JSONArray item = jsonArr.getJSONArray(x);
+                    Double dbHigh = Double.parseDouble(item.getString(2));
+
+                    if (dbHigh > 1.012 * dGia) {
+                        ne.strTimeFixProfit = item.getString(0);
+                        break;
+                    }
+                }
             } else if (timeNow - startTime < 24 * 60 * 60 * 1000) {
                 // 1H dau theo 3m
                 // 23H theo 1H
@@ -677,18 +696,18 @@ public class LogNotification extends Fragment {
                 Calendar rightNow = Calendar.getInstance();
                 int min = rightNow.get(Calendar.MINUTE);
                 rightNow.add(Calendar.MINUTE, -min);
-//                rightNow.add(Calendar.HOUR_OF_DAY, -7);
                 String mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=3m&startTime=" + rightNow.getTimeInMillis();
                 String res = readJsonFromUrl(mUrl);
                 JSONArray jsonArr = new JSONArray(res);
-                Double giaMax1 = subGetGiaMax(jsonArr);
-                Double giaMin1 = subGetGiaMin(jsonArr);
-
+//                Double giaMax1 = subGetGiaMax(jsonArr);
+                JSONArray jsonMax1 = subGetGiaMax(jsonArr);
+                Double giaMax1 = Double.parseDouble(jsonMax1.getString(2));
                 mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=1h&startTime=" + strTime + "&endTime=" + rightNow.getTimeInMillis();
                 res = readJsonFromUrl(mUrl);
-                jsonArr = new JSONArray(res);
-                Double giaMax2 = subGetGiaMax(jsonArr);
-                Double giaMin2 = subGetGiaMin(jsonArr);
+                JSONArray jsonArr2 = new JSONArray(res);
+//                Double giaMax2 = subGetGiaMax(jsonArr);
+                JSONArray jsonMax2 = subGetGiaMax(jsonArr2);
+                Double giaMax2 = Double.parseDouble(jsonMax2.getString(2));
                 // Cuoi gio
                 Calendar endHour = Calendar.getInstance();
                 endHour.setTimeInMillis(startTime);
@@ -696,12 +715,35 @@ public class LogNotification extends Fragment {
                 endHour.add(Calendar.MINUTE, 60 - min);
                 mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=3m&startTime=" + strTime + "&endTime=" + endHour.getTimeInMillis();
                 res = readJsonFromUrl(mUrl);
-                jsonArr = new JSONArray(res);
-                Double giaMax3 = subGetGiaMax(jsonArr);
-                Double giaMin3 = subGetGiaMin(jsonArr);
-//                giaMax = giaMax1 > giaMax2 ? giaMax1 : giaMax2;
+                JSONArray jsonArr3 = new JSONArray(res);
+//                Double giaMax3 = subGetGiaMax(jsonArr);
+                JSONArray jsonMax3 = subGetGiaMax(jsonArr3);
+                Double giaMax3 = Double.parseDouble(jsonMax3.getString(2));
                 giaMax = Math.max(Math.max(giaMax1, giaMax2), giaMax3);
-                giaMin = Math.min(Math.min(giaMin1, giaMin2), giaMin3);
+                if (giaMax == giaMax1) sbMaxTime.append(jsonMax1.getString(0));
+                if (giaMax == giaMax2) sbMaxTime.append(jsonMax2.getString(0));
+                if (giaMax == giaMax3) sbMaxTime.append(jsonMax3.getString(0));
+
+                JSONArray arrTemp = new JSONArray();
+                for (int i = 0; i < jsonArr3.length(); i++) {
+                    arrTemp.put(jsonArr3.getJSONArray(i));
+                }
+                for (int i = 0; i < jsonArr2.length(); i++) {
+                    arrTemp.put(jsonArr2.getJSONArray(i));
+                }
+                for (int i = 0; i < jsonArr.length(); i++) {
+                    arrTemp.put(jsonArr.getJSONArray(i));
+                }
+                Double dGia = Double.parseDouble(ne.strGia);
+                for (int x = 0; x < arrTemp.length(); x++) {
+                    JSONArray item = arrTemp.getJSONArray(x);
+                    Double dbHigh = Double.parseDouble(item.getString(2));
+
+                    if (dbHigh > 1.012 * dGia) {
+                        ne.strTimeFixProfit = item.getString(0);
+                        break;
+                    }
+                }
             } else {
                 // Cac ngay theo 1D
                 // 1D cuoi theo 1H
@@ -717,14 +759,13 @@ public class LogNotification extends Fragment {
                 int thang = startHour.get(Calendar.MONTH) + 1;
                 int ngay = startHour.get(Calendar.DAY_OF_MONTH);
                 startHour.add(Calendar.MINUTE, -min);
-//                startHour.add(Calendar.HOUR_OF_DAY, -7);
 
                 String mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=3m&startTime=" + startHour.getTimeInMillis();
                 String res = readJsonFromUrl(mUrl);
                 JSONArray jsonArr = new JSONArray(res);
-                Double giaMax1 = subGetGiaMax(jsonArr);
-                Double giaMin1 = subGetGiaMin(jsonArr);
-
+//                Double giaMax1 = subGetGiaMax(jsonArr);
+                JSONArray jsonMax1 = subGetGiaMax(jsonArr);
+                Double giaMax1 = Double.parseDouble(jsonMax1.getString(2));
                 // Dau ngay
                 Calendar startDay = Calendar.getInstance();
                 hour = startDay.get(Calendar.HOUR_OF_DAY);
@@ -739,16 +780,16 @@ public class LogNotification extends Fragment {
 
                 mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=1h&startTime=" + startDay.getTimeInMillis() + "&endTime=" + startHour.getTimeInMillis();
                 res = readJsonFromUrl(mUrl);
-                jsonArr = new JSONArray(res);
-                Double giaMax2 = subGetGiaMax(jsonArr);
-                Double giaMin2 = subGetGiaMin(jsonArr);
-
+                JSONArray jsonArr2 = new JSONArray(res);
+//                Double giaMax2 = subGetGiaMax(jsonArr);
+                JSONArray jsonMax2 = subGetGiaMax(jsonArr2);
+                Double giaMax2 = Double.parseDouble(jsonMax2.getString(2));
                 mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=1d&startTime=" + startTime + "&endTime=" + startDay.getTimeInMillis();
                 res = readJsonFromUrl(mUrl);
-                jsonArr = new JSONArray(res);
-                Double giaMax3 = subGetGiaMax(jsonArr);
-                Double giaMin3 = subGetGiaMin(jsonArr);
-
+                JSONArray jsonArr3 = new JSONArray(res);
+//                Double giaMax3 = subGetGiaMax(jsonArr);
+                JSONArray jsonMax3 = subGetGiaMax(jsonArr3);
+                Double giaMax3 = Double.parseDouble(jsonMax3.getString(2));
                 // Cuoi ngay
                 Calendar endDay = Calendar.getInstance();
                 endDay.setTimeInMillis(startTime);
@@ -756,22 +797,45 @@ public class LogNotification extends Fragment {
                 endDay.add(Calendar.HOUR_OF_DAY, 24 - hour);
                 mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=3m&startTime=" + startTime + "&endTime=" + endDay.getTimeInMillis();
                 res = readJsonFromUrl(mUrl);
-                jsonArr = new JSONArray(res);
-                Double giaMax4 = subGetGiaMax(jsonArr);
-                Double giaMin4 = subGetGiaMin(jsonArr);
-
+                JSONArray jsonArr4 = new JSONArray(res);
+//                Double giaMax4 = subGetGiaMax(jsonArr);
+                JSONArray jsonMax4 = subGetGiaMax(jsonArr4);
+                Double giaMax4 = Double.parseDouble(jsonMax4.getString(2));
                 giaMax = Math.max(Math.max(Math.max(giaMax1, giaMax2), giaMax3), giaMax4);
-                giaMin = Math.min(Math.min(Math.min(giaMin1, giaMin2), giaMin3), giaMin4);
-//                giaMax = Math.max(Math.max(giaMax1, giaMax2), giaMax3);
-//                giaMax = giaMax1 > giaMax2 ? (giaMax1 > giaMax3 ? giaMax1 : giaMax3) : giaMax2;
-//                int max =  Math.max(Math.max(x,y),z);
-//                           Math.min(Math.min(a, b), c);
+                if (giaMax == giaMax1) sbMaxTime.append(jsonMax1.getString(0));
+                if (giaMax == giaMax2) sbMaxTime.append(jsonMax2.getString(0));
+                if (giaMax == giaMax3) sbMaxTime.append(jsonMax3.getString(0));
+                if (giaMax == giaMax4) sbMaxTime.append(jsonMax4.getString(0));
+
+                JSONArray arrTemp = new JSONArray();
+                for (int i = 0; i < jsonArr4.length(); i++) {
+                    arrTemp.put(jsonArr4.getJSONArray(i));
+                }
+                for (int i = 0; i < jsonArr3.length(); i++) {
+                    arrTemp.put(jsonArr3.getJSONArray(i));
+                }
+                for (int i = 0; i < jsonArr2.length(); i++) {
+                    arrTemp.put(jsonArr2.getJSONArray(i));
+                }
+                for (int i = 0; i < jsonArr.length(); i++) {
+                    arrTemp.put(jsonArr.getJSONArray(i));
+                }
+                Double dGia = Double.parseDouble(ne.strGia);
+                for (int x = 0; x < arrTemp.length(); x++) {
+                    JSONArray item = arrTemp.getJSONArray(x);
+                    Double dbHigh = Double.parseDouble(item.getString(2));
+
+                    if (dbHigh > 1.012 * dGia) {
+                        ne.strTimeFixProfit = item.getString(0);
+                        break;
+                    }
+                }
             }
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
             e.printStackTrace();
         }
-//        Log.e("Gia MAX Binance", strCoin + ": " + String.format("%.8f", giaMax));
+        Log.e("Gia MAX Binance", strCoin + ": " + String.format("%.8f", giaMax) + " - " + sbMaxTime.toString());
         return giaMax;
     }
 
@@ -860,7 +924,6 @@ public class LogNotification extends Fragment {
     }
 
     public Double getGiaMinBinance(String strCoin, String strTime) {
-        Double giaMax = 0D;
         Double giaMin = 0D;
         try {
             long timeNow = System.currentTimeMillis();
@@ -870,7 +933,6 @@ public class LogNotification extends Fragment {
                 String mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=3m&startTime=" + strTime;
                 String res = readJsonFromUrl(mUrl);
                 JSONArray jsonArr = new JSONArray(res);
-                giaMax = subGetGiaMax(jsonArr);
                 giaMin = subGetGiaMin(jsonArr);
             } else if (timeNow - startTime < 24 * 60 * 60 * 1000) {
                 // 1H dau theo 3m
@@ -883,13 +945,11 @@ public class LogNotification extends Fragment {
                 String mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=3m&startTime=" + rightNow.getTimeInMillis();
                 String res = readJsonFromUrl(mUrl);
                 JSONArray jsonArr = new JSONArray(res);
-                Double giaMax1 = subGetGiaMax(jsonArr);
                 Double giaMin1 = subGetGiaMin(jsonArr);
 
                 mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=1h&startTime=" + strTime + "&endTime=" + rightNow.getTimeInMillis();
                 res = readJsonFromUrl(mUrl);
                 jsonArr = new JSONArray(res);
-                Double giaMax2 = subGetGiaMax(jsonArr);
                 Double giaMin2 = subGetGiaMin(jsonArr);
                 // Cuoi gio
                 Calendar endHour = Calendar.getInstance();
@@ -899,10 +959,7 @@ public class LogNotification extends Fragment {
                 mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=3m&startTime=" + strTime + "&endTime=" + endHour.getTimeInMillis();
                 res = readJsonFromUrl(mUrl);
                 jsonArr = new JSONArray(res);
-                Double giaMax3 = subGetGiaMax(jsonArr);
                 Double giaMin3 = subGetGiaMin(jsonArr);
-//                giaMax = giaMax1 > giaMax2 ? giaMax1 : giaMax2;
-                giaMax = Math.max(Math.max(giaMax1, giaMax2), giaMax3);
                 giaMin = Math.min(Math.min(giaMin1, giaMin2), giaMin3);
             } else {
                 // Cac ngay theo 1D
@@ -919,12 +976,10 @@ public class LogNotification extends Fragment {
                 int thang = startHour.get(Calendar.MONTH) + 1;
                 int ngay = startHour.get(Calendar.DAY_OF_MONTH);
                 startHour.add(Calendar.MINUTE, -min);
-//                startHour.add(Calendar.HOUR_OF_DAY, -7);
 
                 String mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=3m&startTime=" + startHour.getTimeInMillis();
                 String res = readJsonFromUrl(mUrl);
                 JSONArray jsonArr = new JSONArray(res);
-                Double giaMax1 = subGetGiaMax(jsonArr);
                 Double giaMin1 = subGetGiaMin(jsonArr);
 
                 // Dau ngay
@@ -942,13 +997,11 @@ public class LogNotification extends Fragment {
                 mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=1h&startTime=" + startDay.getTimeInMillis() + "&endTime=" + startHour.getTimeInMillis();
                 res = readJsonFromUrl(mUrl);
                 jsonArr = new JSONArray(res);
-                Double giaMax2 = subGetGiaMax(jsonArr);
                 Double giaMin2 = subGetGiaMin(jsonArr);
 
                 mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=1d&startTime=" + startTime + "&endTime=" + startDay.getTimeInMillis();
                 res = readJsonFromUrl(mUrl);
                 jsonArr = new JSONArray(res);
-                Double giaMax3 = subGetGiaMax(jsonArr);
                 Double giaMin3 = subGetGiaMin(jsonArr);
 
                 // Cuoi ngay
@@ -959,10 +1012,8 @@ public class LogNotification extends Fragment {
                 mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=3m&startTime=" + startTime + "&endTime=" + endDay.getTimeInMillis();
                 res = readJsonFromUrl(mUrl);
                 jsonArr = new JSONArray(res);
-                Double giaMax4 = subGetGiaMax(jsonArr);
                 Double giaMin4 = subGetGiaMin(jsonArr);
 
-                giaMax = Math.max(Math.max(Math.max(giaMax1, giaMax2), giaMax3), giaMax4);
                 giaMin = Math.min(Math.min(Math.min(giaMin1, giaMin2), giaMin3), giaMin4);
 //                giaMax = Math.max(Math.max(giaMax1, giaMax2), giaMax3);
 //                giaMax = giaMax1 > giaMax2 ? (giaMax1 > giaMax3 ? giaMax1 : giaMax3) : giaMax2;
@@ -1038,6 +1089,9 @@ public class LogNotification extends Fragment {
                 bundle.putSerializable("DATA", this.lstNotiEntity);
                 bundle.putString("TIME", c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR));
                 bundle.putString("TINHTOAN", tinhToan + "");
+                bundle.putInt("NGAY", c.get(Calendar.DAY_OF_MONTH));
+                bundle.putInt("THANG", (c.get(Calendar.MONTH) + 1));
+                bundle.putInt("NAM", c.get(Calendar.YEAR));
                 Intent intent = new Intent(getContext(), ReportActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -1095,6 +1149,114 @@ public class LogNotification extends Fragment {
 //        }
 //    }
 
+    public Double getGiaMinBinance_Fix(String strCoin, String strTime, String strTimeMax) {
+        Double giaMax = 0D;
+        Double giaMin = 0D;
+        try {
+            long timeNow = Long.parseLong(strTimeMax);
+            long startTime = Long.parseLong(strTime);
+            // Neu gio hien tai moi hon gio bat dau mua chua toi 60', thi query theo 3' de lay ra gia tri max
+            if (timeNow - startTime < 60 * 60 * 1000) {
+                String mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=3m&startTime=" + strTime + "&endTime=" + strTimeMax;
+                String res = readJsonFromUrl(mUrl);
+                JSONArray jsonArr = new JSONArray(res);
+                giaMin = subGetGiaMin(jsonArr);
+            } else if (timeNow - startTime < 24 * 60 * 60 * 1000) {
+                // 1H dau theo 3m
+                // 23H theo 1H
+                // 1H cuoi theo 3m
+                Calendar rightNow = Calendar.getInstance();
+                int min = rightNow.get(Calendar.MINUTE);
+                rightNow.add(Calendar.MINUTE, -min);
+//                rightNow.add(Calendar.HOUR_OF_DAY, -7);
+                String mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=3m&startTime=" + rightNow.getTimeInMillis() + "&endTime=" + strTimeMax;
+                String res = readJsonFromUrl(mUrl);
+                JSONArray jsonArr = new JSONArray(res);
+                Double giaMin1 = subGetGiaMin(jsonArr);
+
+                mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=1h&startTime=" + strTime + "&endTime=" + rightNow.getTimeInMillis();
+                res = readJsonFromUrl(mUrl);
+                jsonArr = new JSONArray(res);
+                Double giaMin2 = subGetGiaMin(jsonArr);
+                // Cuoi gio
+                Calendar endHour = Calendar.getInstance();
+                endHour.setTimeInMillis(startTime);
+                min = endHour.get(Calendar.MINUTE);
+                endHour.add(Calendar.MINUTE, 60 - min);
+                mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=3m&startTime=" + strTime + "&endTime=" + endHour.getTimeInMillis();
+                res = readJsonFromUrl(mUrl);
+                jsonArr = new JSONArray(res);
+                Double giaMin3 = subGetGiaMin(jsonArr);
+//                giaMax = giaMax1 > giaMax2 ? giaMax1 : giaMax2;
+                giaMin = Math.min(Math.min(giaMin1, giaMin2), giaMin3);
+            } else {
+                // Cac ngay theo 1D
+                // 1D cuoi theo 1H
+                // 1H cuoi theo 3m
+
+                // Dau gio
+                Calendar startHour = Calendar.getInstance();
+                int hour = startHour.get(Calendar.HOUR_OF_DAY);
+                int min = startHour.get(Calendar.MINUTE);
+                int nam = startHour.get(Calendar.YEAR);
+                int isecond = startHour.get(Calendar.SECOND);
+                int mlsec = startHour.get(Calendar.MILLISECOND);
+                int thang = startHour.get(Calendar.MONTH) + 1;
+                int ngay = startHour.get(Calendar.DAY_OF_MONTH);
+                startHour.add(Calendar.MINUTE, -min);
+//                startHour.add(Calendar.HOUR_OF_DAY, -7);
+
+                String mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=3m&startTime=" + startHour.getTimeInMillis() + "&endTime=" + strTimeMax;
+                String res = readJsonFromUrl(mUrl);
+                JSONArray jsonArr = new JSONArray(res);
+                Double giaMin1 = subGetGiaMin(jsonArr);
+
+                // Dau ngay
+                Calendar startDay = Calendar.getInstance();
+                hour = startDay.get(Calendar.HOUR_OF_DAY);
+                min = startDay.get(Calendar.MINUTE);
+                nam = startDay.get(Calendar.YEAR);
+                isecond = startDay.get(Calendar.SECOND);
+                mlsec = startDay.get(Calendar.MILLISECOND);
+                thang = startDay.get(Calendar.MONTH) + 1;
+                ngay = startDay.get(Calendar.DAY_OF_MONTH);
+                startDay.add(Calendar.MINUTE, -min);
+                startDay.add(Calendar.HOUR_OF_DAY, -hour);
+
+                mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=1h&startTime=" + startDay.getTimeInMillis() + "&endTime=" + startHour.getTimeInMillis();
+                res = readJsonFromUrl(mUrl);
+                jsonArr = new JSONArray(res);
+                Double giaMin2 = subGetGiaMin(jsonArr);
+
+                mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=1d&startTime=" + startTime + "&endTime=" + startDay.getTimeInMillis();
+                res = readJsonFromUrl(mUrl);
+                jsonArr = new JSONArray(res);
+                Double giaMin3 = subGetGiaMin(jsonArr);
+
+                // Cuoi ngay
+                Calendar endDay = Calendar.getInstance();
+                endDay.setTimeInMillis(startTime);
+                hour = endDay.get(Calendar.HOUR_OF_DAY);
+                endDay.add(Calendar.HOUR_OF_DAY, 24 - hour);
+                mUrl = "https://api.binance.com/api/v1/klines?symbol=" + strCoin + "BTC&interval=3m&startTime=" + startTime + "&endTime=" + endDay.getTimeInMillis();
+                res = readJsonFromUrl(mUrl);
+                jsonArr = new JSONArray(res);
+                Double giaMin4 = subGetGiaMin(jsonArr);
+
+                giaMin = Math.min(Math.min(Math.min(giaMin1, giaMin2), giaMin3), giaMin4);
+//                giaMax = Math.max(Math.max(giaMax1, giaMax2), giaMax3);
+//                giaMax = giaMax1 > giaMax2 ? (giaMax1 > giaMax3 ? giaMax1 : giaMax3) : giaMax2;
+//                int max =  Math.max(Math.max(x,y),z);
+//                           Math.min(Math.min(a, b), c);
+            }
+        } catch (Exception e) {
+            Log.e("ReportActivity", e.getMessage());
+            e.printStackTrace();
+        }
+        Log.e("Gia MIN Binance", strCoin + ": " + String.format("%.8f", giaMin));
+        return giaMin;
+    }
+
     class ExchangeGetPrice extends AsyncTask<String, String, String> {
 
         NotificationEntity mEn;
@@ -1105,9 +1267,10 @@ public class LogNotification extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
+            StringBuilder sb = new StringBuilder();
             if (mEn.strExchange.equals("Binance")) {
-                mEn.strGiaMax = getGiaMaxBinance(params[0], params[1]);
-//                mEn.strGiaMin = getGiaMinBinance(params[0], params[1]);
+                mEn.strGiaMax = getGiaMaxBinance(params[0], params[1], mEn, sb);
+                mEn.strGiaMin = getGiaMinBinance_Fix(params[0], params[1], mEn.strTimeFixProfit);
                 mEn.strGiaHienTai = getGiaHienTai(params[0]);
                 Double profit = 0D;
                 Double dGia = mEn.strGia.length() > 0 ? Double.parseDouble(mEn.strGia) : 0D;
@@ -1115,6 +1278,8 @@ public class LogNotification extends Fragment {
                     profit = ((mEn.strGiaMax - dGia) / dGia) * 100;
                 }
                 mEn.strProfit = profit + "";
+                Log.e(TAG + " sb", sb.toString());
+                mEn.strTimeGiaMax = sb.toString();
             } else if (mEn.strExchange.equals("Bittrex")) {
 //                mEn.strGiaMax = getGiaMaxBittrex(params[0], params[1]);
                 mEn.strGiaHienTai = 0D;
