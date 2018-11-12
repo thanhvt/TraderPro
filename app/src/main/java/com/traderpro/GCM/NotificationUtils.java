@@ -8,7 +8,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -61,6 +60,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
@@ -116,9 +116,7 @@ public class NotificationUtils {
                 mContext);
 
         final Uri alarmSound = Uri.parse("android.resource://"
-                + mContext.getPackageName() + "/" + R.raw.dia1);
-        Log.e("URI", "android.resource://"
-                + mContext.getPackageName() + "/" + R.raw.coco_cola);
+                + mContext.getPackageName() + "/" + R.raw.one1);
         if (!TextUtils.isEmpty(imageUrl)) {
 
             if (imageUrl != null && imageUrl.length() > 4 && Patterns.WEB_URL.matcher(imageUrl).matches()) {
@@ -128,24 +126,28 @@ public class NotificationUtils {
                 if (bitmap != null) {
                     showBigNotification(bitmap, mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
                 } else {
-                    showSmallNotification(mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
+                    showSmallNotification(mBuilder, icon, title, message, timeStamp, resultPendingIntent);
                 }
             }
         } else {
-            showSmallNotification(mBuilder, icon, title, message, timeStamp, resultPendingIntent, alarmSound);
+            showSmallNotification(mBuilder, icon, title, message, timeStamp, resultPendingIntent);
             //SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
             //String strSound = pref2.getString("SOUND", "ON");
             //if (strSound.equals("ON")) {
-            playNotificationSound();
+            //playNotificationSound();
             //}
 
         }
     }
 
 
-    private void showSmallNotification(NotificationCompat.Builder mBuilder, int icon, String title, String message, String timeStamp, PendingIntent resultPendingIntent, Uri alarmSound) {
+    private void showSmallNotification(NotificationCompat.Builder mBuilder, int icon, String title, String message, String timeStamp, PendingIntent resultPendingIntent) {
 
         try {
+            int[] s = {R.raw.one1, R.raw.one2, R.raw.one3};
+            int m = new Random().nextInt(3);
+            Uri alarmSound = Uri.parse("android.resource://"
+                    + mContext.getPackageName() + "/" + s[m]);
 
             final String chanelID = "com.traderpro.thanhvt";
             SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
@@ -187,6 +189,12 @@ public class NotificationUtils {
                         strTime = title.substring(title.indexOf("***") + 4, title.indexOf(" - ")).trim();
 
                         strCase = title.contains("|") ? title.substring(title.indexOf("|") + 1, title.lastIndexOf("|")).trim() : "";
+                        if (strCase.equals("12")) {
+                            int[] x = {R.raw.bass_dj, R.raw.bass_i_love_u, R.raw.bass_message, R.raw.opinion, R.raw.wakewin};
+                            int n = new Random().nextInt(5);
+                            alarmSound = Uri.parse("android.resource://"
+                                    + mContext.getPackageName() + "/" + x[n]);
+                        }
                     }
                     strExchange = title.contains("BNB") ? "Binance" : "Bittrex";
                     strGia = message.contains("PRI HT: ") ? message.substring(message.indexOf("PRI HT: ") + 12, message.indexOf("PRI HT: ") + 22) : "";
@@ -272,27 +280,27 @@ public class NotificationUtils {
                             break;
                         case 2:
                             r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.sao1));
+                                    + mContext.getPackageName() + "/" + R.raw.one1));
                             r.play();
                             break;
                         case 3:
                             r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.gold));
+                                    + mContext.getPackageName() + "/" + R.raw.one2));
                             r.play();
                             TimeUnit.SECONDS.sleep(1);
                             r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.gold));
+                                    + mContext.getPackageName() + "/" + R.raw.one2));
                             r.play();
                             TimeUnit.SECONDS.sleep(1);
                             r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.gold));
+                                    + mContext.getPackageName() + "/" + R.raw.one2));
                             r.play();
                             break;
                         case 4:
 
                             am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
                             mSound = Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.mewin);
+                                    + mContext.getPackageName() + "/" + R.raw.bass_dj);
                             inboxStyle = new NotificationCompat.InboxStyle();
 
                             inboxStyle.addLine(message);
@@ -320,7 +328,7 @@ public class NotificationUtils {
                                     + mContext.getPackageName() + "/" + R.raw.opinion));
                             r.play();
                             mSound = Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.mewin);
+                                    + mContext.getPackageName() + "/" + R.raw.bass_i_love_u);
                             am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
                             am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
                             am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
@@ -364,12 +372,12 @@ public class NotificationUtils {
                                     am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
                                     0);
                             r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.sao1));
+                                    + mContext.getPackageName() + "/" + R.raw.bass_i_love_u));
                             mSound = Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.gowin3);
+                                    + mContext.getPackageName() + "/" + R.raw.wakewin);
 
                             mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.sao1));
+                                    + mContext.getPackageName() + "/" + R.raw.bass_dj));
                             count = 1;
                             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                 @Override
@@ -420,10 +428,10 @@ public class NotificationUtils {
                             r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
                                     + mContext.getPackageName() + "/" + R.raw.bass_message));
                             mSound = Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.mewin);
+                                    + mContext.getPackageName() + "/" + R.raw.bass_i_love_u);
 
                             mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.gowin));
+                                    + mContext.getPackageName() + "/" + R.raw.bass_dj));
                             count = 1;
                             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                 @Override
@@ -472,12 +480,12 @@ public class NotificationUtils {
                                     am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION),
                                     0);
                             r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.wakewin));
+                                    + mContext.getPackageName() + "/" + R.raw.mewin));
                             mSound = Uri.parse("android.resource://"
                                     + mContext.getPackageName() + "/" + R.raw.gowin);
 
                             mp = MediaPlayer.create(mContext, Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.mewin));
+                                    + mContext.getPackageName() + "/" + R.raw.gowin3));
                             count = 1;
                             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                 @Override
@@ -534,8 +542,8 @@ public class NotificationUtils {
                         .setContentTitle("Boss $$$ " + strCoin)
                         .setContentText(title)
                         .setContentIntent(resultPendingIntent)
-                        .setSound(alarmSound)
-                        .setSound(strSound.equals("ON") ? alarmSound : null)
+                        .setSound(strSound.equals("ON") && (strCase.equals("1") || strCase.equals("2") || strCase.equals("12"))
+                                ? alarmSound : null)
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(fromHtml(message)))
                         .setSmallIcon(R.mipmap.ic_launcher)
@@ -1303,12 +1311,8 @@ public class NotificationUtils {
             SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
             String strSound = pref2.getString("SOUND", "ON");
 
-            Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
-                    + "://" + mContext.getPackageName() + "/raw/mario_coin.mp3");
-            Log.e("URI", "android.resource://"
-                    + mContext.getPackageName() + "/" + R.raw.coco_cola);
             Ringtone r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
-                    + mContext.getPackageName() + "/" + R.raw.mario_coin));
+                    + mContext.getPackageName() + "/" + R.raw.one1));
             if (strSound.equals("ON")) {
                 r.play();
             }
