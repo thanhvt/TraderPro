@@ -421,8 +421,37 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="5dp"
                         android:layout_weight="3"
-                        android:paddingLeft="15dp"
                         android:gravity="left|center"
+                        android:paddingLeft="15dp"
+                        android:text="TextView"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10px">
+
+                    <TextView
+                        android:id="@+id/textView49"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:text="Algorithm 13 Success"
+                        android:textColor="#1500FF"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView50"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="3"
+                        android:gravity="left|center"
+                        android:paddingLeft="15dp"
                         android:text="TextView"
                         android:textSize="15dp"
                         android:textStyle="bold" />

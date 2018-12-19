@@ -24,13 +24,13 @@ import java.util.ArrayList;
 
 public class ReportActivity extends AppCompatActivity {
 
-    TextView tvThangThua, tvTT1, tvTT2, tvTT3, tvTT4, tvTT5, tvTT6, tvTT7, tvTT8, tvTT9, tvTT10, tvTT11, tvTT12;
+    TextView tvThangThua, tvTT1, tvTT2, tvTT3, tvTT4, tvTT5, tvTT6, tvTT7, tvTT8, tvTT9, tvTT10, tvTT11, tvTT12, tvTT13;
     TextView tvTyLe1, tvTyLe2, tvTyLe3, tvTyLe4, tvTyLe5, tvTyLe6;
     TextView tvThangNua;
 
 //    TextView tvThua1, tvThua2, tvThua3;
 
-    TextView tvTitle1, tvTitle2, tvTitle3, tvTitle4, tvTitle5, tvTitle6, tvTitle7, tvTitle8, tvTitle9, tvTitle10, tvTitle11, tvTitle12;
+    TextView tvTitle1, tvTitle2, tvTitle3, tvTitle4, tvTitle5, tvTitle6, tvTitle7, tvTitle8, tvTitle9, tvTitle10, tvTitle11, tvTitle12, tvTitle13;
     TextView tvTitleThang1, tvTitleThang2;
     TextView tvTitleAn1, tvTitleAn2, tvTitleAn3, tvTitleAn4, tvTitleAn5, tvTitleAn6;
     TextView tvTitleThua1, tvTitleThua2, tvTitleThua3, tvTitleThua4;
@@ -77,7 +77,7 @@ public class ReportActivity extends AppCompatActivity {
             int countThangThua = 0, countThangNua = 0;
             int tong1 = 0, thang1 = 0, tong2 = 0, thang2 = 0, tong3 = 0, thang3 = 0, tong4 = 0, thang4 = 0, tong5 = 0, thang5 = 0,
                     tong6 = 0, thang6 = 0, tong7 = 0, thang7 = 0, tong8 = 0, thang8 = 0, tong9 = 0, thang9 = 0,
-                    tong10 = 0, thang10 = 0, tong11 = 0, thang11 = 0, tong12 = 0, thang12 = 0;
+                    tong10 = 0, thang10 = 0, tong11 = 0, thang11 = 0, tong12 = 0, thang12 = 0, tong13 = 0, thang13 = 0;
             int an1 = 0, an2 = 0, an3 = 0, an4 = 0, an5 = 0, an6 = 0;
             int case1_vol1 = 0, case1_vol2 = 0, case1_vol3 = 0, case1_vol4 = 0, case1_vol5 = 0, case1_vol6 = 0;
             int case2_vol1 = 0, case2_vol2 = 0, case2_vol3 = 0, case2_vol4 = 0, case2_vol5 = 0, case2_vol6 = 0;
@@ -88,7 +88,7 @@ public class ReportActivity extends AppCompatActivity {
 
 //        int countThua1 = 0, countThua2 = 0, countThua3 = 0;
             double maxt1 = 100, maxd1 = 0, maxt2 = 100, maxd2 = 0, maxt3 = 100, maxd3 = 0, maxt4 = 100, maxd4 = 0, maxt5 = 100, maxd5 = 0, maxt6 = 100, maxd6 = 0,
-                    maxt7 = 100, maxd7 = 0, maxt8 = 100, maxd8 = 0, maxt9 = 100, maxd9 = 0, maxt10 = 100, maxd10 = 0, maxt11 = 100, maxd11 = 0, maxt12 = 100, maxd12 = 0;
+                    maxt7 = 100, maxd7 = 0, maxt8 = 100, maxd8 = 0, maxt9 = 100, maxd9 = 0, maxt10 = 100, maxd10 = 0, maxt11 = 100, maxd11 = 0, maxt12 = 100, maxd12 = 0, maxt13 = 100, maxd13 = 0;
 
             for (NotificationEntity en : lstEntity) {
                 Double giaBao = Double.parseDouble(en.strGia);
@@ -183,6 +183,11 @@ public class ReportActivity extends AppCompatActivity {
                         if (dProfit < maxt12) maxt12 = dProfit;
                         if (dProfit > maxd12) maxd12 = dProfit;
                     }
+                    if (en.strCase.equals("13")) {
+                        thang13++;
+                        if (dProfit < maxt13) maxt13 = dProfit;
+                        if (dProfit > maxd13) maxd13 = dProfit;
+                    }
                 }
                 if (en.strCase.equals("1") && en.strGiaMax > 0) {
                     tong1++;
@@ -219,6 +224,9 @@ public class ReportActivity extends AppCompatActivity {
                 }
                 if (en.strCase.equals("12") && en.strGiaMax > 0) {
                     tong12++;
+                }
+                if (en.strCase.equals("13") && en.strGiaMax > 0) {
+                    tong13++;
                 }
 //
                 if (giaMax >= giaBao * 1.01 && giaMax < giaBao * 1.02) {
@@ -344,6 +352,7 @@ public class ReportActivity extends AppCompatActivity {
                 tvTT10.setText(thang10 + "/" + tong10 + " lần: " + String.format("%.1f", maxt10 == 100 ? 0 : maxt10) + "% >>> " + String.format("%.1f", maxd10) + "%");
                 tvTT11.setText(thang11 + "/" + tong11 + " lần: " + String.format("%.1f", maxt11 == 100 ? 0 : maxt11) + "% >>> " + String.format("%.1f", maxd11) + "%");
                 tvTT12.setText(thang12 + "/" + tong12 + " lần: " + String.format("%.1f", maxt12 == 100 ? 0 : maxt12) + "% >>> " + String.format("%.1f", maxd12) + "%");
+                tvTT13.setText(thang13 + "/" + tong13 + " lần: " + String.format("%.1f", maxt13 == 100 ? 0 : maxt13) + "% >>> " + String.format("%.1f", maxd13) + "%");
 
                 tvTitleThang1.setText("Tỷ lệ thắng > 0.5%");
                 tvTitleThang2.setText("Tỷ lệ thắng > 1%");
@@ -359,6 +368,7 @@ public class ReportActivity extends AppCompatActivity {
                 tvTitle10.setText("Thuật toán 10 thắng");
                 tvTitle11.setText("Thuật toán 11 thắng");
                 tvTitle12.setText("Thuật toán 12 thắng");
+                tvTitle13.setText("Thuật toán 13 thắng");
 
                 tvTitleAn1.setText("Tỷ lệ ăn ~ 1%");
                 tvTitleAn2.setText("Tỷ lệ ăn ~ 2%");
@@ -390,6 +400,7 @@ public class ReportActivity extends AppCompatActivity {
                 tvTT10.setText(thang10 + "/" + tong10 + " note: " + String.format("%.1f", maxt10 == 100 ? 0 : maxt10) + "% >>> " + String.format("%.1f", maxd10) + "%");
                 tvTT11.setText(thang11 + "/" + tong11 + " note: " + String.format("%.1f", maxt11 == 100 ? 0 : maxt11) + "% >>> " + String.format("%.1f", maxd11) + "%");
                 tvTT12.setText(thang12 + "/" + tong12 + " note: " + String.format("%.1f", maxt12 == 100 ? 0 : maxt12) + "% >>> " + String.format("%.1f", maxd12) + "%");
+                tvTT13.setText(thang13 + "/" + tong13 + " note: " + String.format("%.1f", maxt13 == 100 ? 0 : maxt13) + "% >>> " + String.format("%.1f", maxd13) + "%");
 
                 tvTitleThang1.setText("Rate win > 0.5%");
                 tvTitleThang2.setText("Rate win > 1%");
@@ -405,6 +416,7 @@ public class ReportActivity extends AppCompatActivity {
                 tvTitle10.setText("Algorithm 10 Success");
                 tvTitle11.setText("Algorithm 11 Success");
                 tvTitle12.setText("Algorithm 12 Success");
+                tvTitle13.setText("Algorithm 13 Success");
 
                 tvTitleAn1.setText("Rate win ~ 1%");
                 tvTitleAn2.setText("Rate win ~ 2%");
@@ -489,6 +501,7 @@ public class ReportActivity extends AppCompatActivity {
         tvTyLe6 = (TextView) findViewById(R.id.textView34);
         tvTT12 = (TextView) findViewById(R.id.textView38);
         tvTT11 = (TextView) findViewById(R.id.textView36);
+        tvTT13 = (TextView) findViewById(R.id.textView50);
 
 //        tvThua1 = (TextView) findViewById(R.id.textView42);
 //        tvThua2 = (TextView) findViewById(R.id.textView44);
@@ -506,6 +519,7 @@ public class ReportActivity extends AppCompatActivity {
         tvTitle10 = (TextView) findViewById(R.id.textView21);
         tvTitle11 = (TextView) findViewById(R.id.textView35);
         tvTitle12 = (TextView) findViewById(R.id.textView37);
+        tvTitle13 = (TextView) findViewById(R.id.textView49);
         tvTitleThang1 = (TextView) findViewById(R.id.textView39);
         tvTitleThang2 = (TextView) findViewById(R.id.textView1);
         tvTitleAn1 = (TextView) findViewById(R.id.textView23);
