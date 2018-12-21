@@ -270,7 +270,7 @@ public class LogNotification extends Fragment {
                 if (isChecked) {
                     lstNotiEntity.addAll(lstNotiBittrex);
                     isCheckBittrex = true;
-                    cbBittrex.setText("Bittrex (" + lstNotiEntity.size() + ")");
+                    cbBittrex.setText("Bittrex (" + lstNotiBittrex.size() + ")");
                 } else {
                     isCheckBittrex = false;
                     lstNotiEntity.removeAll(lstNotiBittrex);
@@ -295,7 +295,7 @@ public class LogNotification extends Fragment {
                 if (isChecked) {
                     isCheckBinance = true;
                     lstNotiEntity.addAll(lstNotiBinance);
-                    cbBinance.setText("Binance (" + lstNotiEntity.size() + ")");
+                    cbBinance.setText("Binance (" + lstNotiBinance.size() + ")");
 
                 } else {
                     isCheckBinance = false;

@@ -236,15 +236,39 @@ public class NotificationUtils {
 
                     Double dbVolAvg = Double.parseDouble(strVolTB);
                     Double dbVolNow = Double.parseDouble(strVolHT);
-
-                    if (dbVolNow / dbVolAvg >= 5 && dbVolNow / dbVolAvg < 10) levelRing = 1;
-                    else if (dbVolNow / dbVolAvg >= 10 && dbVolNow / dbVolAvg < 12) levelRing = 2;
-                    else if (dbVolNow / dbVolAvg >= 12 && dbVolNow / dbVolAvg < 15) levelRing = 3;
-                    else if (dbVolNow / dbVolAvg >= 15 && dbVolNow / dbVolAvg < 20) levelRing = 4;
-                    else if (dbVolNow / dbVolAvg >= 20 && dbVolNow / dbVolAvg < 30) levelRing = 5;
-                    else if (dbVolNow / dbVolAvg >= 30 && dbVolNow / dbVolAvg < 50) levelRing = 6;
-                    else if (dbVolNow / dbVolAvg >= 50 && dbVolNow / dbVolAvg < 80) levelRing = 7;
-                    else if (dbVolNow / dbVolAvg >= 80) levelRing = 8;
+                    if (strExchange.equals("Binance")) {
+                        if (dbVolNow / dbVolAvg >= 5 && dbVolNow / dbVolAvg < 10) levelRing = 1;
+                        else if (dbVolNow / dbVolAvg >= 10 && dbVolNow / dbVolAvg < 12)
+                            levelRing = 2;
+                        else if (dbVolNow / dbVolAvg >= 12 && dbVolNow / dbVolAvg < 15)
+                            levelRing = 3;
+                        else if (dbVolNow / dbVolAvg >= 15 && dbVolNow / dbVolAvg < 20)
+                            levelRing = 4;
+                        else if (dbVolNow / dbVolAvg >= 20 && dbVolNow / dbVolAvg < 30)
+                            levelRing = 5;
+                        else if (dbVolNow / dbVolAvg >= 30 && dbVolNow / dbVolAvg < 50)
+                            levelRing = 6;
+                        else if (dbVolNow / dbVolAvg >= 50 && dbVolNow / dbVolAvg < 80)
+                            levelRing = 7;
+                        else if (dbVolNow / dbVolAvg >= 80) levelRing = 8;
+                    } else {
+                        if (dbVolAvg > 3) {
+                            if (dbVolNow / dbVolAvg >= 5 && dbVolNow / dbVolAvg < 10) levelRing = 1;
+                            else if (dbVolNow / dbVolAvg >= 10 && dbVolNow / dbVolAvg < 12)
+                                levelRing = 2;
+                            else if (dbVolNow / dbVolAvg >= 12 && dbVolNow / dbVolAvg < 25)
+                                levelRing = 3;
+                            else if (dbVolNow / dbVolAvg >= 25 && dbVolNow / dbVolAvg < 40)
+                                levelRing = 4;
+                            else if (dbVolNow / dbVolAvg >= 40 && dbVolNow / dbVolAvg < 60)
+                                levelRing = 5;
+                            else if (dbVolNow / dbVolAvg >= 60 && dbVolNow / dbVolAvg < 90)
+                                levelRing = 6;
+                            else if (dbVolNow / dbVolAvg >= 90 && dbVolNow / dbVolAvg < 120)
+                                levelRing = 7;
+                            else if (dbVolNow / dbVolAvg >= 120) levelRing = 8;
+                        }
+                    }
                 } catch (Exception e) {
                     Log.e("parseMsg", e.getMessage());
                     e.printStackTrace();
@@ -675,6 +699,11 @@ public class NotificationUtils {
                     clipboard.setText(u.DEVICE_TOKEN);
                 }
             } else if (title.contains("BUYYY")) {
+                int[] sBuy = {R.raw.canon, R.raw.rose_violin, R.raw.romance_anonimo};
+                int mBuy = new Random().nextInt(3);
+                alarmSound = Uri.parse("android.resource://"
+                        + mContext.getPackageName() + "/" + sBuy[mBuy]);
+
                 String strTime = "";
                 String strCoin = "";
                 String strGiaMua = "GIA_MUA";
