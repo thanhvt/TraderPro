@@ -276,7 +276,7 @@ public class LogNotification extends Fragment {
                     lstNotiEntity.removeAll(lstNotiBittrex);
                     cbBittrex.setText("Bittrex (" + 0 + ")");
                 }
-                if (customAdapter != null) {
+                if (customAdapter != null && lstNotiEntity.size() > 0) {
                     customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notification_n, lstNotiEntity, bittrexData, nam, thang, ngay);
                     customAdapter.notifyDataSetChanged();
                     listView.setAdapter(customAdapter);
@@ -304,7 +304,7 @@ public class LogNotification extends Fragment {
 
                 }
 
-                if (customAdapter != null) {
+                if (customAdapter != null && lstNotiEntity.size() > 0) {
                     customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notification_n, lstNotiEntity, bittrexData, nam, thang, ngay);
                     customAdapter.notifyDataSetChanged();
                     listView.setAdapter(customAdapter);
