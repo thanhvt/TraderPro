@@ -22,6 +22,8 @@ Vì sao nên lựa chọn Trader Analytics
 •	Trade trên sàn thông qua app: Bittrex, Houbi (đang phát triển)
 •	Auto check & take Analyticsfit (đã phát triển)
 
+Liên hệ version vip: vutienthanh0210@gmail.com / 037 6340 một một hai
+
 
 
 
