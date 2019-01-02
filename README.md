@@ -22,29 +22,6 @@ Vì sao nên lựa chọn Trader Analytics
 •	Trade trên sàn thông qua app: Bittrex, Houbi (đang phát triển)
 •	Auto check & take Analyticsfit (đã phát triển)
 
-Liên hệ version vip: vutienthanh0210@gmail.com / 037 6340 một một hai
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 2.	Hướng dẫn sử dụng
@@ -102,3 +79,5 @@ khi Growth rate khoảng > 200% thì sau khi mua có thể đặt bán lời tă
 
 ***
 CHÚC CÁC BẠN TRADE MỖI NGÀY MỘT THÀNH CÔNG HƠN VỚI TRADER ANALYTICS
+
+Liên hệ version vip: vutienthanh0210@gmail.com / 037 6340 một một hai
