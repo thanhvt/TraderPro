@@ -1108,6 +1108,46 @@ public class NotificationUtils {
                 }
                 myOutWriter.close();
                 fOut.close();
+            } else if (title.contains("Cutloss NOWWWW")) {
+                alarmSound = Uri.parse("android.resource://"
+                        + mContext.getPackageName() + "/" + R.raw.bip_bip_poly);
+
+                NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+
+                MediaPlayer mp;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    int importance = NotificationManager.IMPORTANCE_HIGH;
+                    NotificationChannel mChannel = notificationManager.getNotificationChannel(chanelID);
+                    if (mChannel == null) {
+                        mChannel = new NotificationChannel(chanelID, title, importance);
+                        mChannel.enableVibration(true);
+                        mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                        notificationManager.createNotificationChannel(mChannel);
+                    }
+                    mBuilder = new NotificationCompat.Builder(mContext, chanelID);
+                }
+                NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+
+                inboxStyle.addLine(message);
+
+                Notification notification;
+                notification = mBuilder.setSmallIcon(icon).setTicker(title)
+                        .setAutoCancel(true)
+                        .setContentTitle(title)
+                        .setContentText(title)
+                        .setContentIntent(resultPendingIntent)
+                        .setSound(alarmSound)
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText(fromHtml(message)))
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setDefaults(VibrateIndex)
+                        .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
+                        .build();
+
+                int id = (int) System.currentTimeMillis();
+                notificationManager.notify(id, notification);
+
             } else if (title.contains("CONFIG API")) {
                 NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 
