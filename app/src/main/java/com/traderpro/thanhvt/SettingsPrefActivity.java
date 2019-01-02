@@ -1,35 +1,26 @@
 package com.traderpro.thanhvt;
 
-import android.content.ClipboardManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.traderpro.GCM.Config;
 
 public class SettingsPrefActivity extends AppCompatActivity {
 
-    Button btnCopy;
+//    Button btnCopy;
 
-    EditText edKey;
-    ImageView imgBTC;
-    ImageView imgETH;
+//    EditText edKey;
+
     Switch onOffSwitch;
     TextView tvNgonNgu;
     TextView tvNameNN;
-    TextView tvKeyCode;
-    TextView tvDesDonate;
     TextView tvSound;
     TextView tvVibrate;
     Switch onOffSwitchSound;
@@ -43,15 +34,11 @@ public class SettingsPrefActivity extends AppCompatActivity {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        edKey = (EditText) findViewById(R.id.edKey);
+//        edKey = (EditText) findViewById(R.id.edKey);
 
-        imgBTC = (ImageView) findViewById(R.id.imageButton);
-        imgETH = (ImageView) findViewById(R.id.imageButton2);
         tvNgonNgu = (TextView) findViewById(R.id.textView39);
-        tvKeyCode = (TextView) findViewById(R.id.textView_key);
         tvSound = (TextView) findViewById(R.id.textView_Sound);
         tvVibrate = (TextView) findViewById(R.id.textView_Sound2);
-        tvDesDonate = (TextView) findViewById(R.id.textView2);
         onOffSwitch = (Switch) findViewById(R.id.switch1);
         onOffSwitchSound = (Switch) findViewById(R.id.switch2);
         onOffSwitchVibrate = (Switch) findViewById(R.id.switch3);
@@ -62,16 +49,12 @@ public class SettingsPrefActivity extends AppCompatActivity {
                 Log.v("Switch State=", "" + isChecked);
                 if (!isChecked) {
                     tvNgonNgu.setText(R.string.lang);
-                    tvKeyCode.setText(R.string.key_code);
                     tvSound.setText(R.string.sound);
                     tvVibrate.setText(R.string.vibrate);
-                    tvDesDonate.setText(R.string.description_donate);
                 } else {
                     tvNgonNgu.setText(R.string.lang_Vn);
-                    tvKeyCode.setText(R.string.key_code_Vn);
                     tvSound.setText(R.string.sound_Vn);
                     tvVibrate.setText(R.string.vibrate_Vn);
-                    tvDesDonate.setText(R.string.description_donate_Vn);
                     //onOffSwitch.setText();
                 }
 
@@ -133,10 +116,8 @@ public class SettingsPrefActivity extends AppCompatActivity {
         onOffSwitchVibrate.setChecked(strVibrate.equals("ON") ? true : false);
         //tvNgonNgu.setText();
         tvNgonNgu.setText(strNN.equals("VN") ? R.string.lang_Vn : R.string.lang);
-        tvKeyCode.setText(strNN.equals("VN") ? R.string.key_code_Vn : R.string.key_code);
         tvSound.setText(strNN.equals("VN") ? R.string.sound_Vn : R.string.sound);
         tvVibrate.setText(strNN.equals("VN") ? R.string.vibrate_Vn : R.string.vibrate);
-        tvDesDonate.setText(strNN.equals("VN") ? R.string.description_donate_Vn : R.string.description_donate);
 
         // sound
         if (strSound.equals("ON")) {
@@ -147,34 +128,34 @@ public class SettingsPrefActivity extends AppCompatActivity {
 
         String key = getIntent().getStringExtra("KEY");
         //Log.e("key", key);
-        edKey.setText(key);
-        btnCopy = (Button) findViewById(R.id.btnCopy);
-        btnCopy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                clipboard.setText(edKey.getText().toString());
-                Toast.makeText(getApplicationContext(), "Copied", Toast.LENGTH_LONG).show();
-            }
-        });
+//        edKey.setText(key);
+//        btnCopy = (Button) findViewById(R.id.btnCopy);
+//        btnCopy.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+//                clipboard.setText(edKey.getText().toString());
+//                Toast.makeText(getApplicationContext(), "Copied", Toast.LENGTH_LONG).show();
+//            }
+//        });
 
-        imgBTC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                clipboard.setText("1c2J3WR3SWwKiv7C8ApHvRq9ApJyGsNwr");
-                Toast.makeText(getApplicationContext(), "Copied", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        imgETH.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                clipboard.setText("0x7e7207b528d9de0eb9c5fc02f8dea05091bf5a6d");
-                Toast.makeText(getApplicationContext(), "Copied", Toast.LENGTH_LONG).show();
-            }
-        });
+//        imgBTC.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+//                clipboard.setText("1c2J3WR3SWwKiv7C8ApHvRq9ApJyGsNwr");
+//                Toast.makeText(getApplicationContext(), "Copied", Toast.LENGTH_LONG).show();
+//            }
+//        });
+//
+//        imgETH.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+//                clipboard.setText("0x7e7207b528d9de0eb9c5fc02f8dea05091bf5a6d");
+//                Toast.makeText(getApplicationContext(), "Copied", Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
 
 
