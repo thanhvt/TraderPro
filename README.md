@@ -24,27 +24,6 @@ Vì sao nên lựa chọn Trader Analytics
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 2.	Hướng dẫn sử dụng
 2.1  Thông báo mua
 •	Màn hình Notification thông báo mua
@@ -100,3 +79,5 @@ khi Growth rate khoảng > 200% thì sau khi mua có thể đặt bán lời tă
 
 ***
 CHÚC CÁC BẠN TRADE MỖI NGÀY MỘT THÀNH CÔNG HƠN VỚI TRADER ANALYTICS
+
+Liên hệ version vip: vutienthanh0210@gmail.com / 037 6340 một một hai
