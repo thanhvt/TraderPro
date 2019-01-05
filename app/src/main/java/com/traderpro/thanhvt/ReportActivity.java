@@ -78,13 +78,15 @@ public class ReportActivity extends AppCompatActivity {
             int tong1 = 0, thang1 = 0, tong2 = 0, thang2 = 0, tong3 = 0, thang3 = 0, tong4 = 0, thang4 = 0, tong5 = 0, thang5 = 0,
                     tong6 = 0, thang6 = 0, tong7 = 0, thang7 = 0, tong8 = 0, thang8 = 0, tong9 = 0, thang9 = 0,
                     tong10 = 0, thang10 = 0, tong11 = 0, thang11 = 0, tong12 = 0, thang12 = 0, tong13 = 0, thang13 = 0;
+            String strThang1 = "", strThang2 = "", strThang3 = "", strThang4 = "", strThang5 = "", strThang6 = "", strThang7 = "",
+                    strThang8 = "", strThang9 = "", strThang10 = "", strThang11 = "", strThang12 = "", strThang13 = "";
             int an1 = 0, an2 = 0, an3 = 0, an4 = 0, an5 = 0, an6 = 0;
-            int case1_vol1 = 0, case1_vol2 = 0, case1_vol3 = 0, case1_vol4 = 0, case1_vol5 = 0, case1_vol6 = 0;
-            int case2_vol1 = 0, case2_vol2 = 0, case2_vol3 = 0, case2_vol4 = 0, case2_vol5 = 0, case2_vol6 = 0;
-            int case3_vol1 = 0, case3_vol2 = 0, case3_vol3 = 0, case3_vol4 = 0, case3_vol5 = 0, case3_vol6 = 0;
-            int case4_vol1 = 0, case4_vol2 = 0, case4_vol3 = 0, case4_vol4 = 0, case4_vol5 = 0, case4_vol6 = 0;
-            int case5_vol1 = 0, case5_vol2 = 0, case5_vol3 = 0, case5_vol4 = 0, case5_vol5 = 0, case5_vol6 = 0;
-            int case6_vol1 = 0, case6_vol2 = 0, case6_vol3 = 0, case6_vol4 = 0, case6_vol5 = 0, case6_vol6 = 0;
+            int case1_vol1 = 0, case1_vol2 = 0, case1_vol3 = 0, case1_vol4 = 0, case1_vol5 = 0, case1_vol6 = 0, case1_vol10 = 0;
+            int case2_vol1 = 0, case2_vol2 = 0, case2_vol3 = 0, case2_vol4 = 0, case2_vol5 = 0, case2_vol6 = 0, case2_vol10 = 0;
+            int case3_vol1 = 0, case3_vol2 = 0, case3_vol3 = 0, case3_vol4 = 0, case3_vol5 = 0, case3_vol6 = 0, case3_vol10 = 0;
+            int case4_vol1 = 0, case4_vol2 = 0, case4_vol3 = 0, case4_vol4 = 0, case4_vol5 = 0, case4_vol6 = 0, case4_vol10 = 0;
+            int case5_vol1 = 0, case5_vol2 = 0, case5_vol3 = 0, case5_vol4 = 0, case5_vol5 = 0, case5_vol6 = 0, case5_vol10 = 0;
+            int case6_vol1 = 0, case6_vol2 = 0, case6_vol3 = 0, case6_vol4 = 0, case6_vol5 = 0, case6_vol6 = 0, case6_vol10 = 0;
 
 //        int countThua1 = 0, countThua2 = 0, countThua3 = 0;
             double maxt1 = 100, maxd1 = 0, maxt2 = 100, maxd2 = 0, maxt3 = 100, maxd3 = 0, maxt4 = 100, maxd4 = 0, maxt5 = 100, maxd5 = 0, maxt6 = 100, maxd6 = 0,
@@ -125,68 +127,118 @@ public class ReportActivity extends AppCompatActivity {
 
                     if (en.strCase.equals("1")) {
                         thang1++;
+
                         if (dProfit < maxt1) maxt1 = dProfit;
-                        if (dProfit > maxd1) maxd1 = dProfit;
+                        if (dProfit > maxd1) {
+                            maxd1 = dProfit;
+                        }
+                        strThang1 += String.format("%.1f", dProfit) + ";";
                     }
                     if (en.strCase.equals("2")) {
                         thang2++;
+
                         if (dProfit < maxt2) maxt2 = dProfit;
-                        if (dProfit > maxd2) maxd2 = dProfit;
+                        if (dProfit > maxd2) {
+                            maxd2 = dProfit;
+                        }
+                        strThang2 += String.format("%.1f", dProfit) + ";";
                     }
                     if (en.strCase.equals("3")) {
                         thang3++;
+
                         if (dProfit < maxt3) maxt3 = dProfit;
                         if (dProfit > maxd3) maxd3 = dProfit;
+                        strThang3 += String.format("%.1f", dProfit) + ";";
                     }
                     if (en.strCase.equals("4")) {
                         thang4++;
+
                         if (dProfit < maxt4) maxt4 = dProfit;
-                        if (dProfit > maxd4) maxd4 = dProfit;
+                        if (dProfit > maxd4) {
+                            maxd4 = dProfit;
+                        }
+                        strThang4 += String.format("%.1f", dProfit) + ";";
                     }
                     if (en.strCase.equals("5")) {
                         thang5++;
+
                         if (dProfit < maxt5) maxt5 = dProfit;
-                        if (dProfit > maxd5) maxd5 = dProfit;
+                        if (dProfit > maxd5) {
+                            maxd5 = dProfit;
+                        }
+                        strThang5 += String.format("%.1f", dProfit) + ";";
                     }
                     if (en.strCase.equals("6")) {
                         thang6++;
+
                         if (dProfit < maxt6) maxt6 = dProfit;
-                        if (dProfit > maxd6) maxd6 = dProfit;
+                        if (dProfit > maxd6) {
+                            maxd6 = dProfit;
+                        }
+                        strThang6 += String.format("%.1f", dProfit) + ";";
                     }
                     if (en.strCase.equals("7")) {
                         thang7++;
+
                         if (dProfit < maxt7) maxt7 = dProfit;
-                        if (dProfit > maxd7) maxd7 = dProfit;
+                        if (dProfit > maxd7) {
+                            maxd7 = dProfit;
+                        }
+                        strThang7 += String.format("%.1f", dProfit) + ";";
                     }
                     if (en.strCase.equals("8")) {
                         thang8++;
+
                         if (dProfit < maxt8) maxt8 = dProfit;
-                        if (dProfit > maxd8) maxd8 = dProfit;
+                        if (dProfit > maxd8) {
+                            maxd8 = dProfit;
+                        }
+                        strThang8 += String.format("%.1f", dProfit) + ";";
                     }
                     if (en.strCase.equals("9")) {
                         thang9++;
+
                         if (dProfit < maxt9) maxt9 = dProfit;
-                        if (dProfit > maxd9) maxd9 = dProfit;
+                        if (dProfit > maxd9) {
+                            maxd9 = dProfit;
+                        }
+                        strThang9 += String.format("%.1f", dProfit) + ";";
                     }
                     if (en.strCase.equals("10")) {
                         thang10++;
+
                         if (dProfit < maxt10) maxt10 = dProfit;
-                        if (dProfit > maxd10) maxd10 = dProfit;
+                        if (dProfit > maxd10) {
+                            maxd10 = dProfit;
+                        }
+                        strThang10 += String.format("%.1f", dProfit) + ";";
                     }
                     if (en.strCase.equals("11")) {
                         thang11++;
+
                         if (dProfit < maxt11) maxt11 = dProfit;
-                        if (dProfit > maxd11) maxd11 = dProfit;
+                        if (dProfit > maxd11) {
+                            maxd11 = dProfit;
+                        }
+                        strThang11 += String.format("%.1f", dProfit) + ";";
                     }
                     if (en.strCase.equals("12")) {
                         thang12++;
+
                         if (dProfit < maxt12) maxt12 = dProfit;
-                        if (dProfit > maxd12) maxd12 = dProfit;
+                        if (dProfit > maxd12) {
+                            maxd12 = dProfit;
+                        }
+                        strThang12 += String.format("%.1f", dProfit) + ";";
                     }
                     if (en.strCase.equals("13")) {
                         thang13++;
+
                         if (dProfit < maxt13) maxt13 = dProfit;
-                        if (dProfit > maxd13) maxd13 = dProfit;
+                        if (dProfit > maxd13) {
+                            maxd13 = dProfit;
+                        }
+                        strThang13 += String.format("%.1f", dProfit) + ";";
                     }
                 }
                 if (en.strCase.equals("1") && en.strGiaMax > 0) {
@@ -241,8 +293,10 @@ public class ReportActivity extends AppCompatActivity {
                         case1_vol4++;
                     } else if (volTB * 5 <= volHT && volHT < volTB * 6) {
                         case1_vol5++;
-                    } else if (volTB * 6 <= volHT) {
+                    } else if (volTB * 6 <= volHT && volHT < volTB * 10) {
                         case1_vol6++;
+                    } else if (volTB * 10 <= volHT) {
+                        case1_vol10++;
                     }
                 }
                 if (giaMax >= giaBao * 1.02 && giaMax < giaBao * 1.03) {
@@ -257,8 +311,10 @@ public class ReportActivity extends AppCompatActivity {
                         case2_vol4++;
                     } else if (volTB * 5 <= volHT && volHT < volTB * 6) {
                         case2_vol5++;
-                    } else if (volTB * 6 <= volHT) {
+                    } else if (volTB * 6 <= volHT && volHT < volTB * 10) {
                         case2_vol6++;
+                    } else if (volTB * 10 <= volHT) {
+                        case2_vol10++;
                     }
                 }
                 if (giaMax >= giaBao * 1.03 && giaMax < giaBao * 1.04) {
@@ -273,8 +329,10 @@ public class ReportActivity extends AppCompatActivity {
                         case3_vol4++;
                     } else if (volTB * 5 <= volHT && volHT < volTB * 6) {
                         case3_vol5++;
-                    } else if (volTB * 6 <= volHT) {
+                    } else if (volTB * 6 <= volHT && volHT < volTB * 10) {
                         case3_vol6++;
+                    } else if (volTB * 10 <= volHT) {
+                        case3_vol10++;
                     }
                 }
                 if (giaMax >= giaBao * 1.04 && giaMax < giaBao * 1.05) {
@@ -289,8 +347,10 @@ public class ReportActivity extends AppCompatActivity {
                         case4_vol4++;
                     } else if (volTB * 5 <= volHT && volHT < volTB * 6) {
                         case4_vol5++;
-                    } else if (volTB * 6 <= volHT) {
+                    } else if (volTB * 6 <= volHT && volHT < volTB * 10) {
                         case4_vol6++;
+                    } else if (volTB * 10 <= volHT) {
+                        case4_vol10++;
                     }
                 }
                 if (giaMax >= giaBao * 1.05 && giaMax < giaBao * 1.06) {
@@ -305,8 +365,10 @@ public class ReportActivity extends AppCompatActivity {
                         case5_vol4++;
                     } else if (volTB * 5 <= volHT && volHT < volTB * 6) {
                         case5_vol5++;
-                    } else if (volTB * 6 <= volHT) {
+                    } else if (volTB * 6 <= volHT && volHT < volTB * 10) {
                         case5_vol6++;
+                    } else if (volTB * 10 <= volHT) {
+                        case5_vol10++;
                     }
                 }
                 if (giaMax >= giaBao * 1.06) {
@@ -321,8 +383,10 @@ public class ReportActivity extends AppCompatActivity {
                         case6_vol4++;
                     } else if (volTB * 5 <= volHT && volHT < volTB * 6) {
                         case6_vol5++;
-                    } else if (volTB * 6 <= volHT) {
+                    } else if (volTB * 6 <= volHT && volHT < volTB * 10) {
                         case6_vol6++;
+                    } else if (volTB * 10 <= volHT) {
+                        case6_vol10++;
                     }
                 }
             }
@@ -340,19 +404,58 @@ public class ReportActivity extends AppCompatActivity {
 
                 tvThangThua.setText(countThangThua + "/" + strTinhToan + " lần");
                 tvThangNua.setText(countThangNua + "/" + strTinhToan + " lần");
-                tvTT1.setText(thang1 + "/" + tong1 + " lần: " + String.format("%.1f", maxt1 == 100 ? 0 : maxt1) + "% >>> " + String.format("%.1f", maxd1) + "%");
-                tvTT2.setText(thang2 + "/" + tong2 + " lần: " + String.format("%.1f", maxt2 == 100 ? 0 : maxt2) + "% >>> " + String.format("%.1f", maxd2) + "%");
-                tvTT3.setText(thang3 + "/" + tong3 + " lần: " + String.format("%.1f", maxt3 == 100 ? 0 : maxt3) + "% >>> " + String.format("%.1f", maxd3) + "%");
-                tvTT4.setText(thang4 + "/" + tong4 + " lần: " + String.format("%.1f", maxt4 == 100 ? 0 : maxt4) + "% >>> " + String.format("%.1f", maxd4) + "%");
-                tvTT5.setText(thang5 + "/" + tong5 + " lần: " + String.format("%.1f", maxt5 == 100 ? 0 : maxt5) + "% >>> " + String.format("%.1f", maxd5) + "%");
-                tvTT6.setText(thang6 + "/" + tong6 + " lần: " + String.format("%.1f", maxt6 == 100 ? 0 : maxt6) + "% >>> " + String.format("%.1f", maxd6) + "%");
-                tvTT7.setText(thang7 + "/" + tong7 + " lần: " + String.format("%.1f", maxt7 == 100 ? 0 : maxt7) + "% >>> " + String.format("%.1f", maxd7) + "%");
-                tvTT8.setText(thang8 + "/" + tong8 + " lần: " + String.format("%.1f", maxt8 == 100 ? 0 : maxt8) + "% >>> " + String.format("%.1f", maxd8) + "%");
-                tvTT9.setText(thang9 + "/" + tong9 + " lần: " + String.format("%.1f", maxt9 == 100 ? 0 : maxt9) + "% >>> " + String.format("%.1f", maxd9) + "%");
-                tvTT10.setText(thang10 + "/" + tong10 + " lần: " + String.format("%.1f", maxt10 == 100 ? 0 : maxt10) + "% >>> " + String.format("%.1f", maxd10) + "%");
-                tvTT11.setText(thang11 + "/" + tong11 + " lần: " + String.format("%.1f", maxt11 == 100 ? 0 : maxt11) + "% >>> " + String.format("%.1f", maxd11) + "%");
-                tvTT12.setText(thang12 + "/" + tong12 + " lần: " + String.format("%.1f", maxt12 == 100 ? 0 : maxt12) + "% >>> " + String.format("%.1f", maxd12) + "%");
-                tvTT13.setText(thang13 + "/" + tong13 + " lần: " + String.format("%.1f", maxt13 == 100 ? 0 : maxt13) + "% >>> " + String.format("%.1f", maxd13) + "%");
+                if (thang1 > 5)
+                    tvTT1.setText(thang1 + "/" + tong1 + " lần: " + String.format("%.1f", maxt1 == 100 ? 0 : maxt1) + "% >>> " + String.format("%.1f", maxd1) + "%");
+                else
+                    tvTT1.setText(thang1 + "/" + tong1 + " lần: " + strThang1);
+                if (thang2 > 5)
+                    tvTT2.setText(thang2 + "/" + tong2 + " lần: " + String.format("%.1f", maxt2 == 100 ? 0 : maxt2) + "% >>> " + String.format("%.1f", maxd2) + "%");
+                else
+                    tvTT2.setText(thang2 + "/" + tong2 + " lần: " + strThang2);
+                if (thang3 > 5)
+                    tvTT3.setText(thang3 + "/" + tong3 + " lần: " + String.format("%.1f", maxt3 == 100 ? 0 : maxt3) + "% >>> " + String.format("%.1f", maxd3) + "%");
+                else
+                    tvTT3.setText(thang3 + "/" + tong3 + " lần: " + strThang3);
+                if (thang4 > 5)
+                    tvTT4.setText(thang4 + "/" + tong4 + " lần: " + String.format("%.1f", maxt4 == 100 ? 0 : maxt4) + "% >>> " + String.format("%.1f", maxd4) + "%");
+                else
+                    tvTT4.setText(thang4 + "/" + tong4 + " lần: " + strThang4);
+                if (thang5 > 5)
+                    tvTT5.setText(thang5 + "/" + tong5 + " lần: " + String.format("%.1f", maxt5 == 100 ? 0 : maxt5) + "% >>> " + String.format("%.1f", maxd5) + "%");
+                else
+                    tvTT5.setText(thang5 + "/" + tong5 + " lần: " + strThang5);
+                if (thang6 > 5)
+                    tvTT6.setText(thang6 + "/" + tong6 + " lần: " + String.format("%.1f", maxt6 == 100 ? 0 : maxt6) + "% >>> " + String.format("%.1f", maxd6) + "%");
+                else
+                    tvTT6.setText(thang6 + "/" + tong6 + " lần: " + strThang6);
+                if (thang7 > 5)
+                    tvTT7.setText(thang7 + "/" + tong7 + " lần: " + String.format("%.1f", maxt7 == 100 ? 0 : maxt7) + "% >>> " + String.format("%.1f", maxd7) + "%");
+                else
+                    tvTT7.setText(thang7 + "/" + tong7 + " lần: " + strThang7);
+                if (thang8 > 5)
+                    tvTT8.setText(thang8 + "/" + tong8 + " lần: " + String.format("%.1f", maxt8 == 100 ? 0 : maxt8) + "% >>> " + String.format("%.1f", maxd8) + "%");
+                else
+                    tvTT8.setText(thang8 + "/" + tong8 + " lần: " + strThang8);
+                if (thang9 > 5)
+                    tvTT9.setText(thang9 + "/" + tong9 + " lần: " + String.format("%.1f", maxt9 == 100 ? 0 : maxt9) + "% >>> " + String.format("%.1f", maxd9) + "%");
+                else
+                    tvTT9.setText(thang9 + "/" + tong9 + " lần: " + strThang9);
+                if (thang10 > 5)
+                    tvTT10.setText(thang10 + "/" + tong10 + " lần: " + String.format("%.1f", maxt10 == 100 ? 0 : maxt10) + "% >>> " + String.format("%.1f", maxd10) + "%");
+                else
+                    tvTT10.setText(thang10 + "/" + tong10 + " lần: " + strThang10);
+                if (thang11 > 5)
+                    tvTT11.setText(thang11 + "/" + tong11 + " lần: " + String.format("%.1f", maxt11 == 100 ? 0 : maxt11) + "% >>> " + String.format("%.1f", maxd11) + "%");
+                else
+                    tvTT11.setText(thang11 + "/" + tong11 + " lần: " + strThang11);
+                if (thang12 > 5)
+                    tvTT12.setText(thang12 + "/" + tong12 + " lần: " + String.format("%.1f", maxt12 == 100 ? 0 : maxt12) + "% >>> " + String.format("%.1f", maxd12) + "%");
+                else
+                    tvTT12.setText(thang12 + "/" + tong12 + " lần: " + strThang12);
+                if (thang13 > 5)
+                    tvTT13.setText(thang13 + "/" + tong13 + " lần: " + String.format("%.1f", maxt13 == 100 ? 0 : maxt13) + "% >>> " + String.format("%.1f", maxd13) + "%");
+                else
+                    tvTT13.setText(thang13 + "/" + tong13 + " lần: " + strThang13);
 
                 tvTitleThang1.setText("Tỷ lệ thắng > 0.5%");
                 tvTitleThang2.setText("Tỷ lệ thắng > 1%");
@@ -438,42 +541,48 @@ public class ReportActivity extends AppCompatActivity {
                     + (case1_vol3 > 0 ? case1_vol3 + "*V3" + "|" : "")
                     + (case1_vol4 > 0 ? case1_vol4 + "*V4" + "|" : "")
                     + (case1_vol5 > 0 ? case1_vol5 + "*V5" + "|" : "")
-                    + (case1_vol6 > 0 ? case1_vol6 + "*V6" + "|" : ""));
+                    + (case1_vol6 > 0 ? case1_vol6 + "*V6" + "|" : "")
+                    + (case1_vol10 > 0 ? case1_vol10 + "*V10" + "|" : ""));
             tvTyLe2.setText(an2 + " = "
                     + (case2_vol1 > 0 ? case2_vol1 + "*V1" + "|" : "")
                     + (case2_vol2 > 0 ? case2_vol2 + "*V2" + "|" : "")
                     + (case2_vol3 > 0 ? case2_vol3 + "*V3" + "|" : "")
                     + (case2_vol4 > 0 ? case2_vol4 + "*V4" + "|" : "")
                     + (case2_vol5 > 0 ? case2_vol5 + "*V5" + "|" : "")
-                    + (case2_vol6 > 0 ? case2_vol6 + "*V6" + "|" : ""));
+                    + (case2_vol6 > 0 ? case2_vol6 + "*V6" + "|" : "")
+                    + (case2_vol10 > 0 ? case2_vol10 + "*V10" + "|" : ""));
             tvTyLe3.setText(an3 + " = "
                     + (case3_vol1 > 0 ? case3_vol1 + "*V1" + "|" : "")
                     + (case3_vol2 > 0 ? case3_vol2 + "*V2" + "|" : "")
                     + (case3_vol3 > 0 ? case3_vol3 + "*V3" + "|" : "")
                     + (case3_vol4 > 0 ? case3_vol4 + "*V4" + "|" : "")
                     + (case3_vol5 > 0 ? case3_vol5 + "*V5" + "|" : "")
-                    + (case3_vol6 > 0 ? case3_vol6 + "*V6" + "|" : ""));
+                    + (case3_vol6 > 0 ? case3_vol6 + "*V6" + "|" : "")
+                    + (case3_vol10 > 0 ? case3_vol10 + "*V10" + "|" : ""));
             tvTyLe4.setText(an4 + " = "
                     + (case4_vol1 > 0 ? case4_vol1 + "*V1" + "|" : "")
                     + (case4_vol2 > 0 ? case4_vol2 + "*V2" + "|" : "")
                     + (case4_vol3 > 0 ? case4_vol3 + "*V3" + "|" : "")
                     + (case4_vol4 > 0 ? case4_vol4 + "*V4" + "|" : "")
                     + (case4_vol5 > 0 ? case4_vol5 + "*V5" + "|" : "")
-                    + (case4_vol6 > 0 ? case4_vol6 + "*V6" + "|" : ""));
+                    + (case4_vol6 > 0 ? case4_vol6 + "*V6" + "|" : "")
+                    + (case4_vol10 > 0 ? case4_vol10 + "*V10" + "|" : ""));
             tvTyLe5.setText(an5 + " = "
                     + (case5_vol1 > 0 ? case5_vol1 + "*V1" + "|" : "")
                     + (case5_vol2 > 0 ? case5_vol2 + "*V2" + "|" : "")
                     + (case5_vol3 > 0 ? case5_vol3 + "*V3" + "|" : "")
                     + (case5_vol4 > 0 ? case5_vol4 + "*V4" + "|" : "")
                     + (case5_vol5 > 0 ? case5_vol5 + "*V5" + "|" : "")
-                    + (case5_vol6 > 0 ? case5_vol6 + "*V6" + "|" : ""));
+                    + (case5_vol6 > 0 ? case5_vol6 + "*V6" + "|" : "")
+                    + (case5_vol10 > 0 ? case5_vol10 + "*V10" + "|" : ""));
             tvTyLe6.setText(an6 + " = "
                     + (case6_vol1 > 0 ? case6_vol1 + "*V1" + "|" : "")
                     + (case6_vol2 > 0 ? case6_vol2 + "*V2" + "|" : "")
                     + (case6_vol3 > 0 ? case6_vol3 + "*V3" + "|" : "")
                     + (case6_vol4 > 0 ? case6_vol4 + "*V4" + "|" : "")
                     + (case6_vol5 > 0 ? case6_vol5 + "*V5" + "|" : "")
-                    + (case6_vol6 > 0 ? case6_vol6 + "*V6" + "|" : ""));
+                    + (case6_vol6 > 0 ? case6_vol6 + "*V6" + "|" : "")
+                    + (case6_vol10 > 0 ? case6_vol10 + "*V10" + "|" : ""));
         } catch (Exception e) {
             Log.e("Ex", e.getMessage());
             e.printStackTrace();
