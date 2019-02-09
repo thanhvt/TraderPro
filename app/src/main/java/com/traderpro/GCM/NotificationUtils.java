@@ -141,6 +141,10 @@ public class NotificationUtils {
         }
     }
 
+    public boolean checkCaseOnSound(String Case) {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        return sharedPrefs.getBoolean("TT" + Case, true);
+    }
 
     private void showSmallNotification(NotificationCompat.Builder mBuilder, int icon, String title, String message, String timeStamp, PendingIntent resultPendingIntent) {
 
@@ -152,12 +156,8 @@ public class NotificationUtils {
 
             final String chanelID = "com.traderpro.thanhvt";
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-//            SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
             String strSound = sharedPrefs.getBoolean("SOUND", true) == true ? "ON" : "OFF";
-//            SharedPreferences pref3 = mContext.getSharedPreferences(Config.VIBRATE, 0);
             String strVibrate = sharedPrefs.getBoolean("VIBRATE", true) == true ? "ON" : "OFF";
-            Log.e("SOUND:", strSound);
-            Log.e("VIBRATE:", strVibrate);
             int VibrateIndex = -1;
             if (strVibrate.equals("ON")) {
                 VibrateIndex = Notification.DEFAULT_VIBRATE;
@@ -300,7 +300,7 @@ public class NotificationUtils {
 
 
                 //
-                if (levelRing > 1) {
+                if (levelRing > 1 && strSound.equals("ON")) {
                     switch (levelRing) {
                         case 1:
                             break;
@@ -568,8 +568,9 @@ public class NotificationUtils {
                         .setContentTitle("Boss $$$ " + strCoin)
                         .setContentText(title)
                         .setContentIntent(resultPendingIntent)
-                        .setSound(strSound.equals("ON") && (strCase.equals("1") || strCase.equals("2") || strCase.equals("12"))
-                                ? alarmSound : null)
+                        .setSound(checkCaseOnSound(strCase) ? alarmSound : null)
+//                        .setSound(strSound.equals("ON") && (strCase.equals("1") || strCase.equals("2") || strCase.equals("12"))
+//                                ? alarmSound : null)
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(fromHtml(message)))
                         .setSmallIcon(R.mipmap.ic_launcher)
