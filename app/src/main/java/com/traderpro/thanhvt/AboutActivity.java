@@ -5,13 +5,13 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.binance.api.client.BinanceApiClientFactory;
-import com.traderpro.GCM.Config;
 
 import java.util.Calendar;
 
@@ -23,9 +23,12 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        simulateDayNight(/* DAY */ 3);
-        SharedPreferences prefNN = getSharedPreferences(Config.NGON_NGU, 0);
-        String strNN = prefNN.getString("NN", "VN");
+//        SharedPreferences prefNN = getSharedPreferences(Config.NGON_NGU, 0);
+//        String strNN = prefNN.getString("NN", "VN");
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String strNN = sharedPrefs.getBoolean("NN", true) == true ? "VN" : "EN";
+
         String des = strNN.equals("VN") ? this.getString(R.string.des_App_Vn) : this.getString(R.string.des_App_Vn);
         String app = strNN.equals("VN") ? this.getString(R.string.app_name_Vn) : this.getString(R.string.app_name);
         String version = strNN.equals("VN") ? this.getString(R.string.version_Vn) : this.getString(R.string.version);
@@ -83,8 +86,11 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     Element getCopyRightsElement() {
-        SharedPreferences prefNN = getSharedPreferences(Config.NGON_NGU, 0);
-        String strNN = prefNN.getString("NN", "VN");
+//        SharedPreferences prefNN = getSharedPreferences(Config.NGON_NGU, 0);
+//        String strNN = prefNN.getString("NN", "VN");
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String strNN = sharedPrefs.getBoolean("NN", true) == true ? "VN" : "EN";
+
         String copyright = strNN.equals("VN") ? this.getString(R.string.copyright_Vn) : this.getString(R.string.copyright);
         Element copyRightsElement = new Element();
         final String copyrights = String.format(copyright, Calendar.getInstance().get(Calendar.YEAR));

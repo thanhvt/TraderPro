@@ -10,13 +10,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import com.traderpro.GCM.Config;
 
 public class BidAskActivity extends AppCompatActivity {
 
@@ -71,8 +70,10 @@ public class BidAskActivity extends AppCompatActivity {
             }
         }
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.NGON_NGU, 0);
-        String strNN = pref.getString("NN", "VN");
+//        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.NGON_NGU, 0);
+//        String strNN = pref.getString("NN", "VN");
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String strNN = sharedPrefs.getBoolean("NN", true) == true ? "VN" : "EN";
         if (strNN.equalsIgnoreCase("VN")) {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override

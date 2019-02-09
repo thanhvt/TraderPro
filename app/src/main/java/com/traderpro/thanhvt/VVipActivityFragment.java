@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,8 +20,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.traderpro.GCM.Config;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -376,8 +375,10 @@ public class VVipActivityFragment extends Fragment {
                     dLo += profit;
                 }
             }
-            SharedPreferences pref = getActivity().getSharedPreferences(Config.NGON_NGU, 0);
-            String strNN = pref.getString("NN", "VN");
+//            SharedPreferences pref = getActivity().getSharedPreferences(Config.NGON_NGU, 0);
+//            String strNN = pref.getString("NN", "VN");
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String strNN = sharedPrefs.getBoolean("NN", true) == true ? "VN" : "EN";
             if (strNN.equalsIgnoreCase("VN")) {
                 txtLoiLo.setText("Lãi: " + lanLai + " lần (+" + String.format("%.2f", dLai) + "%)");
                 txtLoiLo3.setText("Lỗ: " + lanLo + " lần (-" + String.format("%.2f", dLo) + "%)");

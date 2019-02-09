@@ -28,6 +28,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -577,8 +578,10 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_scrolling, menu);
-        SharedPreferences pref = getSharedPreferences(Config.NGON_NGU, 0);
-        String strNN = pref.getString("NN", "VN");
+//        SharedPreferences pref = getSharedPreferences(Config.NGON_NGU, 0);
+//        String strNN = pref.getString("NN", "VN");
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String strNN = sharedPrefs.getBoolean("NN", true) == true ? "VN" : "EN";
         MenuItem item0 = menu.getItem(2);
         item0.setTitle(strNN.equals("VN") ? R.string.trade_api_Vn : R.string.trade_api);
         MenuItem item1 = menu.getItem(3);
@@ -600,7 +603,7 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent m = new Intent(ScrollingActivity.this, SettingsPrefActivity.class);
+            Intent m = new Intent(ScrollingActivity.this, CauHinhActivity.class);
             m.putExtra("KEY", regId);
             startActivity(m);
             return true;

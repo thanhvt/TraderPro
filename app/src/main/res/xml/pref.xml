@@ -1,0 +1,81 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- A 'parent' preference, which enables/disables child preferences (below)
+         when checked/unchecked. -->
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="NN"
+        android:summary="Tiếng Việt"
+        android:summaryOff="English"
+        android:summaryOn="Tiếng Việt"
+        android:title="Thiết lập ngôn ngữ" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="SOUND"
+        android:title="Âm thanh" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="VIBRATE"
+        android:title="Rung" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="TT1"
+        android:title="Thuật toán 1" />
+
+    <!-- Allows the user to choose a ringtone in the 'notification' category. -->
+    <!-- NOTE: This preference will be enabled only when the checkbox above is checked. -->
+    <!-- NOTE: RingtonePreference's summary should be set to its value by the activity code. -->
+
+
+    <!-- NOTE: This preference will be enabled only when the checkbox above is checked. -->
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="TT2"
+        android:title="Thuật toán 2" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="TT3"
+        android:title="Thuật toán 3" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="TT4"
+        android:title="Thuật toán 4" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="TT5"
+        android:title="Thuật toán 5" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="TT6"
+        android:title="Thuật toán 6" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="TT7"
+        android:title="Thuật toán 7" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="TT8"
+        android:title="Thuật toán 8" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="TT9"
+        android:title="Thuật toán 9" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="TT10"
+        android:title="Thuật toán 10" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="TT11"
+        android:title="Thuật toán 11" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="TT12"
+        android:title="Thuật toán 12" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="TT13"
+        android:title="Thuật toán 13" />
+
+
+</PreferenceScreen>

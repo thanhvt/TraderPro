@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -136,8 +137,10 @@ public class CustomNotificationAdapter extends ArrayAdapter<NotificationEntity> 
         this.ngay = ngay;
         this.mResource = resource;
 
-        SharedPreferences pref = mContext.getSharedPreferences(Config.NGON_NGU, 0);
-        strNN = pref.getString("NN", "VN");
+//        SharedPreferences pref = mContext.getSharedPreferences(Config.NGON_NGU, 0);
+//        strNN = pref.getString("NN", "VN");
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        strNN = sharedPrefs.getBoolean("NN", true) == true ? "VN" : "EN";
 
         filterList = new ArrayList<>();
         this.filterList.addAll(lstOrder);

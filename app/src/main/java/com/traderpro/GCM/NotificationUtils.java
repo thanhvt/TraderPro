@@ -22,6 +22,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.preference.PreferenceManager;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -150,10 +151,11 @@ public class NotificationUtils {
                     + mContext.getPackageName() + "/" + s[m]);
 
             final String chanelID = "com.traderpro.thanhvt";
-            SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
-            String strSound = pref2.getString("SOUND", "ON");
-            SharedPreferences pref3 = mContext.getSharedPreferences(Config.VIBRATE, 0);
-            String strVibrate = pref3.getString("VIBRATE", "ON");
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+//            SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
+            String strSound = sharedPrefs.getBoolean("SOUND", true) == true ? "ON" : "OFF";
+//            SharedPreferences pref3 = mContext.getSharedPreferences(Config.VIBRATE, 0);
+            String strVibrate = sharedPrefs.getBoolean("VIBRATE", true) == true ? "ON" : "OFF";
             Log.e("SOUND:", strSound);
             Log.e("VIBRATE:", strVibrate);
             int VibrateIndex = -1;
@@ -1299,10 +1301,16 @@ public class NotificationUtils {
     }
 
     private void showBigNotification(Bitmap bitmap, NotificationCompat.Builder mBuilder, int icon, String title, String message, String timeStamp, PendingIntent resultPendingIntent, Uri alarmSound) {
-        SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
-        String strSound = pref2.getString("SOUND", "ON");
-        SharedPreferences pref3 = mContext.getSharedPreferences(Config.VIBRATE, 0);
-        String strVibrate = pref3.getString("VIBRATE", "ON");
+//        SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
+//        String strSound = pref2.getString("SOUND", "ON");
+//        SharedPreferences pref3 = mContext.getSharedPreferences(Config.VIBRATE, 0);
+//        String strVibrate = pref3.getString("VIBRATE", "ON");
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String strSound = sharedPrefs.getBoolean("SOUND", true) == true ? "ON" : "OFF";
+        String strVibrate = sharedPrefs.getBoolean("VIBRATE", true) == true ? "ON" : "OFF";
+
+
         int VibrateIndex = -1;
         if (strVibrate.equals("ON")) {
             VibrateIndex = Notification.DEFAULT_VIBRATE;
@@ -1377,8 +1385,11 @@ public class NotificationUtils {
     // Playing notification sound
     public void playNotificationSound() {
         try {
-            SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
-            String strSound = pref2.getString("SOUND", "ON");
+//            SharedPreferences pref2 = mContext.getSharedPreferences(Config.SOUND, 0);
+//            String strSound = pref2.getString("SOUND", "ON");
+
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            String strSound = sharedPrefs.getBoolean("SOUND", true) == true ? "ON" : "OFF";
 
             Ringtone r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
                     + mContext.getPackageName() + "/" + R.raw.one1));

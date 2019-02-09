@@ -5,11 +5,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
-
-import com.traderpro.GCM.Config;
 
 import org.json.JSONArray;
 
@@ -132,7 +131,7 @@ public class ReportActivity extends AppCompatActivity {
                         if (dProfit > maxd1) {
                             maxd1 = dProfit;
                         }
-                        strThang1 += String.format("%.1f", dProfit) + ";";
+                        strThang1 += String.format("%.1f", dProfit) + "---";
                     }
                     if (en.strCase.equals("2")) {
                         thang2++;
@@ -141,14 +140,14 @@ public class ReportActivity extends AppCompatActivity {
                         if (dProfit > maxd2) {
                             maxd2 = dProfit;
                         }
-                        strThang2 += String.format("%.1f", dProfit) + ";";
+                        strThang2 += String.format("%.1f", dProfit) + "---";
                     }
                     if (en.strCase.equals("3")) {
                         thang3++;
 
                         if (dProfit < maxt3) maxt3 = dProfit;
                         if (dProfit > maxd3) maxd3 = dProfit;
-                        strThang3 += String.format("%.1f", dProfit) + ";";
+                        strThang3 += String.format("%.1f", dProfit) + "---";
                     }
                     if (en.strCase.equals("4")) {
                         thang4++;
@@ -157,7 +156,7 @@ public class ReportActivity extends AppCompatActivity {
                         if (dProfit > maxd4) {
                             maxd4 = dProfit;
                         }
-                        strThang4 += String.format("%.1f", dProfit) + ";";
+                        strThang4 += String.format("%.1f", dProfit) + "---";
                     }
                     if (en.strCase.equals("5")) {
                         thang5++;
@@ -166,7 +165,7 @@ public class ReportActivity extends AppCompatActivity {
                         if (dProfit > maxd5) {
                             maxd5 = dProfit;
                         }
-                        strThang5 += String.format("%.1f", dProfit) + ";";
+                        strThang5 += String.format("%.1f", dProfit) + "---";
                     }
                     if (en.strCase.equals("6")) {
                         thang6++;
@@ -175,7 +174,7 @@ public class ReportActivity extends AppCompatActivity {
                         if (dProfit > maxd6) {
                             maxd6 = dProfit;
                         }
-                        strThang6 += String.format("%.1f", dProfit) + ";";
+                        strThang6 += String.format("%.1f", dProfit) + "---";
                     }
                     if (en.strCase.equals("7")) {
                         thang7++;
@@ -184,7 +183,7 @@ public class ReportActivity extends AppCompatActivity {
                         if (dProfit > maxd7) {
                             maxd7 = dProfit;
                         }
-                        strThang7 += String.format("%.1f", dProfit) + ";";
+                        strThang7 += String.format("%.1f", dProfit) + "---";
                     }
                     if (en.strCase.equals("8")) {
                         thang8++;
@@ -193,7 +192,7 @@ public class ReportActivity extends AppCompatActivity {
                         if (dProfit > maxd8) {
                             maxd8 = dProfit;
                         }
-                        strThang8 += String.format("%.1f", dProfit) + ";";
+                        strThang8 += String.format("%.1f", dProfit) + "---";
                     }
                     if (en.strCase.equals("9")) {
                         thang9++;
@@ -202,7 +201,7 @@ public class ReportActivity extends AppCompatActivity {
                         if (dProfit > maxd9) {
                             maxd9 = dProfit;
                         }
-                        strThang9 += String.format("%.1f", dProfit) + ";";
+                        strThang9 += String.format("%.1f", dProfit) + "---";
                     }
                     if (en.strCase.equals("10")) {
                         thang10++;
@@ -211,7 +210,7 @@ public class ReportActivity extends AppCompatActivity {
                         if (dProfit > maxd10) {
                             maxd10 = dProfit;
                         }
-                        strThang10 += String.format("%.1f", dProfit) + ";";
+                        strThang10 += String.format("%.1f", dProfit) + "---";
                     }
                     if (en.strCase.equals("11")) {
                         thang11++;
@@ -220,7 +219,7 @@ public class ReportActivity extends AppCompatActivity {
                         if (dProfit > maxd11) {
                             maxd11 = dProfit;
                         }
-                        strThang11 += String.format("%.1f", dProfit) + ";";
+                        strThang11 += String.format("%.1f", dProfit) + "---";
                     }
                     if (en.strCase.equals("12")) {
                         thang12++;
@@ -229,7 +228,7 @@ public class ReportActivity extends AppCompatActivity {
                         if (dProfit > maxd12) {
                             maxd12 = dProfit;
                         }
-                        strThang12 += String.format("%.1f", dProfit) + ";";
+                        strThang12 += String.format("%.1f", dProfit) + "---";
                     }
                     if (en.strCase.equals("13")) {
                         thang13++;
@@ -238,7 +237,7 @@ public class ReportActivity extends AppCompatActivity {
                         if (dProfit > maxd13) {
                             maxd13 = dProfit;
                         }
-                        strThang13 += String.format("%.1f", dProfit) + ";";
+                        strThang13 += String.format("%.1f", dProfit) + "---";
                     }
                 }
                 if (en.strCase.equals("1") && en.strGiaMax > 0) {
@@ -391,9 +390,10 @@ public class ReportActivity extends AppCompatActivity {
                 }
             }
 
-            SharedPreferences pref = getApplication().getSharedPreferences(Config.NGON_NGU, 0);
-            String strNN = pref.getString("NN", "VN");
-
+//            SharedPreferences pref = getApplication().getSharedPreferences(Config.NGON_NGU, 0);
+//            String strNN = pref.getString("NN", "VN");
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+            String strNN = sharedPrefs.getBoolean("NN", true) == true ? "VN" : "EN";
 //        countThua1 = countThua1 / 4;
 //        countThua2 = countThua2 / 4;
 //        countThua3 = countThua3 / 4;
