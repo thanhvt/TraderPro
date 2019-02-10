@@ -326,7 +326,7 @@ public class NotificationUtils {
 
                             am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
                             mSound = Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.bass_dj);
+                                    + mContext.getPackageName() + "/" + R.raw.bass_drop);
                             inboxStyle = new NotificationCompat.InboxStyle();
 
                             inboxStyle.addLine(message);
@@ -353,8 +353,13 @@ public class NotificationUtils {
                             r = RingtoneManager.getRingtone(mContext, Uri.parse("android.resource://"
                                     + mContext.getPackageName() + "/" + R.raw.opinion));
                             r.play();
-                            mSound = Uri.parse("android.resource://"
-                                    + mContext.getPackageName() + "/" + R.raw.bass_i_love_u);
+
+                            int[] sBuy = {R.raw.canon, R.raw.rose_violin, R.raw.romance_anonimo, R.raw.bass_effect_cool, R.raw.million, R.raw.romantic_beat};
+                            int mBuy = new Random().nextInt(sBuy.length - 1);
+                            alarmSound = Uri.parse("android.resource://"
+                                    + mContext.getPackageName() + "/" + sBuy[mBuy]);
+
+
                             am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
                             am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
                             am.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
@@ -367,7 +372,7 @@ public class NotificationUtils {
                                     .setContentTitle("Boss $$$ " + strCoin)
                                     .setContentText("PUMP PUMP PUMP PUMP PUMP")
                                     .setContentIntent(resultPendingIntent)
-                                    .setSound(mSound)
+                                    .setSound(alarmSound)
                                     .setStyle(new NotificationCompat.BigTextStyle()
                                             .bigText(fromHtml(message)))
                                     .setSmallIcon(R.mipmap.ic_launcher)
@@ -378,7 +383,7 @@ public class NotificationUtils {
                             id = (int) System.currentTimeMillis();
                             notificationManager.notify(id, notification);
 
-
+                            am.adjustVolume(AudioManager.ADJUST_MUTE, AudioManager.FLAG_PLAY_SOUND);
                             break;
                         case 6:
                             am.setStreamVolume(
@@ -408,7 +413,8 @@ public class NotificationUtils {
                             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                 @Override
                                 public void onCompletion(MediaPlayer mp) {
-                                    if (count < 10) {
+                                    int fix = isDem() ? 10 : 3;
+                                    if (count < fix) {
                                         mp.start();
                                         count++;
                                     }
@@ -462,10 +468,16 @@ public class NotificationUtils {
                             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                 @Override
                                 public void onCompletion(MediaPlayer mp) {
-                                    if (count < 20) {
+                                    int fix = isDem() ? 15 : 4;
+                                    if (count < fix) {
                                         mp.start();
                                         count++;
                                     }
+
+//                                    if (count < 20) {
+//                                        mp.start();
+//                                        count++;
+//                                    }
                                 }
                             });
                             mp.start();
@@ -516,10 +528,15 @@ public class NotificationUtils {
                             mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                 @Override
                                 public void onCompletion(MediaPlayer mp) {
-                                    if (count < 100) {
+                                    int fix = isDem() ? 20 : 5;
+                                    if (count < fix) {
                                         mp.start();
                                         count++;
                                     }
+//                                    if (count < 100) {
+//                                        mp.start();
+//                                        count++;
+//                                    }
                                 }
                             });
                             mp.start();
@@ -1299,6 +1316,13 @@ public class NotificationUtils {
             Log.e(TAG, e.getMessage());
         }
 
+    }
+
+    public boolean isDem() {
+        Calendar rightNow = Calendar.getInstance();
+        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+        if (hour > 23 && hour < 5) return true;
+        return false;
     }
 
     private void showBigNotification(Bitmap bitmap, NotificationCompat.Builder mBuilder, int icon, String title, String message, String timeStamp, PendingIntent resultPendingIntent, Uri alarmSound) {
