@@ -37,6 +37,7 @@ import android.widget.Toast;
 
 import com.traderpro.GCM.Config;
 
+import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -1133,6 +1134,22 @@ public class LogNotification extends Fragment {
                 @Override
                 public int compare(NotificationEntity arg0, NotificationEntity arg1) {
                     return (int) (arg1.tangSoLan - arg0.tangSoLan);
+                }
+            });
+        } else if (id == R.id.sortNearest) {
+            customAdapter.sort(new Comparator<NotificationEntity>() {
+                @Override
+                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
+                    return new CompareToBuilder().append(arg0.strCoin, arg1.strCoin).append(arg0.strId, arg1.strId).toComparison();
+//                    Collections.sort(reportList, Comparator.comparing(Report::getReportKey)
+//                            .thenComparing(Report::getStudentNumber)
+//                            .thenComparing(Report::getSchool));
+//                    return ComparisonChain.start()
+//                            .compare(r1.getReportKey(), r2.getReportKey())
+//                            .compare(r1.getStudentNumber(), r2.getStudentNumber())
+//                            .compare(r1.getSchool(), r2.getSchool())
+//                            .result();
+
                 }
             });
         }

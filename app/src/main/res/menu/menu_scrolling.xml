@@ -64,6 +64,9 @@
                 <item
                     android:id="@+id/sortOther"
                     android:title="Other" />
+                <item
+                    android:id="@+id/sortNearest"
+                    android:title="Nearest" />
             </group>
         </menu>
     </item>
