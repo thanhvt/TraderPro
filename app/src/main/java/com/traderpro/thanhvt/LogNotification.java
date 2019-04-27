@@ -20,12 +20,15 @@ import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
 import android.text.style.URLSpan;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -37,7 +40,6 @@ import android.widget.Toast;
 
 import com.traderpro.GCM.Config;
 
-import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -256,6 +258,35 @@ public class LogNotification extends Fragment {
             customAdapter = new CustomNotificationAdapter(getActivity(), R.layout.layout_notification_n, lstNotiEntity, bittrexData, nam, thang, ngay);
             customAdapter.notifyDataSetChanged();
             listView.setAdapter(customAdapter);
+
+
+//            int position = list.pointToPosition(e.getX(), e.getY());
+
+
+            listView.setOnItemClickListener(new DoubleClickListener() {
+                @Override
+                public void onSingleClick(View v) {
+//                    Toast.makeText(getContext(), "Single", Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onDoubleClick(View v) {
+//                    Toast.makeText(getContext(), "Double", Toast.LENGTH_LONG).show();
+                    sortNearest();
+                }
+            });
+//            listView.setOnClickListener(new DoubleClickListener() {
+//
+//                @Override
+//                public void onSingleClick(View v) {
+//
+//                }
+//
+//                @Override
+//                public void onDoubleClick(View v) {
+//                    Toast.makeText(getContext(), "Double", Toast.LENGTH_LONG).show();
+//                }
+//            });
         } catch (Exception e) {
             Log.e("Ex", e.getMessage());
             e.printStackTrace();
@@ -391,6 +422,169 @@ public class LogNotification extends Fragment {
         txtJoin.setText(processedText);
 
         return rootView;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            Intent m = new Intent(getContext(), SettingsPrefActivity.class);
+            m.putExtra("KEY", "");
+            startActivity(m);
+            return true;
+        } else if (id == R.id.action_report) {
+            Double maxGia = this.lstNotiEntity.get(this.lstNotiEntity.size() - 1).strGiaMax;
+            int tinhToan = 0;
+            for (NotificationEntity no : this.lstNotiEntity) {
+                if (no.strGiaMax > 0) {
+                    tinhToan++;
+                }
+            }
+            {
+                Log.e(TAG, "action Report");
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("DATA", this.lstNotiEntity);
+                bundle.putString("TIME", c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR));
+                bundle.putString("TINHTOAN", tinhToan + "");
+                bundle.putInt("NGAY", c.get(Calendar.DAY_OF_MONTH));
+                bundle.putInt("THANG", (c.get(Calendar.MONTH) + 1));
+                bundle.putInt("NAM", c.get(Calendar.YEAR));
+                Intent intent = new Intent(getContext(), ReportActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        } else if (id == R.id.sortTime) {
+            customAdapter.sort(new Comparator<NotificationEntity>() {
+                @Override
+                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
+                    return -arg0.strId.compareTo(arg1.strId);
+                }
+            });
+        } else if (id == R.id.sortCoin) {
+            customAdapter.sort(new Comparator<NotificationEntity>() {
+                @Override
+                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
+                    return arg0.strCoin.compareTo(arg1.strCoin);
+                }
+            });
+        } else if (id == R.id.sortGain) {
+            customAdapter.sort(new Comparator<NotificationEntity>() {
+                @Override
+                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
+                    Double case1 = Double.parseDouble(arg0.strProfit == null ? "0" : arg0.strProfit);
+                    Double case2 = Double.parseDouble(arg1.strProfit == null ? "0" : arg1.strProfit);
+                    return -Double.compare(case1, case2);
+                }
+            });
+        } else if (id == R.id.sortDefault) {
+            customAdapter.sort(new Comparator<NotificationEntity>() {
+                @Override
+                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
+                    int case1 = Integer.parseInt(arg0.strCase);
+                    int case2 = Integer.parseInt(arg1.strCase);
+                    return -(case1 - case2);
+                }
+            });
+        } else if (id == R.id.sortOther) {
+            customAdapter.sort(new Comparator<NotificationEntity>() {
+                @Override
+                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
+                    return (int) (arg1.tangSoLan - arg0.tangSoLan);
+                }
+            });
+        } else if (id == R.id.sortNearest) {
+//            ArrayList<NotificationEntity> lstTmp = lstNotiEntity;
+//            for (int i = 0; i < lstNotiEntity.size() - 1; i++) {
+//                for (int j = 0; j < lstNotiEntity.size() - 1 - i; j++) {
+//                    if  (array [j]> array [j +  1 ]) {
+//                        NotificationEntity temp = array [j];
+//                        array [j] = array [j +  1 ];
+//                        array [j +  1 ] = temp;
+//                    }
+//                }
+//            }
+            sortNearest();
+
+//            customAdapter.sort(new Comparator<NotificationEntity>() {
+//                @Override
+//                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
+////                    Comparator<NotificationEntity> compareByName = Comparator
+////                            .comparing(NotificationEntity::strId)
+////                            .thenComparing(NotificationEntity::strCoin);
+////
+////                    Collections.sort(employees, compareByName);
+////                    Map<String, List<NotificationEntity>> map = lstNotiEntity.stream().collect(Collectors.groupingBy(NotificationEntity::getStrCoin));
+//                    return new CompareToBuilder().append(arg0.strCoin, arg1.strCoin).append(arg0.strId, arg1.strId).toComparison();
+////                    Collections.sort(reportList, Comparator.comparing(Report::getReportKey)
+////                            .thenComparing(Report::getStudentNumber)
+////                            .thenComparing(Report::getSchool));
+////                    return ComparisonChain.start()
+////                            .compare(r1.getReportKey(), r2.getReportKey())
+////                            .compare(r1.getStudentNumber(), r2.getStudentNumber())
+////                            .compare(r1.getSchool(), r2.getSchool())
+////                            .result();
+//
+//                }
+//            });
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void sortNearest() {
+        NotificationEntity temp;
+        for (int i = 0; i < lstNotiEntity.size() - 1; i++) {
+            for (int j = i + 1; j < lstNotiEntity.size(); j++) {
+                if (lstNotiEntity.get(j).strCoin.equals(lstNotiEntity.get(i).strCoin)) {
+                    if (lstNotiEntity.size() > i + 1 && !lstNotiEntity.get(j).strCoin.equals(lstNotiEntity.get(i + 1).strCoin)) {
+                        temp = lstNotiEntity.get(i + 1);
+                        lstNotiEntity.set(i + 1, lstNotiEntity.get(j));
+                        lstNotiEntity.set(j, temp);
+                    }
+                    if (lstNotiEntity.size() > i + 2 && !lstNotiEntity.get(j).strCoin.equals(lstNotiEntity.get(i + 2).strCoin)) {
+                        temp = lstNotiEntity.get(i + 2);
+                        lstNotiEntity.set(i + 2, lstNotiEntity.get(j));
+                        lstNotiEntity.set(j, temp);
+                    }
+                    if (lstNotiEntity.size() > i + 3 && !lstNotiEntity.get(j).strCoin.equals(lstNotiEntity.get(i + 3).strCoin)) {
+                        temp = lstNotiEntity.get(i + 3);
+                        lstNotiEntity.set(i + 3, lstNotiEntity.get(j));
+                        lstNotiEntity.set(j, temp);
+                    }
+                    if (lstNotiEntity.size() > i + 4 && !lstNotiEntity.get(j).strCoin.equals(lstNotiEntity.get(i + 4).strCoin)) {
+                        temp = lstNotiEntity.get(i + 4);
+                        lstNotiEntity.set(i + 4, lstNotiEntity.get(j));
+                        lstNotiEntity.set(j, temp);
+                    }
+                    if (lstNotiEntity.size() > i + 5 && !lstNotiEntity.get(j).strCoin.equals(lstNotiEntity.get(i + 5).strCoin)) {
+                        temp = lstNotiEntity.get(i + 5);
+                        lstNotiEntity.set(i + 5, lstNotiEntity.get(j));
+                        lstNotiEntity.set(j, temp);
+                    }
+                    if (lstNotiEntity.size() > i + 6 && !lstNotiEntity.get(j).strCoin.equals(lstNotiEntity.get(i + 6).strCoin)) {
+                        temp = lstNotiEntity.get(i + 6);
+                        lstNotiEntity.set(i + 6, lstNotiEntity.get(j));
+                        lstNotiEntity.set(j, temp);
+                    }
+                    if (lstNotiEntity.size() > i + 7 && !lstNotiEntity.get(j).strCoin.equals(lstNotiEntity.get(i + 7).strCoin)) {
+                        temp = lstNotiEntity.get(i + 7);
+                        lstNotiEntity.set(i + 7, lstNotiEntity.get(j));
+                        lstNotiEntity.set(j, temp);
+                    }
+                    if (lstNotiEntity.size() > i + 8 && !lstNotiEntity.get(j).strCoin.equals(lstNotiEntity.get(i + 8).strCoin)) {
+                        temp = lstNotiEntity.get(i + 8);
+                        lstNotiEntity.set(i + 8, lstNotiEntity.get(j));
+                        lstNotiEntity.set(j, temp);
+                    }
+                }
+            }
+        }
+        customAdapter.notifyDataSetChanged();
     }
 
     public void shuffle() {
@@ -1063,98 +1257,38 @@ public class LogNotification extends Fragment {
     private SearchView searchView;
     private MenuItem searchMenuItem;
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent m = new Intent(getContext(), SettingsPrefActivity.class);
-            m.putExtra("KEY", "");
-            startActivity(m);
+        public boolean onDown(MotionEvent e) {
             return true;
-        } else if (id == R.id.action_report) {
-            Double maxGia = this.lstNotiEntity.get(this.lstNotiEntity.size() - 1).strGiaMax;
-            int tinhToan = 0;
-            for (NotificationEntity no : this.lstNotiEntity) {
-                if (no.strGiaMax > 0) {
-                    tinhToan++;
-                }
-            }
-            {
-                Log.e(TAG, "action Report");
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("DATA", this.lstNotiEntity);
-                bundle.putString("TIME", c.get(Calendar.DAY_OF_MONTH) + "/" + (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.YEAR));
-                bundle.putString("TINHTOAN", tinhToan + "");
-                bundle.putInt("NGAY", c.get(Calendar.DAY_OF_MONTH));
-                bundle.putInt("THANG", (c.get(Calendar.MONTH) + 1));
-                bundle.putInt("NAM", c.get(Calendar.YEAR));
-                Intent intent = new Intent(getContext(), ReportActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        } else if (id == R.id.sortTime) {
-            customAdapter.sort(new Comparator<NotificationEntity>() {
-                @Override
-                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
-                    return -arg0.strId.compareTo(arg1.strId);
-                }
-            });
-        } else if (id == R.id.sortCoin) {
-            customAdapter.sort(new Comparator<NotificationEntity>() {
-                @Override
-                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
-                    return arg0.strCoin.compareTo(arg1.strCoin);
-                }
-            });
-        } else if (id == R.id.sortGain) {
-            customAdapter.sort(new Comparator<NotificationEntity>() {
-                @Override
-                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
-                    Double case1 = Double.parseDouble(arg0.strProfit == null ? "0" : arg0.strProfit);
-                    Double case2 = Double.parseDouble(arg1.strProfit == null ? "0" : arg1.strProfit);
-                    return -Double.compare(case1, case2);
-                }
-            });
-        } else if (id == R.id.sortDefault) {
-            customAdapter.sort(new Comparator<NotificationEntity>() {
-                @Override
-                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
-                    int case1 = Integer.parseInt(arg0.strCase);
-                    int case2 = Integer.parseInt(arg1.strCase);
-                    return -(case1 - case2);
-                }
-            });
-        } else if (id == R.id.sortOther) {
-            customAdapter.sort(new Comparator<NotificationEntity>() {
-                @Override
-                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
-                    return (int) (arg1.tangSoLan - arg0.tangSoLan);
-                }
-            });
-        } else if (id == R.id.sortNearest) {
-            customAdapter.sort(new Comparator<NotificationEntity>() {
-                @Override
-                public int compare(NotificationEntity arg0, NotificationEntity arg1) {
-                    return new CompareToBuilder().append(arg0.strCoin, arg1.strCoin).append(arg0.strId, arg1.strId).toComparison();
-//                    Collections.sort(reportList, Comparator.comparing(Report::getReportKey)
-//                            .thenComparing(Report::getStudentNumber)
-//                            .thenComparing(Report::getSchool));
-//                    return ComparisonChain.start()
-//                            .compare(r1.getReportKey(), r2.getReportKey())
-//                            .compare(r1.getStudentNumber(), r2.getStudentNumber())
-//                            .compare(r1.getSchool(), r2.getSchool())
-//                            .result();
-
-                }
-            });
         }
 
-        return super.onOptionsItemSelected(item);
+        public boolean onDoubleTap(MotionEvent e) {
+            Log.d("Double_Tap", "Yes, Clicked");
+            return true;
+        }
+    }
+
+    public abstract class DoubleClickListener implements AdapterView.OnItemClickListener {
+
+        private static final long DOUBLE_CLICK_TIME_DELTA = 1500;//milliseconds
+
+        long lastClickTime = 0;
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            long clickTime = System.currentTimeMillis();
+            if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA) {
+                onDoubleClick(view);
+            } else {
+                onSingleClick(view);
+            }
+            lastClickTime = clickTime;
+        }
+
+        public abstract void onSingleClick(View v);
+
+        public abstract void onDoubleClick(View v);
     }
 
 //    @Override
