@@ -1,6 +1,7 @@
 package com.traderpro.thanhvt;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -260,21 +261,24 @@ public class LogNotification extends Fragment {
             listView.setAdapter(customAdapter);
 
 
-//            int position = list.pointToPosition(e.getX(), e.getY());
-
-
-            listView.setOnItemClickListener(new DoubleClickListener() {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onSingleClick(View v) {
-//                    Toast.makeText(getContext(), "Single", Toast.LENGTH_LONG).show();
-                }
-
-                @Override
-                public void onDoubleClick(View v) {
-//                    Toast.makeText(getContext(), "Double", Toast.LENGTH_LONG).show();
-                    sortNearest();
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    createDialogCoinDetail(lstNotiEntity.get(position));
                 }
             });
+
+
+//            listView.setOnItemClickListener(new DoubleClickListener() {
+//                @Override
+//                public void onSingleClick(View v) {
+//                }
+//
+//                @Override
+//                public void onDoubleClick(View v) {
+//                    sortNearest();
+//                }
+//            });
 //            listView.setOnClickListener(new DoubleClickListener() {
 //
 //                @Override
@@ -422,6 +426,40 @@ public class LogNotification extends Fragment {
         txtJoin.setText(processedText);
 
         return rootView;
+    }
+
+    public void createDialogCoinDetail(NotificationEntity no) {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.dialog_coindetail);
+        dialog.setTitle(no.strCoin);
+        ArrayList<NotificationEntity> lstNotiCoin = new ArrayList<>();
+        for (NotificationEntity e : lstNotiEntity) {
+            if (e.strCoin.equals(no.strCoin)) {
+                lstNotiCoin.add(e);
+            }
+        }
+
+        ListView lvCoin = (ListView) dialog.findViewById(R.id.lvTradeHistory);
+        CustomCoinDetailAdapter customAdapter = new CustomCoinDetailAdapter(getActivity(), R.layout.row_coindetail, lstNotiCoin);
+        customAdapter.notifyDataSetChanged();
+        lvCoin.setAdapter(customAdapter);
+        Button btnBuy = (Button) dialog.findViewById(R.id.btnBuy);
+        // if button is clicked, close the custom dialog
+        btnBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        Button btnSell = (Button) dialog.findViewById(R.id.btnSell);
+        // if button is clicked, close the custom dialog
+        btnSell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     @Override
