@@ -178,9 +178,12 @@ public class NotificationUtils {
                 String strBuySell = "";
                 String strTM = "";
                 String strVol1H = "";
+                String strVol2H = "";
                 String strGia1H = "";
                 String strGiaOP = "";
+                String strGia5P = "";
                 String strGia30P = "";
+                String strGia4H = "";
                 String strID = System.currentTimeMillis() + "";
                 try {
 
@@ -209,10 +212,29 @@ public class NotificationUtils {
                         strTM = message.substring(message.indexOf("Taker/Maker") + 17, message.lastIndexOf("<br/>") - 6);
                     }
                     try {
+                        /*
+                                   String strCustomer
+                                    = "<b> *** " + lstCoin.get(i) + " *** </b>" + "&nbsp;"
+                                    -- + "<b>PRI OP: </b>" + String.format("%.8f", GiaMoCua) + "<br/>"
+                                    -- + "<b>PRI HT: </b>" + String.format("%.8f", GiaHienTai) + "&nbsp;"
+                                    -- + "<b>PRI 1H: </b>" + String.format("%.8f", Gia1HTrc) + "<br/>"
+                                    + "<b>PRI 5P: </b>" + String.format("%.8f", Gia5Phut) + "&nbsp;"
+                                    + "<b>PRI 30P: </b>" + String.format("%.8f", Gia30Phut) + "<br/>"
+                                    + "<b>PRI 4H: </b>" + String.format("%.8f", Gia4HTrc) + "&nbsp;"
+                                    + "<b>PRI 12H: </b>" + String.format("%.8f", Gia12HTrc) + "<br/>"
+                                    -- + "<b>VOL HT: </b>" + String.format("%.4f", VOLHT) + "&nbsp;"
+                                    + "<b>VOL 2H: </b>" + String.format("%.4f", Vol2HTrc) + "<br/>"
+                                    -- + "<b>VOL 1H: </b>" + String.format("%.4f", Vol1HTrc) + "&nbsp;"
+                                    -- + "<b>VOL TB: </b>" + String.format("%.4f", avgBaseVol)
+                                    + strRanBS(VOLHT, avgBaseVol) + "<br/> <br/>" + "<b>" + strRanCharacters() + "</b>";
+                         */
                         strVol1H = message.contains("VOL 1H: ") ? message.substring(message.indexOf("VOL 1H: ") + 12, message.indexOf("VOL 1H: ") + 17) : "";
+                        strVol2H = message.contains("VOL 2H: ") ? message.substring(message.indexOf("VOL 2H: ") + 12, message.indexOf("VOL 2H: ") + 17) : "";
                         strGia1H = message.contains("PRI 1H: ") ? message.substring(message.indexOf("PRI 1H: ") + 12, message.indexOf("PRI 1H: ") + 22) : "";
                         strGiaOP = message.contains("PRI OP: ") ? message.substring(message.indexOf("PRI OP: ") + 12, message.indexOf("PRI OP: ") + 22) : "";
+                        strGia5P = message.contains("PRI 5P: ") ? message.substring(message.indexOf("PRI 5P: ") + 12, message.indexOf("PRI 5P: ") + 22) : "";
                         strGia30P = message.contains("PRI 30P: ") ? message.substring(message.indexOf("PRI 30P: ") + 13, message.indexOf("PRI 30P: ") + 23) : "";
+                        strGia4H = message.contains("PRI 4H: ") ? message.substring(message.indexOf("PRI 4H: ") + 12, message.indexOf("PRI 4H: ") + 22) : "";
                     } catch (Exception e) {
 
                     }
@@ -228,7 +250,7 @@ public class NotificationUtils {
                     String strSave = strExchange + " " + strCoin + " " + strGia.trim() + " " + strVolHT.trim() + " " + strVolTB.trim()
                             + " " + strTime.trim() + " " + strCase + " " + strBuySell + " " + strTM
                             + " " + strVol1H.trim() + " " + strGia1H + " " + strGiaOP + " " + strGia30P
-                            + " " + idCoin + " " + strID;
+                            + " " + idCoin + " " + strID + " " + strGia5P + " " + strGia4H + " " + strVol2H;
                     strSave = strSave.replace("<br>", "");
                     strSave = strSave.replace("<br/>", "");
                     strSave = strSave.replace("<br", "");

@@ -429,9 +429,17 @@ public class LogNotification extends Fragment {
     }
 
     public void createDialogCoinDetail(NotificationEntity no) {
-        Dialog dialog = new Dialog(getContext());
+        Dialog dialog = new Dialog(getContext(), R.style.Dialog);
         dialog.setContentView(R.layout.dialog_coindetail);
         dialog.setTitle(no.strCoin);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+//        Window window = dialog.getWindow();
+//        lp.copyFrom(window.getAttributes());
+//        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+//        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+//        window.setAttributes(lp);
+
         ArrayList<NotificationEntity> lstNotiCoin = new ArrayList<>();
         for (NotificationEntity e : lstNotiEntity) {
             if (e.strCoin.equals(no.strCoin)) {
@@ -742,6 +750,12 @@ public class LogNotification extends Fragment {
 
     public NotificationEntity parseFile(String strIn, int nam, int thang, int ngay) {
         try {
+            /*
+                      String strSave = strExchange + " " + strCoin + " " + strGia.trim() + " " + strVolHT.trim() + " " + strVolTB.trim()
+                            + " " + strTime.trim() + " " + strCase + " " + strBuySell + " " + strTM
+                            + " " + strVol1H.trim() + " " + strGia1H + " " + strGiaOP + " " + strGia30P
+                            + " " + idCoin + " " + strID + " " + strGia5P + " " + strGia4H + " " + strVol2H;
+             */
             NotificationEntity e = new NotificationEntity();
             String tmp[] = strIn.split(" ");
             e.strExchange = tmp[0].trim();

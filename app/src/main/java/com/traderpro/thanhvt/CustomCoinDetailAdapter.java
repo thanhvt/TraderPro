@@ -65,7 +65,7 @@ public class CustomCoinDetailAdapter extends ArrayAdapter<NotificationEntity> im
 
             viewHolder = new NotiHolder();
 
-//            viewHolder.txtExchange = (TextView) view.findViewById(R.id.txtExchange);
+            viewHolder.txtExchange = (TextView) view.findViewById(R.id.txtExchange);
             viewHolder.txtTime = (TextView) view.findViewById(R.id.txtTime);
             viewHolder.txtPriceDetected = (TextView) view.findViewById(R.id.txtPriceDetected);
             viewHolder.txtPrEx = (TextView) view.findViewById(R.id.txtPr);
@@ -77,6 +77,18 @@ public class CustomCoinDetailAdapter extends ArrayAdapter<NotificationEntity> im
             viewHolder.txtVolDec = (TextView) view.findViewById(R.id.txtVolumeDected);
             viewHolder.txtPriceMax = (TextView) view.findViewById(R.id.txtPriceMax);
             viewHolder.txtGiaHT = (TextView) view.findViewById(R.id.txtGiaHT);
+
+            viewHolder.txtGia5 = (TextView) view.findViewById(R.id.txtGiaTime5);
+            viewHolder.txtGia30 = (TextView) view.findViewById(R.id.txtGiaTime30);
+            viewHolder.txtGia1 = (TextView) view.findViewById(R.id.txtGiaTime1);
+            viewHolder.txtGia2 = (TextView) view.findViewById(R.id.txtGiaTime2);
+            viewHolder.txtGia4 = (TextView) view.findViewById(R.id.txtGiaTime4);
+            viewHolder.txtVol5 = (TextView) view.findViewById(R.id.txtVolTime5);
+            viewHolder.txtVol30 = (TextView) view.findViewById(R.id.txtVolTime30);
+            viewHolder.txtVol1 = (TextView) view.findViewById(R.id.txtVolTime1);
+            viewHolder.txtVol2 = (TextView) view.findViewById(R.id.txtVolTime2);
+            viewHolder.txtVol4 = (TextView) view.findViewById(R.id.txtVolTime4);
+
 //            viewHolder.txtCoin = (TextView) view.findViewById(R.id.txtCoin);
 //            viewHolder.mImageView = (ImageView) view.findViewById(R.id.imgCoin);
 //            viewHolder.mImageTrade = (ImageView) view.findViewById(R.id.imgTrade);
@@ -96,7 +108,7 @@ public class CustomCoinDetailAdapter extends ArrayAdapter<NotificationEntity> im
 
         if (strNN.equalsIgnoreCase("VN")) {
 //            viewHolder.txtCoin.setText(p.strCoin);
-//            viewHolder.txtExchange.setText("Sàn: " + p.strExchange + " |" + p.strCase + "|");
+            viewHolder.txtExchange.setText("|" + p.strCase + "|");
             viewHolder.txtTime.setText("Time: " + p.strTime);
             viewHolder.txtPriceDetected.setText("Mua: " + p.strGia);
             viewHolder.txtPrEx.setText("Max: " + String.format("%.8f", p.strGiaMax));
@@ -345,7 +357,7 @@ public class CustomCoinDetailAdapter extends ArrayAdapter<NotificationEntity> im
     }
 
     static class NotiHolder {
-        //        TextView txtExchange;
+        TextView txtExchange;
         TextView txtTime;
         TextView txtPriceDetected;
         TextView txtPrEx;
@@ -363,6 +375,19 @@ public class CustomCoinDetailAdapter extends ArrayAdapter<NotificationEntity> im
         //        ImageView mImageView;
 //        ImageView mImageTrade;
         TextView txtGiaHT;
+
+        TextView txtGia5;
+        TextView txtGia30;
+        TextView txtGia1;
+        TextView txtGia2;
+        TextView txtGia4;
+
+        TextView txtVol5;
+        TextView txtVol30;
+        TextView txtVol1;
+        TextView txtVol2;
+        TextView txtVol4;
+
     }
 
     private class ContactFilter extends Filter {
