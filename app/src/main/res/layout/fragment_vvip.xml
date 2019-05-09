@@ -74,7 +74,7 @@
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Lãi: 7 lần (+16.32%)"
+            android:text="Lãi: 7 lần (+18.32%)"
             android:textColor="#27f546" />
 
         <TextView

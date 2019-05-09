@@ -16,6 +16,7 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name="com.activeandroid.app.Application"
         android:theme="@style/AppTheme">
 
         <!-- <activity -->
@@ -121,6 +122,17 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.traderpro.thanhvt.ScrollingActivity" />
         </activity>
+
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="TraderPro.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.traderpro.thanhvt.NotificationEntityDB" />
+
     </application>
 
 </manifest>

@@ -777,6 +777,7 @@ public class LogNotification extends Fragment {
 //            e.strBuySell = tmp.length > 17 ? tmp[17].trim() : "";
             e.strGiaTrade = tmp.length > 18 ? tmp[18].trim() : "";
             // itemBuy += "|" + "BUYY" + "|" + newOrderResponse.getOrderId() + "|" + newOrderResponse.getExecutedQty() + "|" + strGiaSan;
+            //                  15             16                                    17                                        18
             String[] mTime = e.strTime.split(":");
             Calendar c = Calendar.getInstance();
             c.set(nam, thang - 1, ngay, Integer.parseInt(mTime[0]), Integer.parseInt(mTime[1]));

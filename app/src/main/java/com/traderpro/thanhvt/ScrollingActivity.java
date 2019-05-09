@@ -39,6 +39,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.activeandroid.ActiveAndroid;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.traderpro.GCM.Config;
 import com.traderpro.GCM.NotificationUtils;
@@ -104,7 +105,7 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
 
         requestAppPermissions();
 
-
+        ActiveAndroid.initialize(getApplication());
 //        Intent myIntent = new Intent(getApplicationContext(), DetectSignalService.class);
 //        startService(myIntent);
 
@@ -530,7 +531,7 @@ public class ScrollingActivity extends AppCompatActivity implements NavigationVi
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         tvBTC = (TextView) findViewById(R.id.tv_title);
         tvPrice = (TextView) findViewById(R.id.tv_description);
-        tvBTC.setText("Wallet: 1623 BTC");
+        tvBTC.setText("Wallet: 1823 BTC");
         tvPrice.setText("Estimated Value: 12 821 966 $");
     }
 
