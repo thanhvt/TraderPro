@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Giá 5 phút"
+                android:text="Mốc 5 phút"
                 android:textColor="#ffffff"
                 android:textSize="11dp"
                 android:textStyle="bold" />
@@ -102,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Giá 30 phút"
+                android:text="Mốc 30 phút"
                 android:textColor="#ffffff"
                 android:textSize="11dp"
                 android:textStyle="bold" />
@@ -136,7 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Giá 1 giờ"
+                android:text="Mốc 1 giờ"
                 android:textColor="#ffffff"
                 android:textSize="11dp"
                 android:textStyle="bold" />
@@ -170,7 +170,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Giá 2 giờ"
+                android:text="Mốc 2 giờ"
                 android:textColor="#ffffff"
                 android:textSize="11dp"
                 android:textStyle="bold" />
@@ -204,7 +204,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Giá 4 giờ"
+                android:text="Mốc 4 giờ"
                 android:textColor="#ffffff"
                 android:textSize="11dp"
                 android:textStyle="bold" />

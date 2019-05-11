@@ -39,6 +39,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.activeandroid.query.Select;
 import com.traderpro.GCM.Config;
 
 import org.json.JSONArray;
@@ -59,6 +60,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
@@ -425,6 +427,10 @@ public class LogNotification extends Fragment {
         Spannable processedText = removeUnderlines(spannedText);
         txtJoin.setText(processedText);
 
+
+//        List<NotificationEntityDB> results = new Select().from(NotificationEntityDB.class).execute();
+//        Log.e(TAG, results.size() + "");
+
         return rootView;
     }
 
@@ -439,6 +445,28 @@ public class LogNotification extends Fragment {
 //        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
 //        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 //        window.setAttributes(lp);
+
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(Long.parseLong(no.strId));
+        String strNGAY = cal.get(Calendar.DAY_OF_MONTH) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.YEAR);
+        List<NotificationEntityDB> results = new Select().from(NotificationEntityDB.class)
+                .where("NGAY = ?", strNGAY)
+                .where("strCoin = ?", no.strCoin)
+                .orderBy("strId DESC").execute();
+        if (results != null && results.size() > 0) {
+            Log.e(TAG, results.size() + "");
+            ((TextView) dialog.findViewById(R.id.txtGiaTime5)).setText(results.get(0).strGia5P);
+            ((TextView) dialog.findViewById(R.id.txtGiaTime30)).setText(results.get(0).strGia30P);
+            ((TextView) dialog.findViewById(R.id.txtGiaTime1)).setText(results.get(0).strGia1H);
+            ((TextView) dialog.findViewById(R.id.txtGiaTime2)).setText(results.get(0).strGia2H);
+            ((TextView) dialog.findViewById(R.id.txtGiaTime4)).setText(results.get(0).strGia4H);
+//            ((TextView) dialog.findViewById(R.id.txtVolTime5)).setText(results.get(0).strVol);
+//            ((TextView) dialog.findViewById(R.id.txtVolTime30)).setText(results.get(0).strVol);
+            ((TextView) dialog.findViewById(R.id.txtVolTime1)).setText(results.get(0).strVol1H);
+            ((TextView) dialog.findViewById(R.id.txtVolTime2)).setText(results.get(0).strVol2H);
+//            ((TextView) dialog.findViewById(R.id.txtVolTime4)).setText(results.get(0).strGia5P);
+        }
 
         ArrayList<NotificationEntity> lstNotiCoin = new ArrayList<>();
         for (NotificationEntity e : lstNotiEntity) {

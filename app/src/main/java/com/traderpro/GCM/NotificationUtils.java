@@ -29,6 +29,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 
+import com.traderpro.thanhvt.NotificationEntityDB;
 import com.traderpro.thanhvt.R;
 import com.traderpro.thanhvt.TraderUtils;
 import com.traderpro.thanhvt.UserDevice;
@@ -230,10 +231,11 @@ public class NotificationUtils {
                          */
                         strVol1H = message.contains("VOL 1H: ") ? message.substring(message.indexOf("VOL 1H: ") + 12, message.indexOf("VOL 1H: ") + 17) : "";
                         strVol2H = message.contains("VOL 2H: ") ? message.substring(message.indexOf("VOL 2H: ") + 12, message.indexOf("VOL 2H: ") + 17) : "";
-                        strGia1H = message.contains("PRI 1H: ") ? message.substring(message.indexOf("PRI 1H: ") + 12, message.indexOf("PRI 1H: ") + 22) : "";
+
                         strGiaOP = message.contains("PRI OP: ") ? message.substring(message.indexOf("PRI OP: ") + 12, message.indexOf("PRI OP: ") + 22) : "";
                         strGia5P = message.contains("PRI 5P: ") ? message.substring(message.indexOf("PRI 5P: ") + 12, message.indexOf("PRI 5P: ") + 22) : "";
                         strGia30P = message.contains("PRI 30P: ") ? message.substring(message.indexOf("PRI 30P: ") + 13, message.indexOf("PRI 30P: ") + 23) : "";
+                        strGia1H = message.contains("PRI 1H: ") ? message.substring(message.indexOf("PRI 1H: ") + 12, message.indexOf("PRI 1H: ") + 22) : "";
                         strGia4H = message.contains("PRI 4H: ") ? message.substring(message.indexOf("PRI 4H: ") + 12, message.indexOf("PRI 4H: ") + 22) : "";
                     } catch (Exception e) {
 
@@ -251,6 +253,31 @@ public class NotificationUtils {
                             + " " + strTime.trim() + " " + strCase + " " + strBuySell + " " + strTM
                             + " " + strVol1H.trim() + " " + strGia1H + " " + strGiaOP + " " + strGia30P
                             + " " + idCoin + " " + strID + " " + strGia5P + " " + strGia4H + " " + strVol2H;
+
+
+                    Calendar cal = Calendar.getInstance();
+                    String strNGAY = cal.get(Calendar.DAY_OF_MONTH) + "/" + (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.YEAR);
+                    NotificationEntityDB notificationEntityDB = new NotificationEntityDB();
+                    notificationEntityDB.NGAY = strNGAY;
+                    notificationEntityDB.strExchange = strExchange;
+                    notificationEntityDB.strCoin = strCoin;
+                    notificationEntityDB.strGia = strGia;
+                    notificationEntityDB.strVol = strVolHT;
+                    notificationEntityDB.strVolTB = strVolTB;
+                    notificationEntityDB.strTime = strTime;
+                    notificationEntityDB.strCase = strCase;
+                    notificationEntityDB.strBuySell = strBuySell;
+                    notificationEntityDB.strVol1H = strVol1H;
+                    notificationEntityDB.strVol2H = strVol2H;
+                    notificationEntityDB.strGia5P = strGia5P;
+                    notificationEntityDB.strGia1H = strGia1H;
+                    notificationEntityDB.strGia4H = strGia4H;
+                    notificationEntityDB.strGiaOP = strGiaOP;
+                    notificationEntityDB.strGia30P = strGia30P;
+                    notificationEntityDB.strId = strID;
+                    long res = notificationEntityDB.save();
+                    Log.e(TAG + " res save", res + "");
+
                     strSave = strSave.replace("<br>", "");
                     strSave = strSave.replace("<br/>", "");
                     strSave = strSave.replace("<br", "");
