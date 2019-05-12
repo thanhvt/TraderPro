@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.text.Html;
@@ -62,7 +63,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
@@ -82,12 +85,25 @@ public class NotificationUtils {
 
     private static String TAG = NotificationUtils.class.getSimpleName();
 
+    private TextToSpeech textToSpeech;
     private Context mContext;
     int count = 1;
 
     public NotificationUtils(Context mContext) {
         this.mContext = mContext;
 
+    }
+
+    private void speakOut(String strText) {
+        // Văn bản cần đọc.
+        textToSpeech = new TextToSpeech(mContext, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                String utteranceId = UUID.randomUUID().toString();
+                int result = textToSpeech.setLanguage(Locale.ENGLISH);
+                textToSpeech.speak(strText, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+            }
+        });
     }
 
     public void showNotificationMessage(String title, String message, String timeStamp, Intent intent) {
@@ -647,6 +663,9 @@ public class NotificationUtils {
 
                 id = (int) System.currentTimeMillis();
                 notificationManager.notify(id, notification);
+                if (checkCaseOnSound(strCase)) {
+                    speakOut(strCase);
+                }
             } else if (title.contains("warning")) {
                 if (strSound.equals("ON")) {
                     NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();

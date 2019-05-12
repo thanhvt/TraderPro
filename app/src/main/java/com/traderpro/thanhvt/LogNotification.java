@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings;
+import android.speech.tts.TextToSpeech;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
@@ -61,7 +62,9 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
+import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -69,7 +72,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class LogNotification extends Fragment {
-
+    private TextToSpeech textToSpeech;
     // constant
     String TAG = "LogNotification";
     // run on another Thread to avoid crash
@@ -141,6 +144,19 @@ public class LogNotification extends Fragment {
 //        spinner_nav.setAdapter(spinnerAdapter);
     }
 
+    private void speakOut(String strText) {
+        // Văn bản cần đọc.
+        textToSpeech = new TextToSpeech(getContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                String utteranceId = UUID.randomUUID().toString();
+                int result = textToSpeech.setLanguage(Locale.ENGLISH);
+                textToSpeech.speak(strText, TextToSpeech.QUEUE_FLUSH, null, utteranceId);
+            }
+        });
+
+    }
+
     public static Spannable removeUnderlines(Spannable p_Text) {
         URLSpan[] spans = p_Text.getSpans(0, p_Text.length(), URLSpan.class);
         for (URLSpan span : spans) {
@@ -164,7 +180,6 @@ public class LogNotification extends Fragment {
         } else {
             getDeviceImei();
         }
-
         View rootView = inflater.inflate(R.layout.layoutnoti, container, false);
         mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeToRefresh);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
@@ -293,6 +308,8 @@ public class LogNotification extends Fragment {
 //                    Toast.makeText(getContext(), "Double", Toast.LENGTH_LONG).show();
 //                }
 //            });
+
+
         } catch (Exception e) {
             Log.e("Ex", e.getMessage());
             e.printStackTrace();
